@@ -3,8 +3,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomAcaComponent } from '../cell-custom-aca/cell-custom-aca.component';
-import { CellCustomStudentComponent } from '../cell-custom-student/cell-custom-student.component';
+
 
 export class Class {
   private class_id: any;
@@ -49,11 +48,12 @@ export class View {
 }
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  selector: 'app-class',
+  templateUrl: './class.component.html',
+  styleUrls: ['./class.component.scss']
 })
-export class StudentComponent implements OnInit {
+export class ClassComponent implements OnInit {
+
 
   ngOnInit(): void {
     this.createTable();
@@ -96,10 +96,9 @@ export class StudentComponent implements OnInit {
     defaultColDef: any;
     key: any;
     indexPage: any;
-    index: any;
 
     onSearchWarning(bodySearch: any): Observable<any>  {
-      return this.http.post<any>('http://localhost:8070/api/admin/search_student',bodySearch);
+      return this.http.post<any>('http://localhost:8070/api/admin/get_all_class',bodySearch);
     }
 
     onSearch(index: number, btn?: any) {
@@ -189,17 +188,19 @@ export class StudentComponent implements OnInit {
           }
           , cellStyle: this.STYLE_TABLE
         },
-        { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE},
-        { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
-        {
-          headerName: "Action",
-          cellRendererFramework: CellCustomStudentComponent,
-        },
+        { headerName: 'Class', field: 'class_name', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Room', field: 'room_name', cellStyle: this.STYLE_TABLE},
+        { headerName: 'Teacher', field: 'full_name', cellStyle: this.STYLE_TABLE },
+        // { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Level', field: 'level', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Capacity', field: 'capacity', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Start date', field: 'start_date', cellStyle: this.STYLE_TABLE },
+        { headerName: 'End date', field: 'end_date', cellStyle: this.STYLE_TABLE },
+        // {
+        //   headerName: "Action",
+        //   cellRendererFramework: CellCustomAcaComponent,
+        // },
       ];
     }
-    
-
+    index: any;
 }

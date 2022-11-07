@@ -1,6 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CellCustomComponent } from './cell-custom/cell-custom.component';
 // import { CellCustomComponentComponent } from './cell-custom-component/cell-custom-component.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';

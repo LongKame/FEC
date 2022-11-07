@@ -3,17 +3,17 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-teacher.component';
+import { CellCustomAcaComponent } from '../cell-custom-aca/cell-custom-aca.component';
 
-export class Teacher {
+export class AcademicAdmin {
   private user_name: any;
   private full_name: any;
   private password: any;
   private email: any;
   private phone: any;
   private address: any;
-
-  constructor(user_name: any, full_name: any, password: any, email: any, phone: any, address: any) {
+  
+  constructor(user_name: any, full_name: any, password: any, email: any, phone: any,address: any) {
     this.user_name = user_name;
     this.full_name = full_name;
     this.password = password;
@@ -36,17 +36,18 @@ export class View {
 }
 
 @Component({
-  selector: 'app-teacher',
-  templateUrl: './teacher.component.html',
-  styleUrls: ['./teacher.component.scss']
+  selector: 'app-aca',
+  templateUrl: './aca.component.html',
+  styleUrls: ['./aca.component.scss']
 })
-export class TeacherComponent implements OnInit {
+export class AcaComponent implements OnInit {
 
-  title = 'AdminFE';
+  
+
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
-      this.onSearch(this.indexPage);
+      this.onSearch(this.index);
     }, 3000)
   }
 
@@ -57,29 +58,30 @@ export class TeacherComponent implements OnInit {
   phone: any;
   address: any;
 
-  public teacher: any;
+  public academicadmin: any;
   public view: any;
 
   constructor(private http: HttpClient,
     private modalService: BsModalService,
-    private toast: ToastrService) {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
-  };
+    private toast: ToastrService) { 
+      this.academicadmin = new AcademicAdmin(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
+      this.view = new View(1,this.PAGE_SIZE,"");
+    }
 
   columnDefs: any;
   rowData: any
   modalRef: BsModalRef | undefined;
+  searchInforForm: any;
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 5;
-  currentPage = 1;
+  PAGE_SIZE: any = 1;
   defaultColDef: any;
   key: any;
   indexPage: any;
 
-  onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
+  onSearchWarning(bodySearch: any): Observable<any>  {
+    return this.http.post<any>('http://localhost:8070/api/admin/view_acad',bodySearch);
   }
 
   onSearch(index: number, btn?: any) {
@@ -124,6 +126,7 @@ export class TeacherComponent implements OnInit {
     }
     this.onSearch(this.indexPage);
   }
+  
 
   next(): void {
     this.indexPage++;
@@ -146,7 +149,7 @@ export class TeacherComponent implements OnInit {
     'top': '30px',
     'overflow': 'hidden',
     'text-align': 'center',
-    'font-weight': 'bold',
+    'font-weight':'bold',
   }
 
   createTable() {
@@ -170,25 +173,36 @@ export class TeacherComponent implements OnInit {
         , cellStyle: this.STYLE_TABLE
       },
       { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE},
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
-      { headerName: 'State', field: 'active', cellStyle: this.STYLE_TABLE },
-      { headerName: "Action", cellRendererFramework: CellCustomTeacherComponent, },
+      { headerName: 'State', field: 'active'
+      // , 
+      // valueGetter: (params: any) => {
+      //   return params.node = params.value === true ? "Active" : "Deactive";
+      // }
+      ,cellStyle: this.STYLE_TABLE 
+      },
+      {
+        headerName: "Action",
+        cellRendererFramework: CellCustomAcaComponent,
+      },
     ];
   }
 
-  addTeacher() {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
-    this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
+  index: any;
+
+  addAca() {
+    this.academicadmin = new AcademicAdmin(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
+    this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.academicadmin).subscribe(
       response => {
-        if (response.state === true) {
-          this.onSearch(this.indexPage);
+        if(response.state === true){
+          this.onSearch(this.index);
           this.toast.success("Successfully");
           this.modalRef?.hide();
         }
-        else {
+        else{
           this.toast.error(response.message);
           this.modalRef?.hide();
         }

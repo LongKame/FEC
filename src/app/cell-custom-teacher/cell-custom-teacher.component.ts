@@ -1,20 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
-// import {ICellRendererParams} from "@ag-grid-community/core";
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { AppComponent } from '../app.component';
 import { ToastrService } from 'ngx-toastr';
 import { HomeComponent } from '../pages/home/home.component';
 import { TeacherComponent } from '../teacher/teacher.component';
-
-// export class Teacher {
-//   private id: any;
-  
-//   constructor(id: any) {
-//     this.id = id;
-//   }
-// }
 
 export class Teacher {
   private id: any;
@@ -34,13 +25,12 @@ export class Teacher {
   }
 }
 
-
 @Component({
-  selector: 'app-cell-custom',
-  templateUrl: './cell-custom.component.html',
-  styleUrls: ['./cell-custom.component.scss']
+  selector: 'app-cell-custom-teacher',
+  templateUrl: './cell-custom-teacher.component.html',
+  styleUrls: ['./cell-custom-teacher.component.scss']
 })
-export class CellCustomComponent implements ICellRendererAngularComp {
+export class CellCustomTeacherComponent implements ICellRendererAngularComp {
 
   modalRef: BsModalRef | undefined;
 
@@ -78,14 +68,14 @@ export class CellCustomComponent implements ICellRendererAngularComp {
   }
 
   updateTeacher() {
-    this.user = new Teacher(this.params.data.user_Id, this.params.data.user_name, this.params.data.full_name
-      , this.params.data.email, this.params.data.phone, this.params.data.address);
+    this.user = new Teacher(this.params.data.user_Id, "", this.params.data.full_name
+      , "", this.params.data.phone, this.params.data.address);
     console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" + JSON.stringify(JSON.stringify(this.user)));
     this.http.put<any>('http://localhost:8070/api/admin/edit_teacher', this.user).subscribe(
       response => {
         console.log("kkkkkkkkkkkkkkkkkkkk"+JSON.stringify(response));
         if(response.state === true){
-          // this.teacher.onSearch();
+          this.teacher.onSearch(this.teacher.indexPage);
           this.toast.success("Successfully");
           this.modalRef?.hide();
         }
@@ -97,14 +87,12 @@ export class CellCustomComponent implements ICellRendererAngularComp {
     )
   }
 
-  deleteProduct(){
+  deleteTeacher(){
     this.user = new Teacher(this.params.data.user_Id, null, null, null, null, null);
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" + JSON.stringify(this.user));
     this.http.put<any>('http://localhost:8070/api/admin/delete_teacher', this.user).subscribe(
       response => {
-        console.log("kkkkkkkkkkkkkkkkkkkk"+response);
-        if(response.state === true){
-          // this.teacher.onSearch(1);
+        if(response.data.state === true){
+          this.teacher.onSearch(this.teacher.indexPage);
           this.toast.success("Successfully");
           this.modalRef?.hide();
         }
@@ -116,3 +104,4 @@ export class CellCustomComponent implements ICellRendererAngularComp {
     )
   }
 }
+

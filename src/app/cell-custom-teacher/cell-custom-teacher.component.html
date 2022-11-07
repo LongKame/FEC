@@ -14,7 +14,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+        <button type="button" class="btn btn-danger" (click)="deleteTeacher()">Delete</button>
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>
@@ -34,11 +34,13 @@
                 <div class="row">
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Username:</b>
-                        <input type="text" [(ngModel)]="params.data.user_name" class="form-control">
+                        <input type="text" [readonly]="true"
+                        [(ngModel)]="params.data.user_name" class="form-control">
                         <b for="message-text" class="col-form-label">Fullname:</b>
                         <input type="text" [(ngModel)]="params.data.full_name" class="form-control">
                         <b for="message-text" class="col-form-label">Email:</b>
-                        <input type="text" [(ngModel)]="params.data.email" class="form-control">
+                        <input type="text" [readonly]="true"
+                        [(ngModel)]="params.data.email" class="form-control">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Phone:</b>

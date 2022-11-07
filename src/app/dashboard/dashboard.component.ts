@@ -3,7 +3,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomComponent } from 'src/app/cell-custom/cell-custom.component';
+import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-teacher.component';
 
 export class Teacher {
   private username: any;
@@ -175,7 +175,7 @@ export class DashboardComponent implements OnInit {
       },
       {
         headerName: "Action",
-        cellRendererFramework: CellCustomComponent,
+        cellRendererFramework: CellCustomTeacherComponent,
       },
     ];
   }

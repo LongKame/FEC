@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CellCustomComponent } from './cell-custom.component';
+import { AcaComponent } from './aca.component';
 
-describe('CellCustomComponent', () => {
-  let component: CellCustomComponent;
-  let fixture: ComponentFixture<CellCustomComponent>;
+describe('AcaComponent', () => {
+  let component: AcaComponent;
+  let fixture: ComponentFixture<AcaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CellCustomComponent ]
+      declarations: [ AcaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CellCustomComponent);
+    fixture = TestBed.createComponent(AcaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

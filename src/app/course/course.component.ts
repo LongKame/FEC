@@ -3,23 +3,21 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-teacher.component';
+import { CellCustomCourseComponent } from '../cell-custom-course/cell-custom-course.component';
 
-export class Teacher {
-  private user_name: any;
-  private full_name: any;
-  private password: any;
-  private email: any;
-  private phone: any;
-  private address: any;
+export class Course {
+  private name: any;
+  private levelId: any;
+  private createdAt: any;
+  private updatedAt: any;
+  private numberSlot: any;
 
-  constructor(user_name: any, full_name: any, password: any, email: any, phone: any, address: any) {
-    this.user_name = user_name;
-    this.full_name = full_name;
-    this.password = password;
-    this.email = email;
-    this.phone = phone;
-    this.address = address;
+  constructor(name: any, levelId: any, createdAt: any, updatedAt: any, numberSlot: any) {
+    this.name = name;
+    this.levelId = levelId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.numberSlot = numberSlot;
   }
 }
 
@@ -36,50 +34,50 @@ export class View {
 }
 
 @Component({
-  selector: 'app-teacher',
-  templateUrl: './teacher.component.html',
-  styleUrls: ['./teacher.component.scss']
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.scss']
 })
-export class TeacherComponent implements OnInit {
-
-  title = 'AdminFE';
-  ngOnInit(): void {
-    this.createTable();
-    setTimeout(() => {
-      this.onSearch(this.indexPage);
-    }, 3000)
-  }
-
-  user_name: any;
-  full_name: any;
-  password: any;
-  email: any;
-  phone: any;
-  address: any;
-
-  public teacher: any;
-  public view: any;
+export class CourseComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
-  };
+    this.course = new Course(this.name, this.levelId, this.createdAt, this.updatedAt, this.numberSlot);
+    this.view = new View(1, this.PAGE_SIZE, "");
+  }
+
+  ngOnInit(): void {
+    this.createTable();
+    setTimeout(() => {
+      this.onSearch(this.index);
+    }, 3000)
+  }
+
+  public course: any;
+  public view: any;
+
+  name: any;
+  levelId: any;
+  createdAt: any;
+  updatedAt: any;
+  numberSlot: any;
 
   columnDefs: any;
   rowData: any
   modalRef: BsModalRef | undefined;
+  searchInforForm: any;
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
   PAGE_SIZE: any = 5;
-  currentPage = 1;
   defaultColDef: any;
   key: any;
   indexPage: any;
+  index: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/aca/get_course_paging', bodySearch);
   }
 
   onSearch(index: number, btn?: any) {
@@ -146,7 +144,7 @@ export class TeacherComponent implements OnInit {
     'top': '30px',
     'overflow': 'hidden',
     'text-align': 'center',
-    'font-weight': 'bold',
+    'font-weight': 'bold'
   }
 
   createTable() {
@@ -169,19 +167,22 @@ export class TeacherComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
-      { headerName: 'State', field: 'active', cellStyle: this.STYLE_TABLE },
-      { headerName: "Action", cellRendererFramework: CellCustomTeacherComponent, },
+      { headerName: 'Course name', field: 'course_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Level', field: 'level', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Created At', field: 'createdAt', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Updated At', field: 'updatedAt', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Number Slot', field: 'numberSlot', cellStyle: this.STYLE_TABLE },
+      {
+          headerName: "Action",
+          cellRendererFramework: CellCustomCourseComponent,
+        },
     ];
   }
 
-  addTeacher() {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
-    this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
+
+  addCourse() {
+    this.course = new Course(this.name, this.levelId, null, null, this.numberSlot);
+    this.http.post<any>('http://localhost:8070/api/aca-admin/add_course', this.course).subscribe(
       response => {
         if (response.state === true) {
           this.onSearch(this.indexPage);
@@ -195,5 +196,6 @@ export class TeacherComponent implements OnInit {
       }
     )
   }
+
 
 }

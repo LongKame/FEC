@@ -1,5 +1,4 @@
-
-<p>Manage student</p>
+<p>Manage academic admin</p>
 
 <nav>
     <div class="search-box">
@@ -8,6 +7,7 @@
     </div>
 </nav>
 
+
 <div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
     <button style="background-color: #f28e47;" type="button" class="btn btn-secondary"><i class="fas fa-print"></i>
         Print</button>
@@ -15,6 +15,7 @@
     </div>
     <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
 </div>
+
 
 <br><br>
 <div class="sales-boxes">
@@ -33,7 +34,7 @@
 
 <ng-template #add>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Add Class</h4>
+        <h4 class="modal-title pull-left">Add Academic Admin</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
@@ -43,34 +44,27 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Room name:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Class name:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Teacher:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Start date:</b>
-                        <input type="date"  class="form-control">
+                        <b for="message-text" class="col-form-label">Username:</b>
+                        <input type="text" [(ngModel)]="user_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Fullname:</b>
+                        <input type="text" [(ngModel)]="full_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Password:</b>
+                        <input type="text" [(ngModel)]="password" class="form-control">
                     </div>
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Course:</b>
-                        <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Number of slot:</b>
-                        <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot 1 on week:</b>
-                        <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot 2 on week:</b>
-                        <input type="number"  class="form-control">
-
+                        <b for="message-text" class="col-form-label">Email:</b>
+                        <input type="email" [(ngModel)]="email" class="form-control">
+                        <b for="message-text" class="col-form-label">Phone:</b>
+                        <input type="text" [(ngModel)]="phone" class="form-control">
+                        <b for="message-text" class="col-form-label">Address:</b>
+                        <input type="text" [(ngModel)]="address" class="form-control">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-primary" (click)="addAca()">Add</button> -->
+        <button type="button" class="btn btn-primary" (click)="addAca()">Add</button>
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>

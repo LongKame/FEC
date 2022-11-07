@@ -3,7 +3,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomComponent } from 'src/app/cell-custom/cell-custom.component';
+import { CellCustomTeacherComponent } from 'src/app/cell-custom-teacher/cell-custom-teacher.component';
+
 
 export class Teacher {
   private username: any;
@@ -71,17 +72,6 @@ export class HomeComponent implements OnInit {
   columnDefs: any;
   rowData: any
   modalRef: BsModalRef | undefined;
-
-  
-
-  onLoad() {
-    this.http.post<any>('http://localhost:8070/api/admin/view_teacher',this.view).subscribe(
-      response => {
-        // this.rowData = response.dataResult;
-        // console.log("Xxxxxxxxxxxxxxxx"+JSON.stringify(response.dataResult));
-      }
-    );
-  }
 
   searchInforForm: any;
   totalResultSearch: any;
@@ -176,8 +166,8 @@ export class HomeComponent implements OnInit {
       ,cellStyle: this.STYLE_TABLE 
       },
       {
-        headerName: "Action",
-        cellRendererFramework: CellCustomComponent,
+        // headerName: "Action",
+        // cellRendererFramework: CellCustomTeacherComponent,
       },
     ];
   }
