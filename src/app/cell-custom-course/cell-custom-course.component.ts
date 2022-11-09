@@ -13,14 +13,16 @@ export class Course {
   private createdAt: any;
   private updatedAt: any;
   private numberSlot: any;
+  private fee: any;
 
-  constructor(id: any, levelId: any, course_name: any, createdAt: any, updatedAt: any, numberSlot: any) {
+  constructor(id: any, levelId: any, course_name: any, createdAt: any, updatedAt: any, numberSlot: any, fee: any) {
     this.id = id;
     this.levelId = levelId;
     this.course_name = course_name;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.numberSlot = numberSlot;
+    this.fee = fee;
   }
 }
 
@@ -72,11 +74,11 @@ export class CellCustomCourseComponent implements ICellRendererAngularComp {
     this.params.data.levelId=1;
     this.course_name = this.params.name;
     this.courses = new Course(this.params.data.id,this.params.data.levelId, this.params.data.course_name,this.params.data.createdAt
-      ,this.params.data.updatedAt, this.params.data.numberSlot);
-      console.log(""+ JSON.stringify(this.courses));
+      ,this.params.data.updatedAt, this.params.data.numberSlot, this.params.data.fee);
     this.http.put<any>('http://localhost:8070/api/aca/edit_course', this.courses).subscribe(
       response => {
         if(response.state === true){
+          this.course.onSearch(this.course.indexPage);
           this.toast.success("Successfully");
           this.modalRef?.hide();
         }
@@ -89,18 +91,18 @@ export class CellCustomCourseComponent implements ICellRendererAngularComp {
   }
 
   deleteCourse(){
-    // this.http.delete<any>('http://localhost:8070/api/aca/delete_course', this.params.data.id).subscribe(
-    //   response => {
-    //     if(response.state === true){
-    //       this.course.onSearch(this.course.index);
-    //       this.toast.success("Successfully");
-    //       this.modalRef?.hide();
-    //     }
-    //     else{
-    //       this.toast.error("Fail");
-    //       this.modalRef?.hide();
-    //     }
-    //   }
-    // )
+    this.http.delete<any>('http://localhost:8070/api/aca/delete_course', this.params.data.id).subscribe(
+      response => {
+        // if(response.state === true){
+          this.course.onSearch(this.course.indexPage);
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        // }
+        // else{
+        //   this.toast.error("Fail");
+        //   this.modalRef?.hide();
+        // }
+      }
+    )
   }
 }

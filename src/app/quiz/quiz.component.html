@@ -1,4 +1,4 @@
-<p>Manage course</p>
+<p>Manage quiz</p>
 
 <nav>
     <div class="search-box">
@@ -7,12 +7,16 @@
     </div>
 </nav>
 
-<div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
-    <button style="background-color: #f28e47;" type="button" class="btn btn-secondary"><i class="fas fa-print"></i>
+<div class="but" style="width: fit-content; margin-left: 70%; margin-top: -5px;">
+    <!-- <button style="background-color: #f28e47;" type="button" class="btn btn-secondary"><i class="fas fa-print"></i>
         Print</button>
     <div class="space">
+    </div> -->
+
+    <input type="file" (change)="readExcel($event)">
+    <div class="space">
     </div>
-    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
+    <!-- <button type="button" class="btn btn-primary" (click)="saveQuiz()"><i class="fas fa-user-plus"></i>Save</button> -->
 </div>
 
 <br><br>
@@ -25,14 +29,15 @@
 
 <div class="pagination">
     <button (click)="prev()" class="btn btn-warning">&laquo;</button>
-    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
-        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
+    <button id="btn{{index}}" class="btn btn-warning btn-pag"
+        *ngFor="let a of [].constructor(totalPage); let index = index" (click)="onSearch(index+1,$event)">{{ index+1
+        }}</button>
     <button (click)="next()" class="btn btn-warning">&raquo;</button>
 </div>
 
 <ng-template #add>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Add course</h4>
+        <h4 class="modal-title pull-left">Add quiz</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
@@ -42,19 +47,19 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Course name:</b>
-                        <input type="text"  class="form-control">
+                        <b for="message-text" class="col-form-label">Question:</b>
+                        <input type="text" class="form-control">
                         <b for="message-text" class="col-form-label">Level:</b>
-                        <input type="text"  class="form-control">
+                        <input type="text" class="form-control">
                         <b for="message-text" class="col-form-label">Number slot:</b>
-                        <input type="text"  class="form-control">
+                        <input type="text" class="form-control">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addCourse()">Add</button>
+        <!-- <button type="button" class="btn btn-primary" (click)="addCourse()">Add</button> -->
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>

@@ -1,38 +1,18 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomAcaComponent } from '../cell-custom-aca/cell-custom-aca.component';
-import { CellCustomStudentComponent } from '../cell-custom-student/cell-custom-student.component';
+import { CellCustomRoomComponent } from '../cell-custom-room/cell-custom-room.component';
 
-export class Class {
-  private class_id: any;
-  private class_name: any;
-  private room_id: any;
-  private room_name: any;
-  private user_id: any;
-  private teacher_id: any;
-  private full_name: any;
-  private email: any;
-  private number_of_student: any;
+export class Room {
+  private roomname: any;
   private capacity: any;
-  private start_date: any;
-  private active_room: any;
 
-  constructor(class_id: any, class_name: any, room_id: any, room_name: any, user_id: any, teacher_id: any, full_name: any, email: any, number_of_student: any, capacity: any, start_date: any, active_room: any) {
-    this.class_id = class_id;
-    this.class_name = class_name;
-    this.room_id = room_id;
-    this.room_name = room_name;
-    this.user_id = user_id;
-    this.teacher_id = teacher_id;
-    this.full_name = full_name;
-    this.email = email;
-    this.number_of_student = number_of_student;
+  constructor(roomname: any, capacity: any) {
+    this.roomname = roomname;
     this.capacity = capacity;
-    this.start_date = start_date;
-    this.active_room = active_room;
   }
 }
 
@@ -49,11 +29,18 @@ export class View {
 }
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  selector: 'app-room',
+  templateUrl: './room.component.html',
+  styleUrls: ['./room.component.scss']
 })
-export class StudentComponent implements OnInit {
+export class RoomComponent implements OnInit {
+
+  constructor(private http: HttpClient,
+    private modalService: BsModalService,
+    private toast: ToastrService) {
+    this.room = new Room(this.roomname, this.capacity);
+    this.view = new View(1, this.PAGE_SIZE, "");
+  }
 
   ngOnInit(): void {
     this.createTable();
@@ -62,31 +49,16 @@ export class StudentComponent implements OnInit {
     }, 3000)
   }
 
-  public academicadmin: any;
+  public room: any;
   public view: any;
 
-  class_id: any;
-  class_name: any;
-  room_id: any;
-  room_name: any;
-  user_id: any;
-  teacher_id: any;
-  full_name: any;
-  email: any;
-  number_of_student: any;
-  capacity: any;
-  start_date: any;
-  active_room: any;
 
-  constructor(private http: HttpClient,
-    private modalService: BsModalService,
-    private toast: ToastrService) {
-    this.academicadmin = new Class(this.class_id, this.class_name, this.room_id, this.room_name, this.user_id, this.teacher_id, this.full_name, this.email, this.number_of_student, this.capacity, this.start_date, this.active_room);
-    this.view = new View(1, this.PAGE_SIZE, "");
-  }
+  roomname: any;
+  levelId: any;
+  capacity: any;
 
   columnDefs: any;
-  rowData: any
+  rowData: any;
   modalRef: BsModalRef | undefined;
   searchInforForm: any;
   totalResultSearch: any;
@@ -98,8 +70,9 @@ export class StudentComponent implements OnInit {
   indexPage: any;
   index: any;
 
+
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/search_student', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/aca/get_room_paging', bodySearch);
   }
 
   onSearch(index: number, btn?: any) {
@@ -169,6 +142,7 @@ export class StudentComponent implements OnInit {
     'font-weight': 'bold'
   }
 
+
   createTable() {
 
     this.defaultColDef = {
@@ -189,11 +163,10 @@ export class StudentComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Room name', field: 'roomname', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Capacity', field: 'capacity', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Created At', field: 'createdat', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Updated At', field: 'updatedat', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'State', field: 'active',
         cellRenderer: function (params: any) {
@@ -203,10 +176,27 @@ export class StudentComponent implements OnInit {
       },
       {
         headerName: "Action",
-        cellRendererFramework: CellCustomStudentComponent,
+        cellRendererFramework: CellCustomRoomComponent,
       },
     ];
   }
 
+
+  addRoom() {
+    this.room = new Room(this.roomname, this.capacity);
+    this.http.post<any>('http://localhost:8070/api/aca/add_room', this.room).subscribe(
+      response => {
+        if (response.state === true) {
+          this.onSearch(this.indexPage);
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    )
+  }
 
 }

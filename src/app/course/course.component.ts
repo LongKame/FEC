@@ -64,7 +64,7 @@ export class CourseComponent implements OnInit {
   numberSlot: any;
 
   columnDefs: any;
-  rowData: any
+  rowData: any;
   modalRef: BsModalRef | undefined;
   searchInforForm: any;
   totalResultSearch: any;
@@ -168,6 +168,7 @@ export class CourseComponent implements OnInit {
         , cellStyle: this.STYLE_TABLE
       },
       { headerName: 'Course name', field: 'course_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Fee', field: 'fee', cellStyle: this.STYLE_TABLE },
       { headerName: 'Level', field: 'level', cellStyle: this.STYLE_TABLE },
       { headerName: 'Created At', field: 'createdAt', cellStyle: this.STYLE_TABLE },
       { headerName: 'Updated At', field: 'updatedAt', cellStyle: this.STYLE_TABLE },

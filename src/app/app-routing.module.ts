@@ -9,6 +9,8 @@ import { AcaComponent } from './aca/aca.component';
 import { ClassComponent } from './class/class.component';
 import { AcaAdminComponent } from './pages/aca-admin/aca-admin.component';
 import { CourseComponent } from './course/course.component';
+import { RoomComponent } from './room/room.component';
+import { QuizComponent } from './quiz/quiz.component';
 
 
 const routes: Routes = [
@@ -25,6 +27,8 @@ const routes: Routes = [
     path: 'aca-admin', component: AcaAdminComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'course', component: CourseComponent },
+      { path: 'room', component: RoomComponent },
+      { path: 'quiz', component: QuizComponent },
     ]
   }, 
   { path: 'dashboard', component: DashboardComponent }

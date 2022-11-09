@@ -174,7 +174,13 @@ export class TeacherComponent implements OnInit {
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
-      { headerName: 'State', field: 'active', cellStyle: this.STYLE_TABLE },
+      {
+        headerName: 'State', field: 'active',
+        cellRenderer: function (params: any) {
+          return params.data.active === true ? "active" : "deactive";
+        },
+        cellStyle: this.STYLE_TABLE
+      },
       { headerName: "Action", cellRendererFramework: CellCustomTeacherComponent, },
     ];
   }

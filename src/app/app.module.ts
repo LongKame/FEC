@@ -24,6 +24,10 @@ import { StdComponent } from './pages/std/std.component';
 import { StudentComponent } from './student/student.component';
 import { CourseComponent } from './course/course.component';
 import { CellCustomCourseComponent } from './cell-custom-course/cell-custom-course.component';
+import { RoomComponent } from './room/room.component';
+import { CellCustomRoomComponent } from './cell-custom-room/cell-custom-room.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { CellCustomQuizComponent } from './cell-custom-quiz/cell-custom-quiz.component';
 
 
 @NgModule({
@@ -42,6 +46,10 @@ import { CellCustomCourseComponent } from './cell-custom-course/cell-custom-cour
     StudentComponent,
     CourseComponent,
     CellCustomCourseComponent,
+    RoomComponent,
+    CellCustomRoomComponent,
+    QuizComponent,
+    CellCustomQuizComponent,
   ],
   imports: [
     FormsModule,

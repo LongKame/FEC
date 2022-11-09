@@ -1,0 +1,63 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" (click)="openModal(delete)"><i class="fas fa-user-minus"></i></button>
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete quiz</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteQuiz()">Delete</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+    </div>
+</ng-template>
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Update quiz</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Question:</b>
+                        <input type="text" [(ngModel)]="params.data.question" class="form-control">
+                        <b for="message-text" class="col-form-label">Answer A:</b>
+                        <input type="text" [(ngModel)]="params.data.answerA" class="form-control">
+                        <b for="message-text" class="col-form-label">Answer B:</b>
+                        <input type="text" [(ngModel)]="params.data.answerB" class="form-control">
+                        <b for="message-text" class="col-form-label">Created at:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.createdAt" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Answer C:</b>
+                        <input type="email" [(ngModel)]="params.data.answerC" class="form-control">
+                        <b for="message-text" class="col-form-label">Answer D:</b>
+                        <input type="text" [(ngModel)]="params.data.answerD" class="form-control">
+                        <b for="message-text" class="col-form-label">Correct:</b>
+                        <input type="text" [(ngModel)]="params.data.correct" class="form-control">
+                        <b for="message-text" class="col-form-label">Updated at:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedAt" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateQuiz()">Update</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+    </div>
+</ng-template>

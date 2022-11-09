@@ -3,36 +3,28 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomAcaComponent } from '../cell-custom-aca/cell-custom-aca.component';
-import { CellCustomStudentComponent } from '../cell-custom-student/cell-custom-student.component';
+import { CellCustomQuizComponent } from '../cell-custom-quiz/cell-custom-quiz.component';
+import * as XLSX from 'xlsx';
 
-export class Class {
-  private class_id: any;
-  private class_name: any;
-  private room_id: any;
-  private room_name: any;
-  private user_id: any;
-  private teacher_id: any;
-  private full_name: any;
-  private email: any;
-  private number_of_student: any;
-  private capacity: any;
-  private start_date: any;
-  private active_room: any;
+export class Quiz {
+  private aca_id: any;
+  private level_id: any;
+  private question: any;
+  private answerA: any;
+  private answerB: any;
+  private answerC: any;
+  private answerD: any;
+  private correct: any;
 
-  constructor(class_id: any, class_name: any, room_id: any, room_name: any, user_id: any, teacher_id: any, full_name: any, email: any, number_of_student: any, capacity: any, start_date: any, active_room: any) {
-    this.class_id = class_id;
-    this.class_name = class_name;
-    this.room_id = room_id;
-    this.room_name = room_name;
-    this.user_id = user_id;
-    this.teacher_id = teacher_id;
-    this.full_name = full_name;
-    this.email = email;
-    this.number_of_student = number_of_student;
-    this.capacity = capacity;
-    this.start_date = start_date;
-    this.active_room = active_room;
+  constructor(aca_id: any, level_id: any, question: any, answerA: any, answerB: any, answerC: any, answerD: any, correct: any) {
+    this.aca_id = aca_id;
+    this.level_id = level_id;
+    this.question = question;
+    this.answerA = answerA;
+    this.answerB = answerB;
+    this.answerC = answerC;
+    this.answerD = answerD;
+    this.correct = correct;
   }
 }
 
@@ -49,11 +41,41 @@ export class View {
 }
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.scss']
 })
-export class StudentComponent implements OnInit {
+export class QuizComponent implements OnInit {
+
+  constructor(private http: HttpClient,
+    private modalService: BsModalService,
+    private toast: ToastrService) {
+    this.quiz = new Quiz(this.aca_id, this.level_id, this.question, this.answerA, this.answerB, this.answerC, this.answerD, this.correct);
+    this.view = new View(1, this.PAGE_SIZE, "");
+  }
+
+  public quiz: any;
+  public view: any;
+  columnDefs: any;
+  rowData: any;
+  modalRef: BsModalRef | undefined;
+  totalResultSearch: any;
+  currentTotalDisplay: any;
+  totalPage: any;
+  PAGE_SIZE: any = 7;
+  defaultColDef: any;
+  key: any;
+  indexPage: any;
+  index: any;
+  aca_id: any;
+  level_id: any;
+  question: any;
+  answerA: any;
+  answerB: any;
+  answerC: any;
+  answerD: any;
+  correct: any;
+  excelData: any;
 
   ngOnInit(): void {
     this.createTable();
@@ -62,44 +84,20 @@ export class StudentComponent implements OnInit {
     }, 3000)
   }
 
-  public academicadmin: any;
-  public view: any;
-
-  class_id: any;
-  class_name: any;
-  room_id: any;
-  room_name: any;
-  user_id: any;
-  teacher_id: any;
-  full_name: any;
-  email: any;
-  number_of_student: any;
-  capacity: any;
-  start_date: any;
-  active_room: any;
-
-  constructor(private http: HttpClient,
-    private modalService: BsModalService,
-    private toast: ToastrService) {
-    this.academicadmin = new Class(this.class_id, this.class_name, this.room_id, this.room_name, this.user_id, this.teacher_id, this.full_name, this.email, this.number_of_student, this.capacity, this.start_date, this.active_room);
-    this.view = new View(1, this.PAGE_SIZE, "");
+  onSearchWarning(bodySearch: any): Observable<any> {
+    return this.http.post<any>('http://localhost:8070/api/aca/get_quiz_paging', bodySearch);
   }
 
-  columnDefs: any;
-  rowData: any
-  modalRef: BsModalRef | undefined;
-  searchInforForm: any;
-  totalResultSearch: any;
-  currentTotalDisplay: any;
-  totalPage: any;
-  PAGE_SIZE: any = 5;
-  defaultColDef: any;
-  key: any;
-  indexPage: any;
-  index: any;
-
-  onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/search_student', bodySearch);
+  readExcel(event: any){
+      let file = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.readAsBinaryString(file);
+      fileReader.onload = (e) =>{
+        var workBook = XLSX.read(fileReader.result, {type:'binary'});
+        var sheetNames = workBook.SheetNames;
+        this.excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
+        console.log(JSON.stringify(this.excelData));
+      }
   }
 
   onSearch(index: number, btn?: any) {
@@ -189,24 +187,33 @@ export class StudentComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Question', field: 'question', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Answer A', field: 'answerA', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Answer B', field: 'answerB', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Answer C', field: 'answerC', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Answer D', field: 'answerD', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Correct answer', field: 'correct', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
-        cellRenderer: function (params: any) {
-          return params.data.active === true ? "active" : "deactive";
+          headerName: "Action",
+          cellRendererFramework: CellCustomQuizComponent,
         },
-        cellStyle: this.STYLE_TABLE
-      },
-      {
-        headerName: "Action",
-        cellRendererFramework: CellCustomStudentComponent,
-      },
     ];
   }
 
+  saveQuiz(){
+    if(this.excelData!==null){
+      for(let i of this.excelData){
+        this.aca_id = 2;
+        this.level_id = 1;
+        this.question = i.question;
+        this.answerA = i.answerA;
+        this.answerB = i.answerB;
+        this.answerC = i.answerC;
+        this.answerD = i.answerD;
+        this.correct = i.correct;
+        this.quiz = new Quiz(this.aca_id, this.level_id, this.question, this.answerA, this.answerB, this.answerC, this.answerD, this.correct);
+     }
+    }
+  }
 
 }

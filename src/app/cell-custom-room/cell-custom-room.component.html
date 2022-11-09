@@ -2,6 +2,9 @@
     <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
     <div class="space">
     </div>
+    <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+        Tooltip on bottom
+      </button> -->
     <!-- <button type="button" class="btn btn-danger" (click)="openModal(delete)"><i class="fas fa-user-minus"></i></button> -->
 </div>
 
@@ -14,7 +17,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="deleteCourse()">Delete</button>
+        <!-- <button type="button" class="btn btn-danger" (click)="deleteCourse()">Delete</button> -->
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>
@@ -33,27 +36,23 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Course name:</b>
-                        <input type="text" [(ngModel)]="params.data.course_name" class="form-control">
-                        <b for="message-text" class="col-form-label">Level:</b>
-                        <input type="text" [readonly]="true" [(ngModel)]="params.data.level" class="form-control">
-                        <b for="message-text" class="col-form-label">Number slot:</b>
-                        <input type="text" [(ngModel)]="params.data.numberSlot" class="form-control">
+                        <b for="message-text" class="col-form-label">Room name:</b>
+                        <input type="text" [(ngModel)]="params.data.roomname" class="form-control">
+                        <b for="message-text" class="col-form-label">Capacity:</b>
+                        <input type="text" [(ngModel)]="params.data.capacity" class="form-control">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Created at:</b>
-                        <input type="email" [readonly]="true" [(ngModel)]="params.data.createdAt" class="form-control">
+                        <input type="email" [readonly]="true" [(ngModel)]="params.data.createdat" class="form-control">
                         <b for="message-text" class="col-form-label">Updated at:</b>
-                        <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedAt" class="form-control">
-                        <b for="message-text" class="col-form-label">Fee:</b>
-                        <input type="text" [(ngModel)]="params.data.fee" class="form-control">
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedat" class="form-control">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="updateCourse()">Update</button>
+        <button type="button" class="btn btn-success" (click)="updateRoom()">Update</button>
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>
