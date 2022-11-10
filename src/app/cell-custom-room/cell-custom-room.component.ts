@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
-import { AppComponent } from '../app.component';
 import { ToastrService } from 'ngx-toastr';
 import { RoomComponent } from '../room/room.component';
 
@@ -65,7 +64,6 @@ export class CellCustomRoomComponent implements ICellRendererAngularComp {
 
   updateRoom() {
     this.rooms = new Room(this.params.data.id,this.params.data.roomname, this.params.data.capacity);
-    console.log("xxxx"+JSON.stringify(this.rooms));
     this.http.put<any>('http://localhost:8070/api/aca/edit_room', this.rooms).subscribe(
       response => {
         if(response.state === true){

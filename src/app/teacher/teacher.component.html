@@ -8,12 +8,11 @@
 </nav>
 
 <div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
-    <button style="background-color: #f28e47;" type="button" class="btn btn-secondary"
-    ><i class="fas fa-print"></i> Print</button>
+    <button style="background-color: #f28e47;" type="button" class="btn btn-secondary"><i class="fas fa-print"></i>
+        Print</button>
     <div class="space">
     </div>
-    <button type="button" class="btn btn-primary"
-        (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
 </div>
 
 <br><br>
@@ -26,8 +25,9 @@
 
 <div class="pagination">
     <button (click)="prev()" class="btn btn-warning">&laquo;</button>
-    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
-        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
+    <button id="btn{{index}}" class="btn btn-warning btn-pag"
+        *ngFor="let a of [].constructor(totalPage); let index = index" (click)="onSearch(index+1,$event)">{{ index+1
+        }}</button>
     <button (click)="next()" class="btn btn-warning">&raquo;</button>
 </div>
 
@@ -49,14 +49,20 @@
                         <input type="text" [(ngModel)]="full_name" class="form-control">
                         <b for="message-text" class="col-form-label">Password:</b>
                         <input type="text" [(ngModel)]="password" class="form-control">
-                    </div>
-                    <div class="col-6">
                         <b for="message-text" class="col-form-label">Email:</b>
                         <input type="email" [(ngModel)]="email" class="form-control">
+                    </div>
+                    <div class="col-6">
                         <b for="message-text" class="col-form-label">Phone:</b>
                         <input type="text" [(ngModel)]="phone" class="form-control">
                         <b for="message-text" class="col-form-label">Address:</b>
                         <input type="text" [(ngModel)]="address" class="form-control">
+                        <b for="message-text" class="col-form-label">Image:</b>
+                        <input type="file" (change)="onChange($event)" class="form-control">
+                        <br>
+                        <div *ngIf="myImage">
+                            <img [src]="myImage" width="50px" height="100px">
+                        </div>
                     </div>
                 </div>
             </div>

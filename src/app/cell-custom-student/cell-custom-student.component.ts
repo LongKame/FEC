@@ -82,39 +82,4 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
       Object.assign({}, { class: 'gray modal-lg' })
     );
   }
-
-  updateTeacher() {
-    // this.user = new Student(this.params.data.user_Id, "", this.params.data.full_name
-    //   , "", this.params.data.phone, this.params.data.address);
-    this.http.put<any>('http://localhost:8070/api/admin/edit_teacher', this.user).subscribe(
-      response => {
-        console.log("kkkkkkkkkkkkkkkkkkkk"+JSON.stringify(response));
-        if(response.state === true){
-          this.student.onSearch(this.student.indexPage);
-          this.toast.success("Successfully");
-          this.modalRef?.hide();
-        }
-        else{
-          this.toast.error(response.message);
-          this.modalRef?.hide();
-        }
-      }
-    )
-  }
-
-  deleteTeacher(){
-    this.http.put<any>('http://localhost:8070/api/admin/delete_teacher', this.user).subscribe(
-      response => {
-        if(response.state === true){
-          this.student.onSearch(this.student.indexPage);
-          this.toast.success("Successfully");
-          this.modalRef?.hide();
-        }
-        else{
-          this.toast.error("Fail");
-          this.modalRef?.hide();
-        }
-      }
-    )
-  }
 }

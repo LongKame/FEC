@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-teacher.component';
+
 
 export class Teacher {
   private user_name: any;
@@ -43,6 +44,10 @@ export class View {
 export class TeacherComponent implements OnInit {
 
   title = 'AdminFE';
+  myImage!: Observable<any>;
+  base64code!: any;
+
+
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
@@ -72,7 +77,7 @@ export class TeacherComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 5;
+  PAGE_SIZE: any = 10;
   currentPage = 1;
   defaultColDef: any;
   key: any;
@@ -153,7 +158,8 @@ export class TeacherComponent implements OnInit {
 
     this.defaultColDef = {
       sortable: true,
-      filter: true
+      filter: true, 
+      editable: true,
     };
 
     this.columnDefs = [
@@ -171,6 +177,7 @@ export class TeacherComponent implements OnInit {
       },
       { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Image', field: 'imageUrl', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
@@ -200,6 +207,37 @@ export class TeacherComponent implements OnInit {
         }
       }
     )
+  }
+
+  onChange($event: Event) {
+    const target = $event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    console.log(file);
+    this.convertToBase64(file);
+  }
+
+  convertToBase64(file: File) {
+    const observable = new Observable((subsciber: Subscriber<any>) => {
+      this.readFile(file, subsciber)
+    })
+    observable.subscribe((d) => {
+      console.log(d);
+      this.myImage = d;
+      this.base64code = d;
+    })
+  }
+
+  readFile(file: File, subsciber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subsciber.next(filereader.result);
+      subsciber.complete();
+    }
+    filereader.onerror = () => {
+      subsciber.error();
+      subsciber.complete();
+    }
   }
 
 }
