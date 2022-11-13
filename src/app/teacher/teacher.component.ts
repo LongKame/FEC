@@ -190,6 +190,13 @@ export class TeacherComponent implements OnInit {
       },
       { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      {
+        headerName: 'Image', field: 'imageUrl',
+        cellRenderer: (params: any) => {
+          return `<img src="${params.value}" width="60px" height="80px">`;
+        }
+        , cellStyle: this.STYLE_IMAGE
+      },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
