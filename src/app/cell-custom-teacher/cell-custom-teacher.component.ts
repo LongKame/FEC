@@ -37,8 +37,6 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
   constructor(
     private modalService: BsModalService,
     private http: HttpClient,
-    private app: AppComponent,
-    private home: HomeComponent,
     private teacher: TeacherComponent,
     private toast: ToastrService
   ) { }
@@ -47,6 +45,7 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
   data: any;
   params: any;
   user: any;
+  imageUrl: any; 
 
   agInit(params: any): void {
     this.data = params;
@@ -58,6 +57,7 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
   }
 
   ngOnInit(): void {
+    this.imageUrl = this.params.data.imageUrl;
   }
 
   openModal(template: TemplateRef<any>) {
@@ -68,12 +68,13 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
   }
 
   updateTeacher() {
+
+    
+
     this.user = new Teacher(this.params.data.user_Id, "", this.params.data.full_name
       , "", this.params.data.phone, this.params.data.address);
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" + JSON.stringify(JSON.stringify(this.user)));
     this.http.put<any>('http://localhost:8070/api/admin/edit_teacher', this.user).subscribe(
       response => {
-        console.log("kkkkkkkkkkkkkkkkkkkk"+JSON.stringify(response));
         if(response.state === true){
           this.teacher.onSearch(this.teacher.indexPage);
           this.toast.success("Successfully");
@@ -97,7 +98,7 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
           this.modalRef?.hide();
         }
         else{
-          this.toast.error("Fail");
+          this.toast.error("Failure");
           this.modalRef?.hide();
         }
       }

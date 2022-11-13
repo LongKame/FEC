@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
-import { AppComponent } from '../app.component';
 import { ToastrService } from 'ngx-toastr';
 import { QuizComponent } from '../quiz/quiz.component';
 

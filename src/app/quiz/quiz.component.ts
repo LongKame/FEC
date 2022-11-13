@@ -7,8 +7,8 @@ import { CellCustomQuizComponent } from '../cell-custom-quiz/cell-custom-quiz.co
 import * as XLSX from 'xlsx';
 
 export class Quiz {
-  private aca_id: any;
-  private level_id: any;
+  private acaId: any;
+  private levelId: any;
   private question: any;
   private answerA: any;
   private answerB: any;
@@ -16,9 +16,9 @@ export class Quiz {
   private answerD: any;
   private correct: any;
 
-  constructor(aca_id: any, level_id: any, question: any, answerA: any, answerB: any, answerC: any, answerD: any, correct: any) {
-    this.aca_id = aca_id;
-    this.level_id = level_id;
+  constructor(acaId: any, levelId: any, question: any, answerA: any, answerB: any, answerC: any, answerD: any, correct: any) {
+    this.acaId = acaId;
+    this.levelId = levelId;
     this.question = question;
     this.answerA = answerA;
     this.answerB = answerB;
@@ -50,7 +50,6 @@ export class QuizComponent implements OnInit {
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-    this.quiz = new Quiz(this.aca_id, this.level_id, this.question, this.answerA, this.answerB, this.answerC, this.answerD, this.correct);
     this.view = new View(1, this.PAGE_SIZE, "");
   }
 
@@ -62,13 +61,13 @@ export class QuizComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 7;
+  PAGE_SIZE: any = 10;
   defaultColDef: any;
   key: any;
   indexPage: any;
   index: any;
-  aca_id: any;
-  level_id: any;
+  acaId: any;
+  levelId: any;
   question: any;
   answerA: any;
   answerB: any;
@@ -88,16 +87,16 @@ export class QuizComponent implements OnInit {
     return this.http.post<any>('http://localhost:8070/api/aca/get_quiz_paging', bodySearch);
   }
 
-  readExcel(event: any){
-      let file = event.target.files[0];
-      let fileReader = new FileReader();
-      fileReader.readAsBinaryString(file);
-      fileReader.onload = (e) =>{
-        var workBook = XLSX.read(fileReader.result, {type:'binary'});
-        var sheetNames = workBook.SheetNames;
-        this.excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
-        console.log(JSON.stringify(this.excelData));
-      }
+  readExcel(event: any) {
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+    fileReader.onload = (e) => {
+      var workBook = XLSX.read(fileReader.result, { type: 'binary' });
+      var sheetNames = workBook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
+      console.log(JSON.stringify(this.excelData));
+    }
   }
 
   onSearch(index: number, btn?: any) {
@@ -194,26 +193,35 @@ export class QuizComponent implements OnInit {
       { headerName: 'Answer D', field: 'answerD', cellStyle: this.STYLE_TABLE },
       { headerName: 'Correct answer', field: 'correct', cellStyle: this.STYLE_TABLE },
       {
-          headerName: "Action",
-          cellRendererFramework: CellCustomQuizComponent,
-        },
+        headerName: "Action",
+        cellRendererFramework: CellCustomQuizComponent,
+      },
     ];
   }
-
-  saveQuiz(){
-    if(this.excelData!==null){
-      for(let i of this.excelData){
-        this.aca_id = 2;
-        this.level_id = 1;
-        this.question = i.question;
-        this.answerA = i.answerA;
-        this.answerB = i.answerB;
-        this.answerC = i.answerC;
-        this.answerD = i.answerD;
-        this.correct = i.correct;
-        this.quiz = new Quiz(this.aca_id, this.level_id, this.question, this.answerA, this.answerB, this.answerC, this.answerD, this.correct);
-     }
+  check: boolean = false;
+  saveQuiz() {
+    if (this.excelData !== null) {
+      for (let i of this.excelData) {
+        this.acaId = 2;
+        this.levelId = 1;
+        this.quiz = new Quiz(this.acaId, this.levelId, i.Question, i.AnswerA, i.AnswerB, i.AnswerC, i.AnswerD, i.Correct);
+        if(this.quiz!==null){
+          this.http.post<any>('http://localhost:8070/api/aca/add_quiz', this.quiz).subscribe(
+            response => {
+              if (response.state === true) {
+                this.check = true;
+                this.onSearch(this.indexPage);
+                this.toast.success("Successfully");
+                this.modalRef?.hide();
+              }
+              else {
+                this.toast.error(response.message+" in "+i.RollNo);
+                this.modalRef?.hide();
+              }
+            }
+          )
+        }
+      }
     }
   }
-
 }

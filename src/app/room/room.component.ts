@@ -181,7 +181,6 @@ export class RoomComponent implements OnInit {
     ];
   }
 
-
   addRoom() {
     this.room = new Room(this.roomname, this.capacity);
     this.http.post<any>('http://localhost:8070/api/aca/add_room', this.room).subscribe(

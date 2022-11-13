@@ -1,6 +1,5 @@
 import { NgModule, TemplateRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,7 +7,6 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -29,6 +27,7 @@ import { CellCustomRoomComponent } from './cell-custom-room/cell-custom-room.com
 import { QuizComponent } from './quiz/quiz.component';
 import { CellCustomQuizComponent } from './cell-custom-quiz/cell-custom-quiz.component';
 
+// import 'ag-grid-enterprise'
 
 @NgModule({
   declarations: [

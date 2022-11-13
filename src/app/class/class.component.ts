@@ -62,7 +62,7 @@ export class ClassComponent implements OnInit {
     }, 3000)
   }
 
-  public academicadmin: any;
+  public classes: any;
   public view: any;
 
   class_id: any;
@@ -81,7 +81,6 @@ export class ClassComponent implements OnInit {
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) { 
-      this.academicadmin = new Class(this.class_id, this.class_name, this.room_id, this.room_name, this.user_id, this.teacher_id, this.full_name, this.email, this.number_of_student, this.capacity, this.start_date, this.active_room);
       this.view = new View(1,this.PAGE_SIZE,"");
     }
 
@@ -191,7 +190,6 @@ export class ClassComponent implements OnInit {
         { headerName: 'Class', field: 'class_name', cellStyle: this.STYLE_TABLE },
         { headerName: 'Room', field: 'room_name', cellStyle: this.STYLE_TABLE},
         { headerName: 'Teacher', field: 'full_name', cellStyle: this.STYLE_TABLE },
-        // { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
         { headerName: 'Level', field: 'level', cellStyle: this.STYLE_TABLE },
         { headerName: 'Capacity', field: 'capacity', cellStyle: this.STYLE_TABLE },
         { headerName: 'Start date', field: 'start_date', cellStyle: this.STYLE_TABLE },

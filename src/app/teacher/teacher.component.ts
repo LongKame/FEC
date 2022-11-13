@@ -2,20 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-teacher.component';
+
 
 export class Teacher {
   private user_name: any;
   private full_name: any;
+  private imageUrl: any;
   private password: any;
   private email: any;
   private phone: any;
   private address: any;
 
-  constructor(user_name: any, full_name: any, password: any, email: any, phone: any, address: any) {
+  constructor(user_name: any, full_name: any, imageUrl: any, password: any, email: any, phone: any, address: any) {
     this.user_name = user_name;
     this.full_name = full_name;
+    this.imageUrl = imageUrl;
     this.password = password;
     this.email = email;
     this.phone = phone;
@@ -43,6 +46,10 @@ export class View {
 export class TeacherComponent implements OnInit {
 
   title = 'AdminFE';
+  imageUrl!: Observable<any>;
+  base64code!: any;
+
+
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
@@ -63,7 +70,7 @@ export class TeacherComponent implements OnInit {
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
+    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
   };
 
   columnDefs: any;
@@ -72,7 +79,7 @@ export class TeacherComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 5;
+  PAGE_SIZE: any = 10;
   currentPage = 1;
   defaultColDef: any;
   key: any;
@@ -149,11 +156,22 @@ export class TeacherComponent implements OnInit {
     'font-weight': 'bold',
   }
 
+  STYLE_IMAGE = {
+    'font-size': '15px',
+    'align-items': 'center',
+    'top': '30px',
+    'overflow': 'hidden',
+    'text-align': 'center',
+    'font-weight': 'bold',
+    'margin-top': '-30px'
+  }
+
   createTable() {
 
     this.defaultColDef = {
       sortable: true,
-      filter: true
+      filter: true,
+      editable: true,
     };
 
     this.columnDefs = [
@@ -171,6 +189,13 @@ export class TeacherComponent implements OnInit {
       },
       { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      {
+        headerName: 'Image', field: 'imageUrl',
+        cellRenderer: (params: any) => {
+          return `<img src="${params.value}" width="60px" height="80px">`;
+        }
+        , cellStyle: this.STYLE_IMAGE
+      },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
@@ -186,7 +211,8 @@ export class TeacherComponent implements OnInit {
   }
 
   addTeacher() {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
+    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
+    console.log("xxxxxxxxxxxxxxxxxxx" + JSON.stringify(this.teacher));
     this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
       response => {
         if (response.state === true) {
@@ -200,6 +226,36 @@ export class TeacherComponent implements OnInit {
         }
       }
     )
+  }
+
+  onChange($event: Event) {
+    const target = $event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    this.convertToBase64(file);
+  }
+
+  convertToBase64(file: File) {
+    const observable = new Observable((subsciber: Subscriber<any>) => {
+      this.readFile(file, subsciber)
+    })
+    observable.subscribe((d) => {
+      console.log(d);
+      this.imageUrl = d;
+      this.base64code = d;
+    })
+  }
+
+  readFile(file: File, subsciber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subsciber.next(filereader.result);
+      subsciber.complete();
+    }
+    filereader.onerror = () => {
+      subsciber.error();
+      subsciber.complete();
+    }
   }
 
 }

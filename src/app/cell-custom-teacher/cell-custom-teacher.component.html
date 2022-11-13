@@ -47,6 +47,8 @@
                         <input type="email" [(ngModel)]="params.data.phone" class="form-control">
                         <b for="message-text" class="col-form-label">Address:</b>
                         <input type="text" [(ngModel)]="params.data.address" class="form-control">
+                        <b for="message-text" class="col-form-label">Image:</b>
+                        <img [src]="imageUrl" [(ngModel)]="params.data.imageUrl" width="100px" height="150px">
                     </div>
                 </div>
             </div>
