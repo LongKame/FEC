@@ -46,7 +46,7 @@ export class View {
 export class TeacherComponent implements OnInit {
 
   title = 'AdminFE';
-  imageUrl!: Observable<any>;
+  myImage!: Observable<any>;
   base64code!: any;
 
 
@@ -59,6 +59,7 @@ export class TeacherComponent implements OnInit {
 
   user_name: any;
   full_name: any;
+  imageUrl: any;
   password: any;
   email: any;
   phone: any;
@@ -70,7 +71,7 @@ export class TeacherComponent implements OnInit {
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
+      this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
   };
 
   columnDefs: any;
@@ -170,7 +171,7 @@ export class TeacherComponent implements OnInit {
 
     this.defaultColDef = {
       sortable: true,
-      filter: true,
+      filter: true, 
       editable: true,
     };
 
@@ -212,7 +213,6 @@ export class TeacherComponent implements OnInit {
 
   addTeacher() {
     this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
-    console.log("xxxxxxxxxxxxxxxxxxx" + JSON.stringify(this.teacher));
     this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
       response => {
         if (response.state === true) {
@@ -231,6 +231,7 @@ export class TeacherComponent implements OnInit {
   onChange($event: Event) {
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
+    console.log(file);
     this.convertToBase64(file);
   }
 
@@ -240,7 +241,7 @@ export class TeacherComponent implements OnInit {
     })
     observable.subscribe((d) => {
       console.log(d);
-      this.imageUrl = d;
+      this.myImage = d;
       this.base64code = d;
     })
   }
@@ -257,5 +258,6 @@ export class TeacherComponent implements OnInit {
       subsciber.complete();
     }
   }
+
 
 }
