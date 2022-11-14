@@ -169,8 +169,11 @@ export class RoomComponent implements OnInit {
       { headerName: 'Updated At', field: 'updatedat', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'State', field: 'active',
-        cellRenderer: function (params: any) {
-          return params.data.active === true ? "active" : "deactive";
+        // cellRenderer: function (params: any) {
+        //   return params.data.active === true ? "active" : "deactive";
+        // },
+        cellRenderer: (params: any) => {
+          return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
         cellStyle: this.STYLE_TABLE
       },

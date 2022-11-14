@@ -3,46 +3,31 @@ import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { RoomComponent } from '../room/room.component';
-
-
-export class Room {
-  private id: any;
-  private roomname: any;
-  private capacity: any;
-  private active: any;
-
-  constructor(id: any, roomname: any, capacity: any, active: any) {
-    this.id = id;
-    this.roomname = roomname;
-    this.capacity = capacity;
-    this.active = active;
-  }
-}
+import { PendingComponent } from '../pending/pending.component';
 
 
 @Component({
-  selector: 'app-cell-custom-room',
-  templateUrl: './cell-custom-room.component.html',
-  styleUrls: ['./cell-custom-room.component.scss']
+  selector: 'app-cell-custom-pending',
+  templateUrl: './cell-custom-pending.component.html',
+  styleUrls: ['./cell-custom-pending.component.scss']
 })
-export class CellCustomRoomComponent implements ICellRendererAngularComp {
+export class CellCustomPendingComponent implements ICellRendererAngularComp {
 
   modalRef: BsModalRef | undefined;
 
   constructor(
     private modalService: BsModalService,
     private http: HttpClient,
-    private room: RoomComponent,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private pending: PendingComponent
   ) { }
 
-  public rooms: any;
-
+  closeResult: string = "";
   data: any;
   params: any;
   user: any;
-  course_name: any;
+  courses: any;
+  classes: any;
 
   agInit(params: any): void {
     this.data = params;
@@ -63,12 +48,12 @@ export class CellCustomRoomComponent implements ICellRendererAngularComp {
     );
   }
 
-  updateRoom() {
-    this.rooms = new Room(this.params.data.id,this.params.data.roomname, this.params.data.capacity, this.params.data.active,);
-    this.http.put<any>('http://localhost:8070/api/aca/edit_room', this.rooms).subscribe(
+  updatePending() {
+
+    this.http.put<any>('http://localhost:8070/api/admin/update_pending', this.params.data).subscribe(
       response => {
         if(response.state === true){
-          this.room.onSearch(this.room.indexPage);
+          this.pending.onSearch(this.pending.indexPage);
           this.toast.success("Successfully");
           this.modalRef?.hide();
         }
@@ -79,5 +64,21 @@ export class CellCustomRoomComponent implements ICellRendererAngularComp {
       }
     )
   }
+
+  // deletePending(){
+  //   this.http.delete<any>('http://localhost:8070/api/aca/delete_pending/' + this.params.data.id).subscribe(
+  //     response => {
+  //       if(response.state === true){
+  //         this.pending.onSearch(this.pending.indexPage);
+  //         this.toast.success("Successfully");
+  //         this.modalRef?.hide();
+  //       }
+  //       else{
+  //         this.toast.error("Fail");
+  //         this.modalRef?.hide();
+  //       }
+  //     }
+  //   )
+  // }
 
 }

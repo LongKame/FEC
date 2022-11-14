@@ -26,6 +26,9 @@ import { RoomComponent } from './room/room.component';
 import { CellCustomRoomComponent } from './cell-custom-room/cell-custom-room.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { CellCustomQuizComponent } from './cell-custom-quiz/cell-custom-quiz.component';
+import { PendingComponent } from './pending/pending.component';
+import { CellCustomPendingComponent } from './cell-custom-pending/cell-custom-pending.component';
+import { CurriculumComponent } from './curriculum/curriculum.component';
 
 // import 'ag-grid-enterprise'
 
@@ -49,6 +52,9 @@ import { CellCustomQuizComponent } from './cell-custom-quiz/cell-custom-quiz.com
     CellCustomRoomComponent,
     QuizComponent,
     CellCustomQuizComponent,
+    PendingComponent,
+    CellCustomPendingComponent,
+    CurriculumComponent,
   ],
   imports: [
     FormsModule,

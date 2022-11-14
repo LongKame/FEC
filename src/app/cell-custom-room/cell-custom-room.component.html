@@ -1,5 +1,6 @@
 <div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
-    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update"
+        (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
     <div class="space">
     </div>
     <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
@@ -40,6 +41,10 @@
                         <input type="text" [(ngModel)]="params.data.roomname" class="form-control">
                         <b for="message-text" class="col-form-label">Capacity:</b>
                         <input type="text" [(ngModel)]="params.data.capacity" class="form-control">
+                        <b for="message-text" class="col-form-label">State:</b>
+                        <div class="space">
+                        </div>
+                        <input type='checkbox' [(ngModel)]="params.data.active">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Created at:</b>

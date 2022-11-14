@@ -2,27 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscriber } from 'rxjs';
-import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-teacher.component';
+import { Observable } from 'rxjs';
+import { CellCustomPendingComponent } from '../cell-custom-pending/cell-custom-pending.component';
 
-
-export class Teacher {
-  private user_name: any;
+export class Pending {
+  private class_id: any;
+  private class_name: any;
+  private room_id: any;
+  private room_name: any;
+  private user_id: any;
+  private teacher_id: any;
   private full_name: any;
-  private imageUrl: any;
-  private password: any;
   private email: any;
-  private phone: any;
-  private address: any;
+  private number_of_student: any;
+  private capacity: any;
+  private start_date: any;
+  private active_room: any;
 
-  constructor(user_name: any, full_name: any, imageUrl: any, password: any, email: any, phone: any, address: any) {
-    this.user_name = user_name;
+  constructor(class_id: any, class_name: any, room_id: any, room_name: any, user_id: any, teacher_id: any, full_name: any, email: any, number_of_student: any, capacity: any, start_date: any, active_room: any) {
+    this.class_id = class_id;
+    this.class_name = class_name;
+    this.room_id = room_id;
+    this.room_name = room_name;
+    this.user_id = user_id;
+    this.teacher_id = teacher_id;
     this.full_name = full_name;
-    this.imageUrl = imageUrl;
-    this.password = password;
     this.email = email;
-    this.phone = phone;
-    this.address = address;
+    this.number_of_student = number_of_student;
+    this.capacity = capacity;
+    this.start_date = start_date;
+    this.active_room = active_room;
   }
 }
 
@@ -39,55 +48,57 @@ export class View {
 }
 
 @Component({
-  selector: 'app-teacher',
-  templateUrl: './teacher.component.html',
-  styleUrls: ['./teacher.component.scss']
+  selector: 'app-pending',
+  templateUrl: './pending.component.html',
+  styleUrls: ['./pending.component.scss']
 })
-export class TeacherComponent implements OnInit {
-
-  title = 'AdminFE';
-  myImage!: Observable<any>;
-  base64code!: any;
-
+export class PendingComponent implements OnInit {
 
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
-      this.onSearch(this.indexPage);
+      this.onSearch(this.index);
     }, 3000)
   }
 
-  user_name: any;
-  full_name: any;
-  imageUrl: any;
-  password: any;
-  email: any;
-  phone: any;
-  address: any;
-
-  public teacher: any;
+  public pending: any;
   public view: any;
+
+  class_id: any;
+  class_name: any;
+  room_id: any;
+  room_name: any;
+  user_id: any;
+  teacher_id: any;
+  full_name: any;
+  email: any;
+  number_of_student: any;
+  capacity: any;
+  start_date: any;
+  active_room: any;
 
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-      this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
-  };
+    this.pending = new Pending(this.class_id, this.class_name, this.room_id, this.room_name, this.user_id, this.teacher_id, this.full_name, this.email, this.number_of_student, this.capacity, this.start_date, this.active_room);
+    this.view = new View(1, this.PAGE_SIZE, "");
+  }
 
   columnDefs: any;
   rowData: any
   modalRef: BsModalRef | undefined;
+  searchInforForm: any;
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 10;
-  currentPage = 1;
+  PAGE_SIZE: any = 5;
   defaultColDef: any;
   key: any;
   indexPage: any;
+  index: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/admin/get_student_pending', bodySearch);
   }
 
   onSearch(index: number, btn?: any) {
@@ -154,25 +165,14 @@ export class TeacherComponent implements OnInit {
     'top': '30px',
     'overflow': 'hidden',
     'text-align': 'center',
-    'font-weight': 'bold',
-  }
-
-  STYLE_IMAGE = {
-    'font-size': '15px',
-    'align-items': 'center',
-    'top': '30px',
-    'overflow': 'hidden',
-    'text-align': 'center',
-    'font-weight': 'bold',
-    'margin-top': '-30px'
+    'font-weight': 'bold'
   }
 
   createTable() {
 
     this.defaultColDef = {
       sortable: true,
-      filter: true, 
-      editable: true,
+      filter: true
     };
 
     this.columnDefs = [
@@ -188,77 +188,22 @@ export class TeacherComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
-      {
-        headerName: 'Image', field: 'imageUrl',
-        cellRenderer: (params: any) => {
-          return `<img src="${params.value}" width="60px" height="80px">`;
-        }
-        , cellStyle: this.STYLE_IMAGE
-      },
+      { headerName: 'Class name', field: 'class_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Start date', field: 'start_date', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
-        // cellRenderer: function (params: any) {
-        //   return params.data.active === true ? "active" : "deactive";
-        // },
+        headerName: 'Paid', field: 'isPaid',
         cellRenderer: (params: any) => {
-          return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
+          return `<input type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
         cellStyle: this.STYLE_TABLE
       },
-      { headerName: "Action", cellRendererFramework: CellCustomTeacherComponent, },
+      {
+        headerName: "Action",
+        cellRendererFramework: CellCustomPendingComponent,
+      },
     ];
-  }
-
-  addTeacher() {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
-    this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
-      response => {
-        if (response.state === true) {
-          this.onSearch(this.indexPage);
-          this.toast.success("Successfully");
-          this.modalRef?.hide();
-        }
-        else {
-          this.toast.error(response.message);
-          this.modalRef?.hide();
-        }
-      }
-    )
-  }
-
-  onChange($event: Event) {
-    const target = $event.target as HTMLInputElement;
-    const file: File = (target.files as FileList)[0];
-    console.log(file);
-    this.convertToBase64(file);
-  }
-
-  convertToBase64(file: File) {
-    const observable = new Observable((subsciber: Subscriber<any>) => {
-      this.readFile(file, subsciber)
-    })
-    observable.subscribe((d) => {
-      console.log(d);
-      this.myImage = d;
-      this.base64code = d;
-    })
-  }
-
-  readFile(file: File, subsciber: Subscriber<any>) {
-    const filereader = new FileReader();
-    filereader.readAsDataURL(file);
-    filereader.onload = () => {
-      subsciber.next(filereader.result);
-      subsciber.complete();
-    }
-    filereader.onerror = () => {
-      subsciber.error();
-      subsciber.complete();
-    }
   }
 }

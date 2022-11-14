@@ -11,6 +11,7 @@ import { AcaAdminComponent } from './pages/aca-admin/aca-admin.component';
 import { CourseComponent } from './course/course.component';
 import { RoomComponent } from './room/room.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { PendingComponent } from './pending/pending.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'student', component: StudentComponent },
       { path: 'aca', component: AcaComponent },
       { path: 'class', component: ClassComponent },
+      { path: 'pending', component: PendingComponent },
     ]
   }, 
   {

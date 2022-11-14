@@ -75,7 +75,7 @@ export class AcaComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 1;
+  PAGE_SIZE: any = 5;
   defaultColDef: any;
   key: any;
   indexPage: any;
@@ -177,12 +177,11 @@ export class AcaComponent implements OnInit {
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
-      { headerName: 'State', field: 'active'
-      // , 
-      // valueGetter: (params: any) => {
-      //   return params.node = params.value === true ? "Active" : "Deactive";
-      // }
-      ,cellStyle: this.STYLE_TABLE 
+      { headerName: 'State', field: 'active',
+      cellRenderer: (params: any) => {
+        return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
+      },
+      cellStyle: this.STYLE_TABLE 
       },
       {
         headerName: "Action",
@@ -195,7 +194,7 @@ export class AcaComponent implements OnInit {
 
   addAca() {
     this.academicadmin = new AcademicAdmin(this.user_name, this.full_name, this.password, this.email, this.phone, this.address);
-    this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.academicadmin).subscribe(
+    this.http.post<any>('http://localhost:8070/api/admin/add_acad', this.academicadmin).subscribe(
       response => {
         if(response.state === true){
           this.onSearch(this.index);

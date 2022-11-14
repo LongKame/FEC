@@ -68,9 +68,6 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
   }
 
   updateTeacher() {
-
-    
-
     this.user = new Teacher(this.params.data.user_Id, "", this.params.data.full_name
       , "", this.params.data.phone, this.params.data.address);
     this.http.put<any>('http://localhost:8070/api/admin/edit_teacher', this.user).subscribe(
@@ -89,18 +86,19 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
   }
 
   deleteTeacher(){
-    this.user = new Teacher(this.params.data.user_Id, null, null, null, null, null);
-    this.http.put<any>('http://localhost:8070/api/admin/delete_teacher', this.user).subscribe(
+    this.user = new Teacher(this.params.data.user_Id, "", this.params.data.full_name
+      , "", this.params.data.phone, this.params.data.address);
+    this.http.put<any>('http://localhost:8070/api/admin/delete_teacher',this.user).subscribe(
       response => {
-        if(response.data.state === true){
+        // if(response.data.state === true){
           this.teacher.onSearch(this.teacher.indexPage);
           this.toast.success("Successfully");
           this.modalRef?.hide();
-        }
-        else{
-          this.toast.error("Failure");
-          this.modalRef?.hide();
-        }
+        // }
+        // else{
+        //   this.toast.error("Failure");
+        //   this.modalRef?.hide();
+        // }
       }
     )
   }
