@@ -1,8 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { CourseService } from '../course/course.service';
+import { RoomService } from '../room/room.service';
+import { SlotService } from '../slot/slot.service';
+import { TeacherService } from '../teacher/teacher.service';
+import { Option } from '../_common/types/option';
+import { ClassService } from './class.service';
+import { WeekSlot, WeekSlotType } from './class.type';
 
 
 export class Class {
@@ -60,7 +68,40 @@ export class ClassComponent implements OnInit {
     setTimeout(() => {
       this.onSearch(this.index);
     }, 3000)
+
+    this.roomService.getRooms().subscribe(res => {
+      this.roomOptions = res.map(item => ({ value: item.id, label: item.roomname }));
+    });
+    this.courseService.getCourses().subscribe(res => {
+      this.courseOptions = res.map(item => ({ value: item.id, label: item.name }));
+    });
+    this.teacherService.getTeachers().subscribe(res => {
+      this.teacherOptions = res.map(item => ({ value: item.id, label: `Teacher with UserID: ${item.userId}` }));
+    });
+    this.slotService.getSlots().subscribe(res => {
+      this.slotOptions = res.map(item => ({ value: item.id, label: `${item.fromTime} - ${item.toTime}` }));
+    });
+  
+    this.form = this.fb.group({
+      class_name: [null, []],
+      room_id: [null, []],
+      teacher_id: [null, []],
+      slot_id: [null, []],
+      start_date: [null, []],
+      firstOnWeek: [null, []],
+      secondOnWeek: [null, []],
+      course_id: [null, []],
+    });
   }
+
+  roomOptions: Option[] = [];
+  courseOptions: Option[] = [];
+  teacherOptions: Option[] = [];
+  slotOptions: Option[] = [];
+  weekSlotOptions: Option[] = Object.keys(WeekSlot).map((key) => ({ value: WeekSlot[key as WeekSlotType], label: key }));
+  slotOneOptions: Option[] = this.weekSlotOptions;
+  slotTwoOptions: Option[] = this.weekSlotOptions;
+  form!: FormGroup;
 
   public classes: any;
   public view: any;
@@ -78,9 +119,17 @@ export class ClassComponent implements OnInit {
   start_date: any;
   active_room: any;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private modalService: BsModalService,
-    private toast: ToastrService) { 
+    private toastService: ToastrService,
+    private roomService: RoomService,
+    private courseService: CourseService,
+    private teacherService: TeacherService,
+    private slotService: SlotService,
+    private classService: ClassService,
+    private fb: FormBuilder,
+  ) { 
       this.view = new View(1,this.PAGE_SIZE,"");
     }
 
@@ -95,6 +144,53 @@ export class ClassComponent implements OnInit {
     defaultColDef: any;
     key: any;
     indexPage: any;
+
+    onStartDateChange(e: Event) {
+      const values = this.form.getRawValue();
+      const slotOneFrom = new Date(values['start_date']).getDay();
+
+      this.slotOneOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom - 1);
+      this.slotTwoOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom - 1);
+
+      this.form.get('firstOnWeek')?.setValue(null);
+      this.form.get('secondOnWeek')?.setValue(null);
+    }
+
+    onFirstOnWeekChange(e: any) {
+      const firstOnWeek = e.target.value as number;
+      this.slotTwoOptions = this.weekSlotOptions.filter(item => item.value > firstOnWeek || item.value === 6);
+      this.form.get('secondOnWeek')?.setValue(null);
+    }
+
+    onAddClass() {
+      const values = this.form.getRawValue();
+      const payload = {
+        ...values,
+        room_id: +values.room_id,
+        teacher_id: +values.teacher_id,
+        slot_id: +values.slot_id,
+        firstOnWeek: +values.firstOnWeek,
+        secondOnWeek: +values.secondOnWeek,
+        course_id: +values.course_id
+      };
+
+      this.classService.addClass(payload).subscribe((res: any) => {
+        if (!res.state) {
+          this.toastService.error(res.message);
+          return;
+        }
+
+        this.toastService.success(res.message);
+        this.onCloseForm();
+      }, (err) => {
+        this.toastService.error('Something went wrong.');
+      })
+    }
+
+    onCloseForm() {
+      this.form.reset();
+      this.modalRef?.hide()
+    }
 
     onSearchWarning(bodySearch: any): Observable<any>  {
       return this.http.post<any>('http://localhost:8070/api/admin/get_all_class',bodySearch);

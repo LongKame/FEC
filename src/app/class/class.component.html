@@ -29,6 +29,7 @@
 </div>
 
 <ng-template #add>
+<form [formGroup]="form" (ngSubmit)="onAddClass()">
     <div class="modal-header">
         <h4 class="modal-title pull-left">Add Class</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
@@ -37,35 +38,52 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-6">
-                        <b for="message-text" class="col-form-label">Room name:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Class name:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Teacher:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot:</b>
-                        <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Start date:</b>
-                        <input type="date"  class="form-control">
-                    </div>
-                    <div class="col-6">
-                        <b for="message-text" class="col-form-label">Course:</b>
-                        <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot 1 on week:</b>
-                        <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot 2 on week:</b>
-                        <input type="number"  class="form-control">
-
+                <div class="col-sm-12">
+                    <div class="row" >
+                        <div class="col-6">
+                            <b for="message-text" class="col-form-label">Room name:</b>
+                            <select class="form-control" formControlName="room_id" required>
+                                <option *ngFor="let item of roomOptions" [value]="item.value" [value]="item.value">{{ item.label }}</option>
+                            </select>
+    
+                            <b for="message-text" class="col-form-label">Class name:</b>
+                            <input type="text" class="form-control" formControlName="class_name" required="true">
+    
+                            <b for="message-text" class="col-form-label">Teacher:</b>
+                            <select class="form-control" formControlName="teacher_id" required>
+                                <option *ngFor="let item of teacherOptions" [value]="item.value">{{ item.label }}</option>
+                            </select>
+    
+                            <b for="message-text" class="col-form-label">Slot:</b>
+                            <select class="form-control" formControlName="slot_id" required>
+                                <option *ngFor="let item of slotOptions" [value]="item.value">{{ item.label }}</option>
+                            </select>
+    
+                            <b for="message-text" class="col-form-label">Start date:</b>
+                            <input type="date" class="form-control" formControlName="start_date" required (change)="onStartDateChange($event)">
+                        </div>
+                        <div class="col-6">
+                            <b for="message-text" class="col-form-label">Course:</b>
+                            <select class="form-control" formControlName="course_id" required>
+                                <option *ngFor="let item of courseOptions" [value]="item.value">{{ item.label }}</option>
+                            </select>
+    
+                            <b for="message-text" class="col-form-label">Slot 1 on week:</b>
+                            <select class="form-control" formControlName="firstOnWeek" required (change)="onFirstOnWeekChange($event)">
+                                <option *ngFor="let item of slotOneOptions" [value]="item.value">{{ item.label }}</option>
+                            </select>
+                            <b for="message-text" class="col-form-label">Slot 2 on week:</b>
+                            <select class="form-control" formControlName="secondOnWeek" required>
+                                <option *ngFor="let item of slotTwoOptions" [value]="item.value">{{ item.label }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
     <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-primary" (click)="addAca()">Add</button> -->
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-primary" type="submit">Add</button>
+        <button type="button" class="btn btn-default" (click)="onCloseForm()">Close</button>
     </div>
+</form>
 </ng-template>
