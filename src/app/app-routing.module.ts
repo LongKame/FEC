@@ -12,12 +12,17 @@ import { CourseComponent } from './course/course.component';
 import { RoomComponent } from './room/room.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { PendingComponent } from './pending/pending.component';
+import { TeacherPageComponent } from './pages/teacher-page/teacher-page.component';
+import { ViewStudentComponent } from './view-student/view-student.component';
+import { ViewTeacherComponent } from './view-teacher/view-teacher.component';
+import { ViewAcaComponent } from './view-aca/view-aca.component';
+import { ViewClassComponent } from './view-class/view-class.component';
+import { ViewTimetableComponent } from './view-timetable/view-timetable.component';
 
 
 const routes: Routes = [
   {
     path: 'home', component: HomeComponent, children: [
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'teacher', component: TeacherComponent },
       { path: 'student', component: StudentComponent },
       { path: 'aca', component: AcaComponent },
@@ -27,10 +32,18 @@ const routes: Routes = [
   }, 
   {
     path: 'aca-admin', component: AcaAdminComponent, children: [
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'course', component: CourseComponent },
       { path: 'room', component: RoomComponent },
       { path: 'quiz', component: QuizComponent },
+    ]
+  }, 
+  {
+    path: 'teacher-page', component: TeacherPageComponent, children: [
+      { path: 'viewstudent', component: ViewStudentComponent },
+      { path: 'viewteacher', component: ViewTeacherComponent },
+      { path: 'viewaca', component: ViewAcaComponent },
+      { path: 'viewclass', component: ViewClassComponent },
+      { path: 'timetable', component: ViewTimetableComponent },
     ]
   }, 
   { path: 'dashboard', component: DashboardComponent }

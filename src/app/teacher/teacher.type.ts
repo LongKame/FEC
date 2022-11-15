@@ -1,6 +1,6 @@
 export type Teacher = {
-  id: number;
-  userId: number;
-  roleId: number;
-  imageUrl: string;
+  teacher_Id: number;
+  user_Id: number;
+  user_name: string
+  full_name: string;
 }

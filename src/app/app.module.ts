@@ -29,8 +29,13 @@ import { CellCustomQuizComponent } from './cell-custom-quiz/cell-custom-quiz.com
 import { PendingComponent } from './pending/pending.component';
 import { CellCustomPendingComponent } from './cell-custom-pending/cell-custom-pending.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
-
-// import 'ag-grid-enterprise'
+import { TeacherPageComponent } from './pages/teacher-page/teacher-page.component';
+import { TestComponent } from './test/test.component';
+import { ViewStudentComponent } from './view-student/view-student.component';
+import { ViewTeacherComponent } from './view-teacher/view-teacher.component';
+import { ViewAcaComponent } from './view-aca/view-aca.component';
+import { ViewClassComponent } from './view-class/view-class.component';
+import { ViewTimetableComponent } from './view-timetable/view-timetable.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +60,13 @@ import { CurriculumComponent } from './curriculum/curriculum.component';
     PendingComponent,
     CellCustomPendingComponent,
     CurriculumComponent,
+    TeacherPageComponent,
+    TestComponent,
+    ViewStudentComponent,
+    ViewTeacherComponent,
+    ViewAcaComponent,
+    ViewClassComponent,
+    ViewTimetableComponent,
   ],
   imports: [
     FormsModule,

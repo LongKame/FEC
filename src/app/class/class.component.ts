@@ -76,7 +76,7 @@ export class ClassComponent implements OnInit {
       this.courseOptions = res.map(item => ({ value: item.id, label: item.name }));
     });
     this.teacherService.getTeachers().subscribe(res => {
-      this.teacherOptions = res.map(item => ({ value: item.id, label: `Teacher with UserID: ${item.userId}` }));
+      this.teacherOptions = res.map(item => ({ value: item.teacher_Id, label: `Teacher: ${item.full_name}` }));
     });
     this.slotService.getSlots().subscribe(res => {
       this.slotOptions = res.map(item => ({ value: item.id, label: `${item.fromTime} - ${item.toTime}` }));
@@ -180,7 +180,7 @@ export class ClassComponent implements OnInit {
           return;
         }
 
-        this.toastService.success(res.message);
+        this.toastService.success("Success");
         this.onCloseForm();
       }, (err) => {
         this.toastService.error('Something went wrong.');

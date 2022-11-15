@@ -1,0 +1,70 @@
+<div class="sidebar">
+    <div class="logo_details" style="text-align: center;">
+        <i style="color: aliceblue;font-size: 40px;" class="bx bxl-spring-boot"></i>
+        <i style="color: aliceblue;font-size: 40px;" class="bx bxl-angular"></i>
+        <i style="color: aliceblue;font-size: 40px;" class="bx bxl-postgresql"></i>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a routerLink="/teacher-page/viewstudent">
+                <i class="bx bx-user"></i>
+                <span class="link_name">Student</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/teacher-page/viewclass">
+                <i class="bx bx-list-ul"></i>
+                <span class="link_name">Class</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/teacher-page/viewaca">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="link_name">Academic admin</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/teacher-page/viewteacher">
+                <i class="bx bx-table"></i>
+                <span class="link_name">Teacher</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/teacher-page/timetable">
+                <i class="bx bx-table"></i>
+                <span class="link_name">Time <table></table></span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="bx bx-log-out"></i>
+                <span class="link_name">Log out</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <span class="logo_name">English Center Management</span>
+        </div>
+        <div class="profile-details">
+            <img src="https://phatamhay.com/wp-content/uploads/2019/10/portrait-square-05.jpg" alt="">
+            <span class="admin_name">LongKame</span>
+            <i class="bx bx-chevron-down"></i>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</section>
+
+
+<div class="home-content">
+    <div class="overview-boxes">
+        <div class="box">
+            <div class="left-side">
+                <div class="box_topic"></div>
+            </div>
+        </div>
+    </div>
+</div>
