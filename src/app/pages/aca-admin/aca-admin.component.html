@@ -29,11 +29,11 @@
                 <span class="link_name">Room</span>
             </a>
         </li>
-        <li>
-            <a href="">
+        <li (click)="onLogout()">
+            <div href="">
                 <i class="bx bx-log-out"></i>
                 <span class="link_name">Log out</span>
-            </a>
+            </div>
         </li>
     </ul>
 </div>
@@ -43,9 +43,9 @@
         <div class="sidebar-button">
             <span class="logo_name">English Center Management</span>
         </div>
-        <div class="profile-details">
+        <div class="profile-details" *ngIf="userProfile">
             <img src="https://phatamhay.com/wp-content/uploads/2019/10/portrait-square-05.jpg" alt="">
-            <span class="admin_name">LongKame</span>
+            <span class="admin_name">{{ userProfile.username }}</span>
             <i class="bx bx-chevron-down"></i>
         </div>
     </nav>

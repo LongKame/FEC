@@ -18,11 +18,23 @@ import { ViewTeacherComponent } from './view-teacher/view-teacher.component';
 import { ViewAcaComponent } from './view-aca/view-aca.component';
 import { ViewClassComponent } from './view-class/view-class.component';
 import { ViewTimetableComponent } from './view-timetable/view-timetable.component';
+import { AuthGuard } from './auth/auth.guard';
+import { RoleGuard } from './auth/role.guard';
+import { UserRole } from './_services/auth.service';
 
 
 const routes: Routes = [
   {
-    path: 'home', component: HomeComponent, children: [
+    path: 'academy',
+    loadChildren: () => import('./academy/academy.module').then(m => m.AcademyModule)
+  },
+  {
+    path: 'home', component: HomeComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { 
+      role: UserRole.ROLE_ADMIN,
+    },
+    children: [
       { path: 'teacher', component: TeacherComponent },
       { path: 'student', component: StudentComponent },
       { path: 'aca', component: AcaComponent },
@@ -31,22 +43,37 @@ const routes: Routes = [
     ]
   }, 
   {
-    path: 'aca-admin', component: AcaAdminComponent, children: [
+    path: 'aca-admin', component: AcaAdminComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { 
+      role: UserRole.ROLE_ACADEMIC_ADMIN,
+    },
+    children: [
       { path: 'course', component: CourseComponent },
       { path: 'room', component: RoomComponent },
       { path: 'quiz', component: QuizComponent },
     ]
   }, 
   {
-    path: 'teacher-page', component: TeacherPageComponent, children: [
+    path: 'teacher-page', component: TeacherPageComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { 
+      role: UserRole.ROLE_TEACHER,
+    },
+    children: [
       { path: 'viewstudent', component: ViewStudentComponent },
       { path: 'viewteacher', component: ViewTeacherComponent },
       { path: 'viewaca', component: ViewAcaComponent },
       { path: 'viewclass', component: ViewClassComponent },
       { path: 'timetable', component: ViewTimetableComponent },
     ]
-  }, 
-  { path: 'dashboard', component: DashboardComponent }
+  },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },
+  {
+    path: '',
+    redirectTo: '/academy',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
