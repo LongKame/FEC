@@ -36,6 +36,7 @@ import { ViewTeacherComponent } from './view-teacher/view-teacher.component';
 import { ViewAcaComponent } from './view-aca/view-aca.component';
 import { ViewClassComponent } from './view-class/view-class.component';
 import { ViewTimetableComponent } from './view-timetable/view-timetable.component';
+import { CellCustomClassComponent } from './cell-custom-class/cell-custom-class.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ViewTimetableComponent } from './view-timetable/view-timetable.componen
     ViewAcaComponent,
     ViewClassComponent,
     ViewTimetableComponent,
+    CellCustomClassComponent,
   ],
   imports: [
     FormsModule,

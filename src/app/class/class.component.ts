@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { CellCustomClassComponent } from '../cell-custom-class/cell-custom-class.component';
 import { CourseService } from '../course/course.service';
 import { RoomService } from '../room/room.service';
 import { SlotService } from '../slot/slot.service';
@@ -290,10 +291,10 @@ export class ClassComponent implements OnInit {
         { headerName: 'Capacity', field: 'capacity', cellStyle: this.STYLE_TABLE },
         { headerName: 'Start date', field: 'start_date', cellStyle: this.STYLE_TABLE },
         { headerName: 'End date', field: 'end_date', cellStyle: this.STYLE_TABLE },
-        // {
-        //   headerName: "Action",
-        //   cellRendererFramework: CellCustomAcaComponent,
-        // },
+        {
+          headerName: "Action",
+          cellRendererFramework: CellCustomClassComponent,
+        },
       ];
     }
     index: any;
