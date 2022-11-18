@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { CellCustomTeacherComponent } from 'src/app/cell-custom-teacher/cell-custom-teacher.component';
+import { AuthService } from '../../_services/auth.service';
+import { TokenService } from '../../_services/token.service';
 
 
 export class Teacher {
@@ -44,12 +47,15 @@ export class View {
 export class HomeComponent implements OnInit {
 
   title = 'AdminFE';
+  userProfile?: any;
 
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
       this.onSearch();
     }, 3000)
+
+    this.userProfile = this.tokenService.getUserProfile();
   }
 
   username: any;
@@ -62,9 +68,14 @@ export class HomeComponent implements OnInit {
   public teacher: any;
   public view: any;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private modalService: BsModalService,
-    private toast: ToastrService) {
+    private toast: ToastrService,
+    private tokenService: TokenService,
+    private toastService: ToastrService,
+    private router: Router,
+  ) {
     this.teacher = new Teacher(this.username, this.fullname, this.password, this.email, this.phone, this.address);
     this.view = new View(1,10,"");
   };
@@ -190,4 +201,10 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  onLogout() {
+    this.tokenService.doLogout();
+    this.userProfile = undefined;
+    this.toastService.success('Logout successfully');
+    this.router.navigateByUrl('/');
+  }
 }

@@ -2,7 +2,7 @@ import { NgModule, TemplateRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,9 @@ import { ViewAcaComponent } from './view-aca/view-aca.component';
 import { ViewClassComponent } from './view-class/view-class.component';
 import { ViewTimetableComponent } from './view-timetable/view-timetable.component';
 import { CellCustomClassComponent } from './cell-custom-class/cell-custom-class.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthGuard } from './auth/auth.guard';
+import { RoleGuard } from './auth/role.guard';
 
 @NgModule({
   declarations: [
@@ -86,7 +89,11 @@ import { CellCustomClassComponent } from './cell-custom-class/cell-custom-class.
       preventDuplicates: false,
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard,
+    RoleGuard,
+  ],
   entryComponents:[CellCustomTeacherComponent],
   bootstrap: [AppComponent]
 })
