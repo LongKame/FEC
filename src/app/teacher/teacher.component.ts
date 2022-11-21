@@ -202,9 +202,6 @@ export class TeacherComponent implements OnInit {
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'State', field: 'active',
-        // cellRenderer: function (params: any) {
-        //   return params.data.active === true ? "active" : "deactive";
-        // },
         cellRenderer: (params: any) => {
           return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
