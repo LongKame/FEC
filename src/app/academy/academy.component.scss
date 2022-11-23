@@ -76,10 +76,10 @@
   .contentGalery li {
     background-color: white;
     margin-top: 5px;
-    padding: 20px;
+    padding: 30px;
     display: inline-block;
-    width: 30%;
-    height: 150px;
+    width: 20%;
+    height: 400px;
     border-radius: 7px;
     box-shadow: 5px 5px 5px 5px #722f31;
     margin-left: 2%;
@@ -103,6 +103,16 @@
 
   .btn-group button {
     border-radius: 10%;
+  }
+
+  .footer-btn{
+    margin-top: 200px;
+  }
+
+  .space {
+    width: 10px;
+    height: auto;
+    display: inline-block;
   }
 
   @media only screen and (min-width: 1024px) and (max-width: 1440px) {

@@ -10,6 +10,6 @@ export class RoomService {
   constructor(private http: HttpClient) {}
 
   getRooms() {
-    return this.http.get<Room[]>(`${BASE_URL}/aca/get_room`);
+    return this.http.get<Room[]>(`${BASE_URL}/admin/get_room`);
   }
 }

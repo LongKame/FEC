@@ -10,6 +10,6 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   getCourses() {
-    return this.http.get<Course[]>(`${BASE_URL}/aca/get_course`);
+    return this.http.get<Course[]>(`${BASE_URL}/admin/get_course`);
   }
 }

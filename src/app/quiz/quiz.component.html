@@ -7,11 +7,8 @@
     </div>
 </nav>
 
-<div class="but" style="width: fit-content; margin-left: 70%; margin-top: -5px;">
-    <input type="file" (change)="readExcel($event)">
-    <div class="space">
-    </div>
-    <button type="button" class="btn btn-primary" (click)="saveQuiz()"><i class="fas fa-user-plus"></i>Save</button>
+<div class="but" style="width: fit-content; margin-left: 90%; margin-top: -5px;">
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Save</button>
 </div>
 
 <br><br>
@@ -43,18 +40,25 @@
                 <div class="row">
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Question:</b>
-                        <input type="text" class="form-control">
+                        <br>
+                        <input type="file" (change)="readExcel($event)">
+                    </div>
+                    <div class="col-6">
                         <b for="message-text" class="col-form-label">Level:</b>
-                        <input type="text" class="form-control">
-                        <b for="message-text" class="col-form-label">Number slot:</b>
-                        <input type="text" class="form-control">
+                        <br>
+                        <select [(ngModel)]="levelId" class="browser-default custom-select">
+                            <option value="0" disabled>Open this select menu</option>
+                            <option value="1">Basic</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Advanced</option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-primary" (click)="addCourse()">Add</button> -->
+        <button type="button" class="btn btn-primary" (click)="saveQuiz()">Save</button>
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>

@@ -203,7 +203,8 @@ export class QuizComponent implements OnInit {
     if (this.excelData !== null) {
       for (let i of this.excelData) {
         this.acaId = 2;
-        this.levelId = 1;
+        // this.levelId = 1;
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxx"+this.levelId);
         this.quiz = new Quiz(this.acaId, this.levelId, i.Question, i.AnswerA, i.AnswerB, i.AnswerC, i.AnswerD, i.Correct);
         if(this.quiz!==null){
           this.http.post<any>('http://localhost:8070/api/aca/add_quiz', this.quiz).subscribe(

@@ -52,7 +52,7 @@ export class ViewTeacherComponent implements OnInit {
   indexPage: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/teacher/view_teacher', bodySearch);
   }
 
   onSearch(index: number, btn?: any) {

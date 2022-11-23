@@ -4,13 +4,28 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscriber } from 'rxjs';
 
-export class View {
+export class Classes {
   private id: any;
 
   constructor(id: any) {
     this.id = id;
   }
 }
+
+export class Teacher {
+  private teacher_Id: any;
+  private user_name: any;
+
+  constructor(user_name: any) {
+    this.user_name = user_name;
+  }
+}
+
+export type Option = {
+  value: number | string;
+  label: string;
+};
+
 
 @Component({
   selector: 'app-view-timetable',
@@ -21,8 +36,9 @@ export class ViewTimetableComponent implements OnInit {
 
   ngOnInit(): void {
     this.createTable();
+    this.onLoadClass();
     setTimeout(() => {
-      this.onSearch(this.indexPage);
+      this.selectedValue(this.indexPage);
     }, 3000)
   }
   public teacher: any;
@@ -35,33 +51,44 @@ export class ViewTimetableComponent implements OnInit {
 
   columnDefs: any;
   rowData: any
-  totalResultSearch: any;
-  currentTotalDisplay: any;
-  totalPage: any;
-  PAGE_SIZE: any = 4;
-  currentPage = 1;
+  list_class: any
   defaultColDef: any;
   key: any;
   indexPage: any;
   id: any;
   class_name: any;
-  second_of_week: any = 3;
+  teacher_Id: any;
+  user_name: any;
+  classOptions: Option[] = [];
+  selectedLevel: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
     return this.http.post<any>('http://localhost:8070/api/teacher/get_time_table_class', bodySearch);
   }
 
-  onSearch(index: number, btn?: any) {
-    this.indexPage = index;
-    this.id=13;
-    this.view = new View(this.id);
+  selectedValue(id: number){
+    this.id=id;
+    this.view = new Classes(this.id);
     this.onSearchWarning(this.view).subscribe(
       response => {
         this.rowData = response.time_table;
         console.log("xxxxxxxxxxxxxxxxxxxx"+JSON.stringify(this.rowData));
       }
     );
+  }
 
+  onSearchClass(bodySearch: any): Observable<any> {
+    return this.http.post<any>('http://localhost:8070/api/teacher/get_class_teacher', bodySearch);
+  }
+
+  onLoadClass() {
+    this.user_name="giangne";
+    this.teacher = new Teacher(this.user_name);
+    this.onSearchClass(this.teacher).subscribe(
+      response => {
+        this.classOptions = response.map((item: any)=> ({ value: item.id, label: item.name }));
+      }
+    );
   }
 
   STYLE_TABLE = {

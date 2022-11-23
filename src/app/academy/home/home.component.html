@@ -1,80 +1,199 @@
 <div class="banner">
-  <img
-    src="http://trungtamkhaothi.tnu.edu.vn/wp-content/uploads/2019/05/banner-kha%CC%89o-thi%CC%81-2-5-02.jpg"
-    alt="Girl in a jacket"
-  />
+  <img src="http://trungtamkhaothi.tnu.edu.vn/wp-content/uploads/2019/05/banner-kha%CC%89o-thi%CC%81-2-5-02.jpg"
+    alt="Girl in a jacket" />
 </div>
 
 <div class="container">
   <div class="main">
     <div class="contentGalery">
-      <ul>
+
+      <ul *ngFor="let group of course">
         <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <br /><br />
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <br /><br />
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
-        </li>
-        <li class="span4">
-          <a href="#"
-            ><img
-              class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-          /></a>
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success" (click)="openClassDetail(classes)">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary" (click)="openViewDetail(detail)">Chi tiết</button>
+          </div>
         </li>
       </ul>
+
+      <!-- <ul>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success" (click)="openClassDetail(classes)">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary" (click)="openViewDetail(detail)">Chi tiết</button>
+          </div>
+        </li>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <br /><br />
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <br /><br />
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+        <li class="span4">
+          <a href="#"><img class="listImg"
+              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success">Xem lớp học</button>
+            <div class="space">
+            </div>
+            <button type="button" class="btn btn-primary">Chi tiết</button>
+          </div>
+        </li>
+      </ul> -->
+
+
+
     </div>
   </div>
 </div>
+
+<ng-template #detail>
+  <form ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">View ? course</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Course</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+          formControlName="username">
+      </div>
+      <div class="form-group">
+        <label for="username">Level</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+          formControlName="username">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">Class</label>
+        <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
+          placeholder="Password" formControlName="password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">Description</label>
+        <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
+          placeholder="Password" formControlName="password">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-warning" (click)="modalRef?.hide()">Close</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #classes>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">View class</h4>
+    <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <b for="message-text" class="col-form-label">Class:</b><label> BS01</label>
+        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Long</label>
+        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
+        <br>
+        <button type="button" class="btn btn-danger">Register</button>
+        <br>
+        <b for="message-text" class="col-form-label">Class:</b><label> BS02</label>
+        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Nam</label>
+        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
+        <br>
+        <button type="button" class="btn btn-danger">Register</button>
+        <br>
+        <b for="message-text" class="col-form-label">Class:</b><label> BS03</label>
+        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Lâm</label>
+        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
+        <br>
+        <button type="button" class="btn btn-danger">Register</button>
+        <br>
+        <b for="message-text" class="col-form-label">Class:</b><label> BS04</label>
+        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Lam</label>
+        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
+        <br>
+        <button type="button" class="btn btn-danger">Register</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-primary" (click)="addTeacher()">Add</button> -->
+    <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+  </div>
+</ng-template>

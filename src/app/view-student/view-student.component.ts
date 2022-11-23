@@ -66,7 +66,7 @@ export class ViewStudentComponent implements OnInit {
   index: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/search_student', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/teacher/search_student', bodySearch);
   }
 
   onSearch(index: number, btn?: any) {
@@ -163,8 +163,8 @@ export class ViewStudentComponent implements OnInit {
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'State', field: 'active',
-        cellRenderer: function (params: any) {
-          return params.data.active === true ? "active" : "deactive";
+        cellRenderer: (params: any) => {
+          return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
         cellStyle: this.STYLE_TABLE
       },

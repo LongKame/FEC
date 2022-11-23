@@ -1,11 +1,10 @@
 <p>View timetable</p>
 
-<nav>
-    <div class="search-box">
-        <input type="text" placeholder="Search..." [(ngModel)]="key">
-        <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
-    </div>
-</nav>
+<span style="width: 10%; margin-left: 10%;">Class(es):</span>
+<select class="form-control" formControlName="room_id" required style="width: 10%; margin-left: 10%;"
+    (change)="selectedValue($any($event.target).value)">
+    <option *ngFor="let item of classOptions" [value]="item.value" [value]="item.value">{{ item.label }}</option>
+</select>
 
 <br><br>
 <div class="sales-boxes">

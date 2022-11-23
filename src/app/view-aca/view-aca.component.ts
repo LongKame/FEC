@@ -53,7 +53,7 @@ export class ViewAcaComponent implements OnInit {
   indexPage: any;
 
   onSearchWarning(bodySearch: any): Observable<any>  {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_acad',bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/teacher/view_acad',bodySearch);
   }
 
   onSearch(index: number, btn?: any) {

@@ -67,7 +67,7 @@ export class ViewClassComponent implements OnInit {
     indexPage: any;
 
     onSearchWarning(bodySearch: any): Observable<any>  {
-      return this.http.post<any>('http://localhost:8070/api/admin/get_all_class',bodySearch);
+      return this.http.post<any>('http://localhost:8070/api/teacher/get_all_class',bodySearch);
     }
 
     onSearch(index: number, btn?: any) {
