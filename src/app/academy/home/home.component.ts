@@ -44,9 +44,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.onLoad();
-    }, 3000)
+    this.onLoad();
   }
 
   course: any;
@@ -63,7 +61,6 @@ export class HomeComponent implements OnInit {
     this.http.get<any>('http://localhost:8070/api/common/get_course').subscribe(
       response => {
         this.course = response;
-        console.log("xxxxxxxxxxxxxxxxxxx"+JSON.stringify(this.course));
       }
     );
   }

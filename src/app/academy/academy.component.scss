@@ -48,8 +48,10 @@
     margin-top: 12px;
   }
 
-  .sub-title span {
-    padding: 30px;
+  .sub-title a {
+    text-decoration: none;
+    color: #212529;
+    padding: 0 20px;
   }
 
   .banner img {
@@ -132,8 +134,8 @@
       margin-left: 100px;
     }
 
-    .sub-title span {
-      padding: 30px;
+    .sub-title a {
+      padding: 0 20px;
     }
   }
 
@@ -146,8 +148,8 @@
       margin-left: 100px;
     }
 
-    .sub-title span {
-      padding: 30px;
+    .sub-title a {
+      padding: 0 20px;
     }
   }
 
@@ -156,8 +158,8 @@
       margin-left: 10px;
     }
 
-    .sub-title span {
-      padding: 30px;
+    .sub-title a {
+      padding: 0 20px;
     }
 
     #menuContainer {

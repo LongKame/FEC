@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { CountdownModule } from 'ngx-countdown';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
@@ -10,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { QuizListComponent } from './quiz-list/quiz-list.component';
 
 const routes: Routes = [
   {
@@ -17,6 +20,8 @@ const routes: Routes = [
     component: AcademyComponent,
     children: [
       { path: '', component: HomeComponent },
+      { path: 'quiz', component: QuizListComponent },
+      { path: 'quiz/:level', component: QuizComponent },
     ]
   }
 ];
@@ -28,6 +33,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CountdownModule,
     ModalModule.forRoot(),
     ToastrModule.forRoot({
       easeTime: 50,
@@ -38,7 +44,10 @@ const routes: Routes = [
     AcademyComponent,
     HeaderComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    QuizComponent,
+    QuizListComponent
   ],
 })
 export class AcademyModule {}
