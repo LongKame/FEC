@@ -40,7 +40,8 @@ import { CellCustomClassComponent } from './cell-custom-class/cell-custom-class.
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
-
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,8 @@ import { RoleGuard } from './auth/role.guard';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
+    MatFormFieldModule ,
+    MatInputModule,
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),
     ToastrModule.forRoot({

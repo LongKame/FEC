@@ -1,10 +1,12 @@
 import { Component, OnInit, TemplateRef, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+// import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, UserRole } from '../../_services/auth.service';
 import { TokenService } from '../../_services/token.service';
+import { FormGroup, FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'header',
@@ -15,16 +17,22 @@ export class HeaderComponent implements OnInit {
   form!: FormGroup;
   userProfile?: any;
 
+  
+
   constructor(
+    private http: HttpClient,
     private modalService: BsModalService,
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
     private toastService: ToastrService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private formBuilder: FormBuilder
   ) {}
 
+
+  
   ngOnInit(): void {
     this.form = this.fb.group({
       username: [null, []],
@@ -33,9 +41,18 @@ export class HeaderComponent implements OnInit {
     this.userProfile = this.tokenService.getUserProfile();
   }
 
+  readonly phoneFormControl = new FormControl('', [
+    Validators.required, Validators.pattern(("[6-9]\\d{9}"))
+  ]);
+
   openLoginForm(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
+
+  openRegisForm(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
 
   onLogin() {
     const values = this.form.getRawValue();
@@ -58,6 +75,18 @@ export class HeaderComponent implements OnInit {
       },
       (err) => {
         this.toastService.error('Login failed');
+      }
+    );
+  }
+
+  onRegister() {
+    const values = this.form.getRawValue();
+    this.http.post<any>('http://localhost:8070/api/v1/registration', values).subscribe(
+      (res) => {
+        
+      },
+      (err) => {
+        this.toastService.error('Register failed');
       }
     );
   }

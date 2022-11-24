@@ -1,13 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -15,15 +8,11 @@
           Add
       </button> -->
 
-  <div
-    class="collapse navbar-collapse justify-content-around"
-    id="navbarSupportedContent"
-  >
+  <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <img
-          src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg"
-        />
+          src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" />
       </li>
       <li class="nav-item">
         <button type="button" class="btn btn-light">
@@ -37,31 +26,21 @@
         </button>
       </li>
       <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
         <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
       </form>
     </ul>
     <div class="signin-signup" *ngIf="!userProfile">
       <button type="button" class="btn btn-danger" (click)="openLoginForm(loginForm)">Đăng nhập</button>
-      <!-- <button type="button" class="btn btn-light">Đăng kí</button> -->
+      <div class="space">
+      </div>
+      <button type="button" class="btn btn-light" (click)="openRegisForm(regisForm)">Đăng kí</button>
     </div>
 
     <div class="btn-group" *ngIf="userProfile">
-      <button
-        type="button"
-        class="btn btn-light"
-        data-toggle="dropdown"
-        aria-expanded="false"
-      >
+      <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false">
         <div class="profile_1">
-          <img
-            src="http://www.sheffield.com/wp-content/uploads/2013/06/placeholder.png"
-          />
+          <img src="http://www.sheffield.com/wp-content/uploads/2013/06/placeholder.png" />
         </div>
       </button>
       <div class="dropdown-menu">
@@ -84,24 +63,13 @@
       </div>
     </div>
 
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -111,40 +79,21 @@
                 <div class="col-sm-12">
                   <div class="row">
                     <div class="col-6">
-                      <label for="recipient-name" class="col-form-label"
-                        >Id:</label
-                      >
-                      <input
-                        type="text"
-                        readonly
-                        class="form-control"
-                        id="id"
-                      />
-                      <label for="message-text" class="col-form-label"
-                        >ProductName:</label
-                      >
+                      <label for="recipient-name" class="col-form-label">Id:</label>
+                      <input type="text" readonly class="form-control" id="id" />
+                      <label for="message-text" class="col-form-label">ProductName:</label>
                       <input type="text" class="form-control" id="name" />
-                      <label for="message-text" class="col-form-label"
-                        >Quantity:</label
-                      >
+                      <label for="message-text" class="col-form-label">Quantity:</label>
                       <input type="text" class="form-control" id="quantity" />
-                      <label for="message-text" class="col-form-label"
-                        >Price:</label
-                      >
+                      <label for="message-text" class="col-form-label">Price:</label>
                       <input type="text" class="form-control" id="price" />
                     </div>
                     <div class="col-6">
-                      <label for="message-text" class="col-form-label"
-                        >Original:</label
-                      >
+                      <label for="message-text" class="col-form-label">Original:</label>
                       <input type="text" class="form-control" id="original" />
-                      <label for="message-text" class="col-form-label"
-                        >Brand:</label
-                      >
+                      <label for="message-text" class="col-form-label">Brand:</label>
                       <input type="text" class="form-control" id="brand" />
-                      <label for="message-text" class="col-form-label"
-                        >Category:</label
-                      >
+                      <label for="message-text" class="col-form-label">Category:</label>
                       <input type="text" class="form-control" id="category" />
                     </div>
                   </div>
@@ -153,11 +102,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
               Close
             </button>
             <button type="button" class="btn btn-primary" onclick="Update();">
@@ -170,24 +115,65 @@
   </div>
 </nav>
 
-<ng-template #loginForm>
-  <form [formGroup]="form" (ngSubmit)="onLogin()" ngNativeValidate>
+<ng-template #regisForm>
+  <form [formGroup]="form" (ngSubmit)="onRegister()" ngNativeValidate>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Login</h4>
-      <button
-        class="btn-close"
-        aria-label="Close"
-        (click)="modalRef?.hide()"
-      ></button>
+      <h4 class="modal-title pull-left">Register</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
       <div class="form-group">
         <label for="username">Username</label>
-        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username" formControlName="username">
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+          formControlName="username">
       </div>
       <div class="form-group mt-3">
         <label for="password">Password</label>
-        <input autocomplete="off" required type="password" class="form-control mt-1" id="password" placeholder="Password" formControlName="password">
+        <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
+          placeholder="Password" formControlName="password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="name">Fullname</label>
+        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Fullname"
+          formControlName="fullname">
+      </div>
+      <div class="form-group mt-3">
+        <label for="email">Email</label>
+        <input autocomplete="off" required type="email" class="form-control mt-1" id="password" placeholder="Email"
+          formControlName="email">
+      </div>
+      <div class="form-group mt-3">
+        <label for="phone">Phone</label>
+        <input autocomplete="off" required type="phone" class="form-control mt-1" id="password" placeholder="Phone"
+          formControlName="phone">
+
+      </div>
+      <div class="form-group mt-3">
+        <label for="address">Address</label>
+        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Address"
+          formControlName="address">
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Register</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #loginForm>
+  <form [formGroup]="form" (ngSubmit)="onLogin()" ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Login</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+          formControlName="username">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">Password</label>
+        <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
+          placeholder="Password" formControlName="password">
       </div>
       <button type="submit" class="btn btn-primary mt-3">Login</button>
     </div>

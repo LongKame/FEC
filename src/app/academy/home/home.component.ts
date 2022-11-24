@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
     }, 3000)
   }
 
-  course: Course[] = [];
+  course: any;
 
   openViewDetail(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
