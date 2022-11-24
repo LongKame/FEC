@@ -1,12 +1,7 @@
 <div id="menuContainer">
   <ul class="navbar-nav mr-auto">
     <div class="sub-title">
-      <span>About me</span>
-      <span>Teacher team</span>
-      <span>Learner</span>
-      <span>Courses</span>
-      <span>Teaching lesson</span>
-      <span>Test online</span>
+      <a [routerLink]="menu.link" *ngFor="let menu of menus">{{menu.text}}</a>
     </div>
   </ul>
 </div>
