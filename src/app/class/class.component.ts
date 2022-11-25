@@ -150,10 +150,10 @@ export class ClassComponent implements OnInit {
       const values = this.form.getRawValue();
       const slotOneFrom = new Date(values['start_date']).getDay();
 
-      this.slotOneOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom - 1);
-      this.slotTwoOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom - 1);
+      this.slotOneOptions = this.weekSlotOptions.filter(item => item.value === slotOneFrom - 1);
+      this.form.get('firstOnWeek')?.setValue(slotOneFrom - 1);
 
-      this.form.get('firstOnWeek')?.setValue(null);
+      this.slotTwoOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom - 1);
       this.form.get('secondOnWeek')?.setValue(null);
     }
 
@@ -190,7 +190,9 @@ export class ClassComponent implements OnInit {
 
     onCloseForm() {
       this.form.reset();
-      this.modalRef?.hide()
+      this.modalRef?.hide();
+      this.slotOneOptions = [...this.slotOptions];
+      this.slotTwoOptions = [...this.slotOptions];
     }
 
     onSearchWarning(bodySearch: any): Observable<any>  {
