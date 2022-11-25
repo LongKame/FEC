@@ -116,7 +116,7 @@
 </nav>
 
 <ng-template #regisForm>
-  <form [formGroup]="form" (ngSubmit)="onRegister()" ngNativeValidate>
+  <form [formGroup]="formRegis" (ngSubmit)="onRegister()" ngNativeValidate>
     <div class="modal-header">
       <h4 class="modal-title pull-left">Register</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
@@ -159,7 +159,7 @@
 </ng-template>
 
 <ng-template #loginForm>
-  <form [formGroup]="form" (ngSubmit)="onLogin()" ngNativeValidate>
+  <form [formGroup]="formLogin" (ngSubmit)="onLogin()" ngNativeValidate>
     <div class="modal-header">
       <h4 class="modal-title pull-left">Login</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
@@ -176,6 +176,7 @@
           placeholder="Password" formControlName="password">
       </div>
       <button type="submit" class="btn btn-primary mt-3">Login</button>
+      <a href="">Forgot password</a>
     </div>
   </form>
 </ng-template>

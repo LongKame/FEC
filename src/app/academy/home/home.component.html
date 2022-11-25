@@ -6,117 +6,21 @@
 <div class="container">
   <div class="main">
     <div class="contentGalery">
-
       <ul>
-        <li class="span4" *ngFor="let i of course">
+        <li class="span4" *ngFor="let i of course" style="box-sizing: content-box;">
           <a href="#"><img class="listImg"
               src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
+          {{i.name}}
           <div class="footer-btn">
-            <button type="button" class="btn btn-success" (click)="openClassDetail(classes)">Xem lớp học</button>
+            <button type="button" class="btn btn-success" (click)="openClassDetail(classes, i.id)">Xem lớp học</button>
             <div class="space">
             </div>
-            <button type="button" class="btn btn-primary" (click)="openViewDetail(detail)">Chi tiết</button>
+            <button type="button" class="btn btn-primary" (click)="openViewDetail(detail, i.id)">Chi tiết</button>
           </div>
         </li>
       </ul>
-
-      <!-- <ul>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success" (click)="openClassDetail(classes)">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary" (click)="openViewDetail(detail)">Chi tiết</button>
-          </div>
-        </li>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <br /><br />
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <br /><br />
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-        <li class="span4">
-          <a href="#"><img class="listImg"
-              src="https://e4life.vn/wp-content/uploads/2021/05/nen-hoc-toeic-hay-tieng-anh-giao-tiep-4life-english.jpg" /></a>
-          <div class="footer-btn">
-            <button type="button" class="btn btn-success">Xem lớp học</button>
-            <div class="space">
-            </div>
-            <button type="button" class="btn btn-primary">Chi tiết</button>
-          </div>
-        </li>
-      </ul> -->
-
-
-
+      <div class="space">
+      </div>
     </div>
   </div>
 </div>
@@ -124,7 +28,7 @@
 <ng-template #detail>
   <form ngNativeValidate>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">View ? course</h4>
+      <h4 class="modal-title pull-left">View course</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
@@ -155,7 +59,6 @@
   </form>
 </ng-template>
 
-
 <ng-template #classes>
   <div class="modal-header">
     <h4 class="modal-title pull-left">View class</h4>
@@ -165,35 +68,15 @@
   </div>
   <div class="modal-body">
     <div class="row">
-      <div class="col-sm-12">
-        <b for="message-text" class="col-form-label">Class:</b><label> BS01</label>
-        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Long</label>
-        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
+      <div class="col-sm-12" *ngFor="let i of rowClass">
+        <b for="message-text" class="col-form-label">Class: </b><label>{{i.class_name}}</label>
+        <b for="message-text" class="col-form-label"> Teacher: </b><label> {{i.full_name}}</label>
         <br>
-        <button type="button" class="btn btn-danger">Register</button>
-        <br>
-        <b for="message-text" class="col-form-label">Class:</b><label> BS02</label>
-        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Nam</label>
-        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
-        <br>
-        <button type="button" class="btn btn-danger">Register</button>
-        <br>
-        <b for="message-text" class="col-form-label">Class:</b><label> BS03</label>
-        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Lâm</label>
-        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
-        <br>
-        <button type="button" class="btn btn-danger">Register</button>
-        <br>
-        <b for="message-text" class="col-form-label">Class:</b><label> BS04</label>
-        <b for="message-text" class="col-form-label"> Teacher:</b><label> Nguyễn Văn Lam</label>
-        <b for="message-text" class="col-form-label"> Time:</b><label> 19:00:00 -> 21:00:00</label>
-        <br>
-        <button type="button" class="btn btn-danger">Register</button>
+        <button type="button" class="btn btn-danger" (click)="register(i.class_id)">Register</button>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-primary" (click)="addTeacher()">Add</button> -->
     <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
   </div>
 </ng-template>

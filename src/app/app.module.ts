@@ -42,6 +42,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +87,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),
+    CommonModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-left',

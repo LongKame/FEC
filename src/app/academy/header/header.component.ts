@@ -14,7 +14,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HeaderComponent implements OnInit {
   modalRef?: BsModalRef;
-  form!: FormGroup;
+  formLogin!: FormGroup;
+  formRegis!: FormGroup;
   userProfile?: any;
 
   
@@ -34,9 +35,17 @@ export class HeaderComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.formLogin = this.fb.group({
       username: [null, []],
       password: [null, []],
+    });
+    this.formRegis = this.fb.group({
+      username: [null, []],
+      password: [null, []],
+      fullname: [null, []],
+      email: [null, []],
+      phone: [null, []],
+      address: [null, []],
     });
     this.userProfile = this.tokenService.getUserProfile();
   }
@@ -55,7 +64,7 @@ export class HeaderComponent implements OnInit {
 
 
   onLogin() {
-    const values = this.form.getRawValue();
+    const values = this.formLogin.getRawValue();
     this.authService.login(values).subscribe(
       (res) => {
         const accessToken = res.access_token;
@@ -66,7 +75,7 @@ export class HeaderComponent implements OnInit {
         this.userProfile = JSON.parse(decodeToken.sub);
         this.tokenService.saveUserProfile(this.userProfile);
 
-        this.form.reset();
+        this.formLogin.reset();
         this.modalRef?.hide();
         this.toastService.success('Login successfully');
         this.ngZone.run(() => {
@@ -80,10 +89,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onRegister() {
-    const values = this.form.getRawValue();
+    const values = this.formRegis.getRawValue();
+    console.log("aaaaaaaaaaaaaaaaa"+JSON.stringify(values));
     this.http.post<any>('http://localhost:8070/api/v1/registration', values).subscribe(
       (res) => {
-        
+        this.toastService.error('Send verification to your email');
       },
       (err) => {
         this.toastService.error('Register failed');
