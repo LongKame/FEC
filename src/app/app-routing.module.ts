@@ -20,6 +20,7 @@ import { ViewTimetableComponent } from './view-timetable/view-timetable.componen
 import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
 import { UserRole } from './_services/auth.service';
+import { TimeTableComponent } from './time-table/time-table.component';
 
 
 const routes: Routes = [
@@ -65,6 +66,7 @@ const routes: Routes = [
       { path: 'viewaca', component: ViewAcaComponent },
       { path: 'viewclass', component: ViewClassComponent },
       { path: 'timetable', component: ViewTimetableComponent },
+      { path: 'time_table', component: TimeTableComponent },
     ]
   },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },

@@ -43,6 +43,9 @@ import { RoleGuard } from './auth/role.guard';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { TimeTableComponent } from './time-table/time-table.component';
+import { MatSelectModule} from '@angular/material/select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +77,7 @@ import { CommonModule } from '@angular/common';
     ViewClassComponent,
     ViewTimetableComponent,
     CellCustomClassComponent,
+    TimeTableComponent,
   ],
   imports: [
     FormsModule,
@@ -84,6 +88,7 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     NgxPaginationModule,
     MatFormFieldModule ,
+    MatSelectModule,
     MatInputModule,
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),

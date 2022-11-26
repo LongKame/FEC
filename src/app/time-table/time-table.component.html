@@ -1,0 +1,169 @@
+<p>View timetable</p>
+
+{{weekData | json}}
+
+
+<div class="include">
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>WEEK
+                    <select name="cars" id="cars">
+                        <li *ngFor="let i of weekData|keyvalue">
+                            <option value="i.key"> {{i.key}} --> {{i.value}}</option>
+                            <!-- <option value="2"> 9-1 To 15-1</option>
+                            <option value="3"> 16-1 To 22-1</option>
+                            <option value="4"> 23-1 To 29-1</option> -->
+                        </li>
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>MON</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>TUE</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>WED</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>THU</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>FRI</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>SAT</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+    <div class="floatLeft">
+        <table>
+            <tr>
+                <th>SUN</th>
+            </tr>
+            <tr>
+                <td>Slot 1</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+            </tr>
+        </table>
+    </div>
+</div>
