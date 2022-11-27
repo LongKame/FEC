@@ -121,8 +121,19 @@ table {
 
   td{
     height: 70px;
+    margin-left: 60px;
   }
 
   table{
     width: 250px;
+  }
+
+  .class-name{
+    color: green;
+    font-weight: bold;
+  }
+
+  span{
+    font-weight: 20;
+    color: red;
   }

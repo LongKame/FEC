@@ -45,7 +45,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { TimeTableComponent } from './time-table/time-table.component';
 import { MatSelectModule} from '@angular/material/select';
-
+import { DatePipe } from '@angular/common'
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,6 +103,7 @@ import { MatSelectModule} from '@angular/material/select';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AuthGuard,
     RoleGuard,
+    DatePipe
   ],
   entryComponents:[CellCustomTeacherComponent],
   bootstrap: [AppComponent]

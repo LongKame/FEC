@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { DatePipe, JsonPipe } from '@angular/common'
 
 export class TimeTable {
   private user_name: any;
@@ -12,6 +13,11 @@ export class TimeTable {
     this.user_name = user_name;
     this.date_study = date_study;
   }
+}
+
+export interface Week {
+  start_date: any;
+  end_date: any;
 }
 
 @Component({
@@ -25,16 +31,18 @@ export class TimeTableComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private modalService: BsModalService,
-    private toast: ToastrService) { 
-    }
+    public datepipe: DatePipe,
+    private toast: ToastrService) {
+  }
 
-    ngOnInit(): void {
-      setTimeout(() => {
-        this.onSearch();
-      }, 3000)
-    }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.getCurrentWeek();
+      this.onSearch();
+    }, 3000)
+  }
 
-  onSearchWarning(): Observable<any>  {
+  onSearchWarning(): Observable<any> {
     return this.http.get<any>('http://localhost:8070/api/common/get_every_week');
   }
 
@@ -45,18 +53,258 @@ export class TimeTableComponent implements OnInit {
     this.onSearchWarning().subscribe(
       response => {
         this.weekData = response;
-        console.log("xxxxxxxxxxxxxx"+JSON.stringify(this.weekData));
       }
     )
   }
 
-  getDataForDays() {
-    this.timeTable = new TimeTable("","");
-    this.http.post<any>('http://localhost:8070/api/common/get_timt_table',this.timeTable).subscribe(
+
+  firstDayOfWeek: any;
+  lastDayOfWeek: any;
+
+  getCurrentWeek() {
+    const today = new Date();
+    const dateNow = new Date(today);
+    const day = dateNow.getDay();
+    const diff = dateNow.getDate() - day + (day === 0 ? -6 : 1);
+    const firstDay = new Date(dateNow.setDate(diff));
+    const lastDay = new Date(firstDay);
+    lastDay.setDate(lastDay.getDate() + 6);
+    this.firstDayOfWeek = this.formatDate(firstDay);
+    this.lastDayOfWeek = this.formatDate(lastDay);
+    console.log(this.firstDayOfWeek + "  " + this.lastDayOfWeek);
+
+    if (this.mon === null || this.mon === undefined) {
+      const x = this.firstDayOfWeek[3] + this.firstDayOfWeek[4] + "/" + this.firstDayOfWeek[0] + this.firstDayOfWeek[1] + "/2022";
+      var date = new Date(x.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
+      const dateOfWeek = [];
+      for (let i = 0; i < 7; i++) {
+        if (i == 0) {
+          date.setDate(date.getDate());
+          var newdate = "";
+          if ((date.getDate()).toString().length == 1) {
+            newdate += '0' + (date.getDate()).toString() + '-';
+          } else if ((date.getDate()).toString().length == 2) {
+            newdate += (date.getDate()).toString() + '-';
+          }
+          if ((date.getMonth() + 1).toString().length == 1) {
+            newdate += '0' + (date.getMonth() + 1).toString() + '-';
+          } else if ((date.getMonth() + 1).toString().length == 2) {
+            newdate += (date.getMonth() + 1).toString() + '-';
+          }
+          newdate += date.getFullYear();
+          dateOfWeek[i] = newdate.toString();
+        } else {
+          date.setDate(date.getDate() + 1);
+          var newdate = "";
+          if ((date.getDate()).toString().length == 1) {
+            newdate += '0' + (date.getDate()).toString() + '-';
+          } else if ((date.getDate()).toString().length == 2) {
+            newdate += (date.getDate()).toString() + '-';
+          }
+          if ((date.getMonth() + 1).toString().length == 1) {
+            newdate += '0' + (date.getMonth() + 1).toString() + '-';
+          } else if ((date.getMonth() + 1).toString().length == 2) {
+            newdate += (date.getMonth() + 1).toString() + '-';
+          }
+          newdate += date.getFullYear();
+          dateOfWeek[i] = newdate.toString()
+        }
+      }
+      this.mon = dateOfWeek[0];
+      this.tue = dateOfWeek[1];
+      this.wed = dateOfWeek[2];
+      this.thu = dateOfWeek[3];
+      this.fri = dateOfWeek[4];
+      this.sat = dateOfWeek[5];
+      this.sun = dateOfWeek[6];
+
+      console.log("ooooooooooo" + this.mon);
+
+      this.getDataForDay1(this.mon);
+      this.getDataForDay2(this.tue);
+      this.getDataForDay3(this.wed);
+      this.getDataForDay4(this.thu);
+      this.getDataForDay5(this.fri);
+      this.getDataForDay6(this.sat);
+      this.getDataForDay7(this.sun);
+    }
+  }
+
+  formatFullDate(date: Date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+    return [day, month, year].join('-');
+  }
+
+  formatDate(date: any) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+    return [day, month].join('-');
+  }
+
+  getDataForDay1(date: any) {
+    console.log("oooooooooootutx" + date);
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
       response => {
-        
+        this.mon2 = response;
+        console.log("wtf"+response);
       }
     )
   }
+
+  getDataForDay2(date: any) {
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+      response => {
+        this.tue2 = response;
+      }
+    )
+  }
+
+  getDataForDay3(date: any) {
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+      response => {
+        this.wed2 = response;
+      }
+    )
+  }
+
+  getDataForDay4(date: any) {
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+      response => {
+        this.thu2 = response;
+      }
+    )
+  }
+
+  getDataForDay5(date: any) {
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+      response => {
+        this.fri2 = response;
+      }
+    )
+  }
+
+  getDataForDay6(date: any) {
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+      response => {
+        this.sat2 = response;
+      }
+    )
+  }
+
+  getDataForDay7(date: any) {
+    this.timeTable = new TimeTable("tutex", date);
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+      response => {
+        this.sun2 = response;
+      }
+    )
+  }
+
+  mon: any;
+  tue: any;
+  wed: any;
+  thu: any;
+  fri: any;
+  sat: any;
+  sun: any;
+
+  mon1: any;
+  tue1: any;
+  wed1: any;
+  thu1: any;
+  fri1: any;
+  sat1: any;
+  sun1: any;
+
+  mon2: any;
+  tue2: any;
+  wed2: any;
+  thu2: any;
+  fri2: any;
+  sat2: any;
+  sun2: any;
+
+  selectedValue(data: any) {
+    const x = data[3] + data[4] + "/" + data[0] + data[1] + "/2022";
+    var date = new Date(x.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
+    const dateOfWeek = [];
+    for (let i = 0; i < 7; i++) {
+      if (i == 0) {
+        date.setDate(date.getDate());
+        var newdate = "";
+        if ((date.getDate()).toString().length == 1) {
+          newdate += '0' + (date.getDate()).toString() + '-';
+        } else if ((date.getDate()).toString().length == 2) {
+          newdate += (date.getDate()).toString() + '-';
+        }
+        if ((date.getMonth() + 1).toString().length == 1) {
+          newdate += '0' + (date.getMonth() + 1).toString() + '-';
+        } else if ((date.getMonth() + 1).toString().length == 2) {
+          newdate += (date.getMonth() + 1).toString() + '-';
+        }
+        newdate += date.getFullYear();
+        dateOfWeek[i] = newdate.toString();
+      } else {
+        date.setDate(date.getDate() + 1);
+        var newdate = "";
+        if ((date.getDate()).toString().length == 1) {
+          newdate += '0' + (date.getDate()).toString() + '-';
+        } else if ((date.getDate()).toString().length == 2) {
+          newdate += (date.getDate()).toString() + '-';
+        }
+        if ((date.getMonth() + 1).toString().length == 1) {
+          newdate += '0' + (date.getMonth() + 1).toString() + '-';
+        } else if ((date.getMonth() + 1).toString().length == 2) {
+          newdate += (date.getMonth() + 1).toString() + '-';
+        }
+        newdate += date.getFullYear();
+        dateOfWeek[i] = newdate.toString()
+      }
+    }
+
+    this.mon = dateOfWeek[0];
+    this.tue = dateOfWeek[1];
+    this.wed = dateOfWeek[2];
+    this.thu = dateOfWeek[3];
+    this.fri = dateOfWeek[4];
+    this.sat = dateOfWeek[5];
+    this.sun = dateOfWeek[6];
+
+    this.mon1 = dateOfWeek[0][6] + dateOfWeek[0][7] + dateOfWeek[0][8] + dateOfWeek[0][9] + dateOfWeek[0][5] + dateOfWeek[0][3] + dateOfWeek[0][4] + dateOfWeek[0][2] + dateOfWeek[0][0] + dateOfWeek[0][1];
+    this.tue1 = dateOfWeek[1][6] + dateOfWeek[1][7] + dateOfWeek[1][8] + dateOfWeek[1][9] + dateOfWeek[1][5] + dateOfWeek[1][3] + dateOfWeek[1][4] + dateOfWeek[1][2] + dateOfWeek[1][0] + dateOfWeek[1][1];;
+    this.wed1 = dateOfWeek[2][6] + dateOfWeek[2][7] + dateOfWeek[2][8] + dateOfWeek[2][9] + dateOfWeek[2][5] + dateOfWeek[2][3] + dateOfWeek[2][4] + dateOfWeek[2][2] + dateOfWeek[2][0] + dateOfWeek[2][1];
+    this.thu1 = dateOfWeek[3][6] + dateOfWeek[3][7] + dateOfWeek[3][8] + dateOfWeek[3][9] + dateOfWeek[3][5] + dateOfWeek[3][3] + dateOfWeek[3][4] + dateOfWeek[3][2] + dateOfWeek[3][0] + dateOfWeek[3][1];
+    this.fri1 = dateOfWeek[4][6] + dateOfWeek[4][7] + dateOfWeek[4][8] + dateOfWeek[4][9] + dateOfWeek[4][5] + dateOfWeek[4][3] + dateOfWeek[4][4] + dateOfWeek[4][2] + dateOfWeek[4][0] + dateOfWeek[4][1];
+    this.sat1 = dateOfWeek[5][6] + dateOfWeek[5][7] + dateOfWeek[5][8] + dateOfWeek[5][9] + dateOfWeek[5][5] + dateOfWeek[5][3] + dateOfWeek[5][4] + dateOfWeek[5][2] + dateOfWeek[5][0] + dateOfWeek[5][1];
+    this.sun1 = dateOfWeek[6][6] + dateOfWeek[6][7] + dateOfWeek[6][8] + dateOfWeek[6][9] + dateOfWeek[6][5] + dateOfWeek[6][3] + dateOfWeek[6][4] + dateOfWeek[6][2] + dateOfWeek[6][0] + dateOfWeek[6][1];
+
+    this.getDataForDay1(this.mon1);
+    this.getDataForDay2(this.tue1);
+    this.getDataForDay3(this.wed1);
+    this.getDataForDay4(this.thu1);
+    this.getDataForDay5(this.fri1);
+    this.getDataForDay6(this.sat1);
+    this.getDataForDay7(this.sun1);
+  }
+
 
 }
