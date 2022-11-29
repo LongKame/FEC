@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { DatePipe, JsonPipe } from '@angular/common'
+import { DatePipe } from '@angular/common'
 
 export class TimeTable {
   private user_name: any;
@@ -118,15 +118,21 @@ export class TimeTableComponent implements OnInit {
       this.sat = dateOfWeek[5];
       this.sun = dateOfWeek[6];
 
-      console.log("ooooooooooo" + this.mon);
+      this.mon1 = dateOfWeek[0][6] + dateOfWeek[0][7] + dateOfWeek[0][8] + dateOfWeek[0][9] + dateOfWeek[0][5] + dateOfWeek[0][3] + dateOfWeek[0][4] + dateOfWeek[0][2] + dateOfWeek[0][0] + dateOfWeek[0][1];
+      this.tue1 = dateOfWeek[1][6] + dateOfWeek[1][7] + dateOfWeek[1][8] + dateOfWeek[1][9] + dateOfWeek[1][5] + dateOfWeek[1][3] + dateOfWeek[1][4] + dateOfWeek[1][2] + dateOfWeek[1][0] + dateOfWeek[1][1];;
+      this.wed1 = dateOfWeek[2][6] + dateOfWeek[2][7] + dateOfWeek[2][8] + dateOfWeek[2][9] + dateOfWeek[2][5] + dateOfWeek[2][3] + dateOfWeek[2][4] + dateOfWeek[2][2] + dateOfWeek[2][0] + dateOfWeek[2][1];
+      this.thu1 = dateOfWeek[3][6] + dateOfWeek[3][7] + dateOfWeek[3][8] + dateOfWeek[3][9] + dateOfWeek[3][5] + dateOfWeek[3][3] + dateOfWeek[3][4] + dateOfWeek[3][2] + dateOfWeek[3][0] + dateOfWeek[3][1];
+      this.fri1 = dateOfWeek[4][6] + dateOfWeek[4][7] + dateOfWeek[4][8] + dateOfWeek[4][9] + dateOfWeek[4][5] + dateOfWeek[4][3] + dateOfWeek[4][4] + dateOfWeek[4][2] + dateOfWeek[4][0] + dateOfWeek[4][1];
+      this.sat1 = dateOfWeek[5][6] + dateOfWeek[5][7] + dateOfWeek[5][8] + dateOfWeek[5][9] + dateOfWeek[5][5] + dateOfWeek[5][3] + dateOfWeek[5][4] + dateOfWeek[5][2] + dateOfWeek[5][0] + dateOfWeek[5][1];
+      this.sun1 = dateOfWeek[6][6] + dateOfWeek[6][7] + dateOfWeek[6][8] + dateOfWeek[6][9] + dateOfWeek[6][5] + dateOfWeek[6][3] + dateOfWeek[6][4] + dateOfWeek[6][2] + dateOfWeek[6][0] + dateOfWeek[6][1];
 
-      this.getDataForDay1(this.mon);
-      this.getDataForDay2(this.tue);
-      this.getDataForDay3(this.wed);
-      this.getDataForDay4(this.thu);
-      this.getDataForDay5(this.fri);
-      this.getDataForDay6(this.sat);
-      this.getDataForDay7(this.sun);
+      this.getDataForDay1(this.mon1);
+      this.getDataForDay2(this.tue1);
+      this.getDataForDay3(this.wed1);
+      this.getDataForDay4(this.thu1);
+      this.getDataForDay5(this.fri1);
+      this.getDataForDay6(this.sat1);
+      this.getDataForDay7(this.sun1);
     }
   }
 
@@ -155,12 +161,11 @@ export class TimeTableComponent implements OnInit {
   }
 
   getDataForDay1(date: any) {
-    console.log("oooooooooootutx" + date);
     this.timeTable = new TimeTable("tutex", date);
     this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
       response => {
         this.mon2 = response;
-        console.log("wtf"+response);
+        console.log("wtf" + response);
       }
     )
   }

@@ -95,8 +95,9 @@ export class HomeComponent implements OnInit {
     console.log(this.course);
     this.onSearchWarning(this.course).subscribe(
       response => {
-        console.log("xxxxxxx"+JSON.stringify(response));
+        console.log("xyxyxyxyx"+JSON.stringify(response));
         this.detail = response;
+        console.log(JSON.stringify(response));
       }
     );
     this.modalRef = this.modalService.show(template);

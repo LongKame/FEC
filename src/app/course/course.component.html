@@ -42,8 +42,13 @@
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Course name:</b>
                         <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Level:</b>
-                        <input type="text"  class="form-control">
+                       <b  for="message-text" class="col-form-label">Level:</b>
+                       <select [(ngModel)]="levelId" class="browser-default custom-select">
+                        <option value="0" disabled>Open this select menu</option>
+                        <option value="1">Basic</option>
+                        <option value="2">Intermediate</option>
+                        <option value="3">Advanced</option>
+                    </select>
                         <b for="message-text" class="col-form-label">Number slot:</b>
                         <input type="text"  class="form-control">
                     </div>

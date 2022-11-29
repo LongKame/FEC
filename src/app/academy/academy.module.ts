@@ -13,6 +13,9 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
+import { TeacheTeamComponent } from './teache-team/teache-team.component';
+import { StudentFeebackComponent } from './student-feeback/student-feeback.component';
+import { ClassScheduleComponent } from './class-schedule/class-schedule.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,9 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'quiz', component: QuizListComponent },
       { path: 'quiz/:level', component: QuizComponent },
+      { path: 'teache-team', component: TeacheTeamComponent },
+      { path: 'student-feedback', component: StudentFeebackComponent },
+      { path: 'class-schedule', component: ClassScheduleComponent },
     ]
   }
 ];
@@ -47,7 +53,10 @@ const routes: Routes = [
     FooterComponent,
     HomeComponent,
     QuizComponent,
-    QuizListComponent
+    QuizListComponent,
+    TeacheTeamComponent,
+    StudentFeebackComponent,
+    ClassScheduleComponent
   ],
 })
 export class AcademyModule {}

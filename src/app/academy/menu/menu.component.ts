@@ -6,11 +6,10 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
   menus = [
-    { text: 'About Us', link: '/'},
-    { text: 'Teacher Team', link: '/'},
-    { text: 'Course', link: '/'},
-    { text: 'Class Schedule', link: '/'},
-    { text: 'Register Class',  link: '/'},
+    { text: 'Home', link: '/'},
+    { text: 'Teacher Team', link: '/academy/teache-team'},
+    { text: 'Student', link: '/academy/student-feedback'},
+    { text: 'Class Schedule', link: '/academy/class-schedule'},
     { text: 'Timetable', link: '/'},
     { text: 'Quiz', link: '/academy/quiz'},
   ];

@@ -175,8 +175,6 @@ export class ClassComponent implements OnInit {
         course_id: +values.course_id
       };
 
-console.log("xxxxxxxxxxxxxxxxxxxxx"+JSON.stringify(payload));
-
       this.classService.addClass(payload).subscribe((res: any) => {
         if (!res.state) {
           this.toastService.error(res.message);

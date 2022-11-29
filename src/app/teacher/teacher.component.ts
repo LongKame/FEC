@@ -212,7 +212,7 @@ export class TeacherComponent implements OnInit {
   }
 
   addTeacher() {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
+    this.teacher = new Teacher(this.user_name, this.full_name, this.myImage, this.password, this.email, this.phone, this.address);
     this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
       response => {
         if (response.state === true) {

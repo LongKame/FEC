@@ -45,7 +45,8 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { TimeTableComponent } from './time-table/time-table.component';
 import { MatSelectModule} from '@angular/material/select';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import { CellCustomCurriculumComponent } from './cell-custom-curriculum/cell-custom-curriculum.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +79,7 @@ import { DatePipe } from '@angular/common'
     ViewTimetableComponent,
     CellCustomClassComponent,
     TimeTableComponent,
+    CellCustomCurriculumComponent,
   ],
   imports: [
     FormsModule,

@@ -21,6 +21,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
 import { UserRole } from './_services/auth.service';
 import { TimeTableComponent } from './time-table/time-table.component';
+import { CurriculumComponent } from './curriculum/curriculum.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: 'course', component: CourseComponent },
       { path: 'room', component: RoomComponent },
       { path: 'quiz', component: QuizComponent },
+      { path: 'curriculum', component: CurriculumComponent },
     ]
   }, 
   {
