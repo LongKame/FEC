@@ -7,14 +7,14 @@
 
 <ng-template #delete>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Delete teacher</h4>
+        <h4 class="modal-title pull-left">Delete student</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
     </div>
 
     <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-danger" (click)="deleteTeacher()">Delete</button> -->
+        <button type="button" class="btn btn-danger" (click)="deleteStudent()">Delete</button>
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>
@@ -64,7 +64,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-success" (click)="updateTeacher()">Update</button> -->
         <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
     </div>
 </ng-template>

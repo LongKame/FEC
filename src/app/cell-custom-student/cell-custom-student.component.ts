@@ -7,35 +7,15 @@ import { ToastrService } from 'ngx-toastr';
 import { HomeComponent } from '../pages/home/home.component';
 import { StudentComponent } from '../student/student.component';
 
-
 export class Student {
   private student_Id: any;
   private user_Id: any;
   private role_Id: any;
-  private class_Id: any;
-  private class_name: any;
-  private user_name: any;
-  private full_name: any;
-  private email: any;
-  private phone: any;
-  private address: any;
-  private active: any;
-  private from_date: any;
-  private courses: any;
-  private classes: any;
 
-  constructor(student_Id: any, user_Id: any, role_Id: any,class_Id: any, class_name: any,user_name: any,full_name: any,email: any,phone: any,address: any,active: any) {
+  constructor(student_Id: any, user_Id: any, role_Id: any) {
     this.student_Id = student_Id;
     this.user_Id = user_Id;
     this.role_Id = role_Id;
-    this.class_Id = class_Id;
-    this.class_name = class_name;
-    this.user_name = user_name;
-    this.full_name = full_name;
-    this.email = email;
-    this.phone = phone;
-    this.address = address;
-    this.active = user_name;
   }
 }
 
@@ -57,12 +37,12 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
     private toast: ToastrService
   ) { }
 
-  closeResult: string = "";
   data: any;
   params: any;
   user: any;
   courses: any;
   classes: any;
+  stu: any;
 
   agInit(params: any): void {
     this.data = params;
@@ -81,5 +61,22 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
+  }
+
+  deleteStudent() {
+    this.stu = new Student(null,this.params.data.user_Id,null);
+    this.http.put<any>('http://localhost:8070/api/admin/delete_student', this.stu).subscribe(
+      response => {
+        if (response.state === true) {
+          this.student.onSearch(this.stu.indexPage);
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    )
   }
 }

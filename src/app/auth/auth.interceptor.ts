@@ -17,14 +17,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private tokenService: TokenService,
     private toastService: ToastrService,
-  ) {}
+  ) { }
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<Object>> {
     const token = this.tokenService.getAccessToken();
-    
+
     if (token) {
       req = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + token),

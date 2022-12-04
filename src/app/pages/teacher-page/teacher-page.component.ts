@@ -1,7 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../../_services/token.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subscriber } from 'rxjs';
+
+export class Teacher {
+  private user_Id: any;
+  private user_name: any;
+  private full_name: any;
+  private imageUrl: any;
+  private email: any;
+  private phone: any;
+  private address: any;
+
+  constructor(user_Id: any, user_name: any, full_name: any, imageUrl: any, email: any, phone: any, address: any) {
+    this.user_Id = user_Id;
+    this.user_name = user_name;
+    this.full_name = full_name;
+    this.imageUrl = imageUrl;
+    this.email = email;
+    this.phone = phone;
+    this.address = address;
+  }
+}
+
+export class User {
+  private user_name: any;
+
+  constructor(user_name: any) {
+    this.user_name = user_name;
+  }
+}
 
 @Component({
   selector: 'app-teacher-page',
@@ -13,18 +44,129 @@ export class TeacherPageComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private toastService: ToastrService,
+    private toast: ToastrService,
+    private modalService: BsModalService,
     private router: Router,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
     this.userProfile = this.tokenService.getUserProfile();
+    setTimeout(() => {
+      this.onLoad();
+    }, 3000)
   }
+
+  modalRef: BsModalRef | undefined;
 
   onLogout() {
     this.tokenService.doLogout();
     this.userProfile = undefined;
-    this.toastService.success('Logout successfully');
+    this.toast.success('Logout successfully');
     this.router.navigateByUrl('/');
   }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+  
+  myImage!: Observable<any>;
+  teacher: any;
+  user: any;
+  user_Id: any;
+  user_name: any;
+  full_name: any;
+  imageUrl: any;
+  email: any;
+  phone: any;
+  address: any;
+  profile: any;
+  user_id_param: any;
+  user_name_param: any;
+  full_name_param: any;
+  imageUrl_param: any;
+  email_param: any;
+  phone_param: any;
+  address_param: any;
+  base64code!: any;
+  currentImage: any;
+
+  onLoad() {
+    if (this.tokenService.getUserProfile()?.username != null) {
+      this.user = new User(this.tokenService.getUserProfile()?.username);
+      this.http.post<any>('http://localhost:8070/api/teacher/get_profile_teacher', this.user).subscribe(
+        response => {
+          this.profile = response;
+          this.user_id_param = response.user_Id;
+          this.user_name_param = response.user_name;
+          this.full_name_param = response.full_name;
+          this.imageUrl_param = response.imageUrl;
+          this.email_param = response.email;
+          this.phone_param = response.phone;
+          this.address_param = response.address;
+        }
+      )
+    }
+  }
+
+  phone_param1: any;
+
+  updateProfile() {
+    if (this.myImage == null || this.myImage == undefined) {
+      this.teacher = new Teacher(this.user_id_param, this.user_name_param, this.full_name_param, this.imageUrl_param, this.email_param, this.phone_param, this.address_param);
+    } else {
+      this.teacher = new Teacher(this.user_id_param, this.user_name_param, this.full_name_param, this.myImage, this.email_param, this.phone_param, this.address_param);
+    }
+
+    console.log("xxxxxxxxxxxx"+this.phone_param1);
+
+
+    // this.http.put<any>('http://localhost:8070/api/teacher/edit_profile_teacher',this.teacher).subscribe(
+    //   response => {
+    //     if (response.state === true) {
+    //       this.toast.success("Successfully");
+    //       this.modalRef?.hide();
+    //     }
+    //     else {
+    //       this.toast.error(response.message);
+    //       this.modalRef?.hide();
+    //     }
+    //   }
+    // )
+  }
+
+  onChange($event: Event) {
+    const target = $event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    console.log(file);
+    this.convertToBase64(file);
+  }
+
+  convertToBase64(file: File) {
+    const observable = new Observable((subsciber: Subscriber<any>) => {
+      this.readFile(file, subsciber)
+    })
+    observable.subscribe((d) => {
+      console.log(d);
+      this.myImage = d;
+      this.base64code = d;
+    })
+  }
+
+  readFile(file: File, subsciber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subsciber.next(filereader.result);
+      subsciber.complete();
+    }
+    filereader.onerror = () => {
+      subsciber.error();
+      subsciber.complete();
+    }
+  }
+
 }

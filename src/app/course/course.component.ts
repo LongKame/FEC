@@ -11,13 +11,15 @@ export class Course {
   private createdAt: any;
   private updatedAt: any;
   private numberSlot: any;
+  private fee: any;
 
-  constructor(name: any, levelId: any, createdAt: any, updatedAt: any, numberSlot: any) {
+  constructor(name: any, levelId: any, createdAt: any, updatedAt: any, numberSlot: any, fee: any) {
     this.name = name;
     this.levelId = levelId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.numberSlot = numberSlot;
+    this.fee = fee;
   }
 }
 
@@ -43,7 +45,7 @@ export class CourseComponent implements OnInit {
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-    this.course = new Course(this.name, this.levelId, this.createdAt, this.updatedAt, this.numberSlot);
+    this.course = new Course(this.course_name, this.levelId, this.createdAt, this.updatedAt, this.number_slot, this.fee);
     this.view = new View(1, this.PAGE_SIZE, "");
   }
 
@@ -57,11 +59,12 @@ export class CourseComponent implements OnInit {
   public course: any;
   public view: any;
 
-  name: any;
+  course_name: any;
   levelId: any;
   createdAt: any;
   updatedAt: any;
-  numberSlot: any;
+  number_slot: any;
+  fee: any;
 
   columnDefs: any;
   rowData: any;
@@ -182,7 +185,7 @@ export class CourseComponent implements OnInit {
 
 
   addCourse() {
-    this.course = new Course(this.name, this.levelId, null, null, this.numberSlot);
+    this.course = new Course(this.course_name, this.levelId, null, null, this.number_slot, this.fee);
     this.http.post<any>('http://localhost:8070/api/aca-admin/add_course', this.course).subscribe(
       response => {
         if (response.state === true) {

@@ -10,7 +10,7 @@ export class MenuComponent {
     { text: 'Teacher Team', link: '/academy/teache-team'},
     { text: 'Student', link: '/academy/student-feedback'},
     { text: 'Class Schedule', link: '/academy/class-schedule'},
-    { text: 'Timetable', link: '/'},
+    { text: 'Timetable', link: '/academy/student-time-table'},
     { text: 'Quiz', link: '/academy/quiz'},
   ];
 }

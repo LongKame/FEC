@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { RoomComponent } from '../room/room.component';
 
-
 export class Room {
   private id: any;
   private roomname: any;
@@ -79,5 +78,4 @@ export class CellCustomRoomComponent implements ICellRendererAngularComp {
       }
     )
   }
-
 }

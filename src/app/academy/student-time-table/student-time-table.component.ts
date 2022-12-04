@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { TokenService } from '../_services/token.service';
+import { TokenService } from 'src/app/_services/token.service';
+
 
 export class TimeTable {
   private user_name: any;
@@ -16,13 +17,11 @@ export class TimeTable {
 }
 
 @Component({
-  selector: 'app-time-table',
-  templateUrl: './time-table.component.html',
-  styleUrls: ['./time-table.component.scss']
+  selector: 'app-student-time-table',
+  templateUrl: './student-time-table.component.html',
+  styleUrls: ['./student-time-table.component.scss']
 })
-
-
-export class TimeTableComponent implements OnInit {
+export class StudentTimeTableComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private modalService: BsModalService,
@@ -36,6 +35,7 @@ export class TimeTableComponent implements OnInit {
       this.getCurrentWeek();
     }, 3000)
   }
+
 
   onSearchWarning(): Observable<any> {
     return this.http.get<any>('http://localhost:8070/api/common/get_every_week');
@@ -154,11 +154,9 @@ export class TimeTableComponent implements OnInit {
     return [day, month].join('-');
   }
 
-  userProfile?: any;
-
   getDataForDay1(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.mon2 = response;
         console.log("wtf" + response);
@@ -168,7 +166,7 @@ export class TimeTableComponent implements OnInit {
 
   getDataForDay2(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.tue2 = response;
       }
@@ -177,7 +175,7 @@ export class TimeTableComponent implements OnInit {
 
   getDataForDay3(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.wed2 = response;
       }
@@ -186,7 +184,7 @@ export class TimeTableComponent implements OnInit {
 
   getDataForDay4(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.thu2 = response;
       }
@@ -195,7 +193,7 @@ export class TimeTableComponent implements OnInit {
 
   getDataForDay5(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.fri2 = response;
       }
@@ -204,7 +202,7 @@ export class TimeTableComponent implements OnInit {
 
   getDataForDay6(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.sat2 = response;
       }
@@ -213,7 +211,7 @@ export class TimeTableComponent implements OnInit {
 
   getDataForDay7(date: any) {
     this.timeTable = new TimeTable(this.tokenService.getUserProfile()?.username, date);
-    this.http.post<any>('http://localhost:8070/api/common/get_time_table', this.timeTable).subscribe(
+    this.http.post<any>('http://localhost:8070/api/common/get_time_table_for_student', this.timeTable).subscribe(
       response => {
         this.sun2 = response;
       }

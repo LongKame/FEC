@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscriber } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { TokenService } from 'src/app/_services/token.service';
 
 export class Course {
   private id: any;
@@ -46,12 +47,12 @@ export class Classes{
 }
 
 export class Classes1{
-  private class_id: any;
-  private user_name: any;
+  private classId: any;
+  private username: any;
 
-  constructor(class_id: any, user_name: any) {
-    this.class_id = class_id;
-    this.user_name = user_name;
+  constructor(classId: any, username: any) {
+    this.classId = classId;
+    this.username = username;
   }
 }
 
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
     private http: HttpClient,
+    private tokenService: TokenService,
     private toast: ToastrService
   ) {}
 
@@ -118,11 +120,17 @@ export class HomeComponent implements OnInit {
 
   register(id: any) {
     this.class_id = id;
-    this.user_name = "longgiang";
-    this.classes1 = new Classes1(this.class_id, this.user_name);
-    this.http.post<any>('http://localhost:8070/api/student/register_course',this.classes1).subscribe(
+    this.classes1 = new Classes1(this.class_id, this.tokenService.getUserProfile()?.username);
+    this.http.post<any>('http://localhost:8070/api/common/register_course',this.classes1).subscribe(
       response => {
-        console.log("xxxxxxxxxxxxxx"+JSON.stringify(response));
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
       }
     );
   }

@@ -47,8 +47,16 @@
                         <input type="email" [(ngModel)]="params.data.phone" class="form-control">
                         <b for="message-text" class="col-form-label">Address:</b>
                         <input type="text" [(ngModel)]="params.data.address" class="form-control">
+                        <!-- <b for="message-text" class="col-form-label">Image:</b>
+                        <img [src]="imageUrl" [(ngModel)]="params.data.imageUrl" width="100px" height="150px"> -->
+
                         <b for="message-text" class="col-form-label">Image:</b>
-                        <img [src]="imageUrl" [(ngModel)]="params.data.imageUrl" width="100px" height="150px">
+                        <input type="file" (change)="onChange($event)" class="form-control">
+                        <br>
+                        <div *ngIf="imageUrl">
+                            <img [src]="imageUrl" width="50px" height="100px">
+                        </div>
+
                     </div>
                 </div>
             </div>
