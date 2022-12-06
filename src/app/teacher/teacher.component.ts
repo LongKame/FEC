@@ -71,7 +71,7 @@ export class TeacherComponent implements OnInit {
   constructor(private http: HttpClient,
     private modalService: BsModalService,
     private toast: ToastrService) {
-      this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
+    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
   };
 
   columnDefs: any;
@@ -171,7 +171,7 @@ export class TeacherComponent implements OnInit {
 
     this.defaultColDef = {
       sortable: true,
-      filter: true, 
+      filter: true,
       editable: true,
     };
 
@@ -226,6 +226,38 @@ export class TeacherComponent implements OnInit {
         }
       }
     )
+  }
+
+  keyPressUserName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressPhone(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressEmail(event: any) {
+   
   }
 
   onChange($event: Event) {

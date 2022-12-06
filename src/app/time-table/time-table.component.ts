@@ -68,7 +68,7 @@ export class TimeTableComponent implements OnInit {
     console.log(this.firstDayOfWeek + "  " + this.lastDayOfWeek);
 
     if (this.mon === null || this.mon === undefined) {
-      const x = this.firstDayOfWeek[3] + this.firstDayOfWeek[4] + "/" + this.firstDayOfWeek[0] + this.firstDayOfWeek[1] + "/2022";
+      const x = this.firstDayOfWeek[3] + this.firstDayOfWeek[4] + "/" + this.firstDayOfWeek[0] + this.firstDayOfWeek[1] + "/2023";
       var date = new Date(x.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
       const dateOfWeek = [];
       for (let i = 0; i < 7; i++) {
@@ -120,13 +120,22 @@ export class TimeTableComponent implements OnInit {
       this.sat1 = dateOfWeek[5][6] + dateOfWeek[5][7] + dateOfWeek[5][8] + dateOfWeek[5][9] + dateOfWeek[5][5] + dateOfWeek[5][3] + dateOfWeek[5][4] + dateOfWeek[5][2] + dateOfWeek[5][0] + dateOfWeek[5][1];
       this.sun1 = dateOfWeek[6][6] + dateOfWeek[6][7] + dateOfWeek[6][8] + dateOfWeek[6][9] + dateOfWeek[6][5] + dateOfWeek[6][3] + dateOfWeek[6][4] + dateOfWeek[6][2] + dateOfWeek[6][0] + dateOfWeek[6][1];
 
-      this.getDataForDay1(this.mon1);
-      this.getDataForDay2(this.tue1);
-      this.getDataForDay3(this.wed1);
-      this.getDataForDay4(this.thu1);
-      this.getDataForDay5(this.fri1);
-      this.getDataForDay6(this.sat1);
-      this.getDataForDay7(this.sun1);
+      this.mon = '02-01-2023';
+      this.tue = '03-01-2023';
+      this.wed = '04-01-2023';
+      this.thu = '05-01-2023';
+      this.fri = '06-01-2023';
+      this.sat = '07-01-2023';
+      this.sun = '08-01-2023';
+
+      this.getDataForDay1('2023-01-02');
+      this.getDataForDay2('2023-01-03');
+      this.getDataForDay3('2023-01-04');
+      this.getDataForDay4('2023-01-05');
+      this.getDataForDay5('2023-01-06');
+      this.getDataForDay6('2023-01-07');
+      this.getDataForDay7('2023-01-08');
+
     }
   }
 
@@ -245,7 +254,7 @@ export class TimeTableComponent implements OnInit {
   sun2: any;
 
   selectedValue(data: any) {
-    const x = data[3] + data[4] + "/" + data[0] + data[1] + "/2022";
+    const x = data[3] + data[4] + "/" + data[0] + data[1] + "/2023";
     var date = new Date(x.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
     const dateOfWeek = [];
     for (let i = 0; i < 7; i++) {

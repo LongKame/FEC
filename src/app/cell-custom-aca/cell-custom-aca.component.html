@@ -44,7 +44,8 @@
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Phone:</b>
-                        <input type="email" [(ngModel)]="params.data.phone" class="form-control">
+                        <input type="email" [(ngModel)]="params.data.phone" 
+                        (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 class="form-control">
                         <b for="message-text" class="col-form-label">Address:</b>
                         <input type="text" [(ngModel)]="params.data.address" class="form-control">
                     </div>

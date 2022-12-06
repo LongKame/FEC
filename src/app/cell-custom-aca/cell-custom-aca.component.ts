@@ -97,4 +97,37 @@ export class CellCustomAcaComponent implements ICellRendererAngularComp {
       }
     )
   }
+
+  keyPressUserName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressPhone(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressEmail(event: any) {
+   
+  }
+
 }

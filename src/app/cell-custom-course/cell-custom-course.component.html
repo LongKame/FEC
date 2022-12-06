@@ -38,7 +38,8 @@
                         <b for="message-text" class="col-form-label">Level:</b>
                         <input type="text" [readonly]="true" [(ngModel)]="params.data.level" class="form-control">
                         <b for="message-text" class="col-form-label">Number slot:</b>
-                        <input type="text" [(ngModel)]="params.data.numberSlot" class="form-control">
+                        <input type="text" [(ngModel)]="params.data.numberSlot" 
+                        (keypress)="keyPressSlot($event)" minlength=2 maxlength=2 class="form-control">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Created at:</b>

@@ -11,6 +11,7 @@ export class MenuComponent {
     { text: 'Student', link: '/academy/student-feedback'},
     { text: 'Class Schedule', link: '/academy/class-schedule'},
     { text: 'Timetable', link: '/academy/student-time-table'},
+    { text: 'Curriculum', link: '/academy/view-curriculum'},
     { text: 'Quiz', link: '/academy/quiz'},
   ];
 }

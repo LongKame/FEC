@@ -37,26 +37,24 @@
                         <input type="text" [readonly]="true"
                         [(ngModel)]="params.data.user_name" class="form-control">
                         <b for="message-text" class="col-form-label">Fullname:</b>
-                        <input type="text" [(ngModel)]="params.data.full_name" class="form-control">
+                        <input type="text" [(ngModel)]="params.data.full_name" 
+                        (keypress)="keyPressName($event)" class="form-control">
                         <b for="message-text" class="col-form-label">Email:</b>
                         <input type="text" [readonly]="true"
                         [(ngModel)]="params.data.email" class="form-control">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Phone:</b>
-                        <input type="email" [(ngModel)]="params.data.phone" class="form-control">
+                        <input type="email" [(ngModel)]="params.data.phone" 
+                        (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 class="form-control">
                         <b for="message-text" class="col-form-label">Address:</b>
                         <input type="text" [(ngModel)]="params.data.address" class="form-control">
-                        <!-- <b for="message-text" class="col-form-label">Image:</b>
-                        <img [src]="imageUrl" [(ngModel)]="params.data.imageUrl" width="100px" height="150px"> -->
-
                         <b for="message-text" class="col-form-label">Image:</b>
                         <input type="file" (change)="onChange($event)" class="form-control">
                         <br>
                         <div *ngIf="imageUrl">
                             <img [src]="imageUrl" width="50px" height="100px">
                         </div>
-
                     </div>
                 </div>
             </div>

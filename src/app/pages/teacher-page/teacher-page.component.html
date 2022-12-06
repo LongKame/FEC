@@ -65,7 +65,6 @@
     <router-outlet></router-outlet>
 </section>
 
-
 <div class="home-content">
     <div class="overview-boxes">
         <div class="box">
@@ -75,7 +74,6 @@
         </div>
     </div>
 </div>
-
 
 <ng-template #update>
     <form ngNativeValidate #form>
@@ -91,27 +89,29 @@
                     <div class="row">
                         <div class="col-6">
                             <b for="message-text" class="col-form-label">Username:</b>
-                            <input type="text" [(ngModel)]="user_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <input type="text" [(ngModel)]="user_name_param" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}">
                             <b for="message-text" class="col-form-label">Fullname:</b>
-                            <input type="text" [(ngModel)]="full_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <input type="text" [(ngModel)]="full_name_param" (keypress)="keyPressName($event)" class="form-control" required [ngModelOptions]="{standalone: true}">
                             <b for="message-text" class="col-form-label">Email:</b>
-                            <input type="text" [(ngModel)]="email_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <input type="text" [(ngModel)]="email_param" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="col-6">
                             <b for="message-text" class="col-form-label">Address:</b>
                             <input type="text" [(ngModel)]="address_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
                             <b for="message-text" class="col-form-label">Phone:</b>
-                            <input type="email" [(ngModel)]="phone_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <input type="email" [(ngModel)]="phone_param" (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 class="form-control" required [ngModelOptions]="{standalone: true}">
                             <b for="message-text" class="col-form-label">Image:</b>
                             <br>
                             <input type="file" (change)="onChange($event)" class="form-control">
                             <br>
-                            <div *ngIf="imageUrl_param">
+                            <div *ngIf="!myImage">
                                 <img [src]="imageUrl_param" width="50px" height="100px">
+                            </div>
+                            <div *ngIf="myImage">
+                                <img [src]="myImage" width="50px" height="100px">
                             </div>
                         </div>
                     </div>
-                <!-- <input type="text" [(ngModel)]="checkData" (keyup)="check($event)" [ngModelOptions]="{standalone: true}"> -->
                 </div>
             </div>
         </div>

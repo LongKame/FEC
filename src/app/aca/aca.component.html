@@ -43,17 +43,21 @@
                 <div class="row">
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Username:</b>
-                        <input type="text" [(ngModel)]="user_name" class="form-control">
+                        <input type="text" [(ngModel)]="user_name"
+                        (keypress)="keyPressUserName($event)" class="form-control">
                         <b for="message-text" class="col-form-label">Fullname:</b>
-                        <input type="text" [(ngModel)]="full_name" class="form-control">
+                        <input type="text" [(ngModel)]="full_name" 
+                        (keypress)="keyPressName($event)" class="form-control">
                         <b for="message-text" class="col-form-label">Password:</b>
                         <input type="text" [(ngModel)]="password" class="form-control">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Email:</b>
-                        <input type="email" [(ngModel)]="email" class="form-control">
+                        <input type="email" [(ngModel)]="email" 
+                        (keypress)="keyPressEmail($event)" class="form-control">
                         <b for="message-text" class="col-form-label">Phone:</b>
-                        <input type="text" [(ngModel)]="phone" class="form-control">
+                        <input type="text" [(ngModel)]="phone"
+                         (keypress)="keyPressPhone($event)" class="form-control">
                         <b for="message-text" class="col-form-label">Address:</b>
                         <input type="text" [(ngModel)]="address" class="form-control">
                     </div>

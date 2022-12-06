@@ -179,7 +179,13 @@ export class CurriculumComponent implements OnInit {
         , cellStyle: this.STYLE_TABLE
       },
       { headerName: 'Curriculum name', field: 'curriculum_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Link document', field: 'link_url', cellStyle: this.STYLE_TABLE },
+      {
+        headerName: 'Link document', field: 'link_url',
+        cellRenderer: (params: any) => {
+          return `<a href="${params.value}">${params.value}</a>`;
+        }
+        , cellStyle: this.STYLE_TABLE
+      },
       { headerName: 'Description', field: 'description', cellStyle: this.STYLE_TABLE },
       { headerName: 'Created at', field: 'created_at', cellStyle: this.STYLE_TABLE },
       { headerName: 'Updated at', field: 'updated_at', cellStyle: this.STYLE_TABLE },
@@ -192,6 +198,7 @@ export class CurriculumComponent implements OnInit {
   }
 
   curri: any;
+
   onAddClass() {
     const values = this.form.getRawValue();
     const payload = {
@@ -217,5 +224,4 @@ export class CurriculumComponent implements OnInit {
       }
     )
   }
-
 }

@@ -30,7 +30,6 @@
 </div>
 
 <ng-template #add>
-    <form ngNativeValidate>
         <div class="modal-header">
             <h4 class="modal-title pull-left">Add teacher</h4>
             <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
@@ -43,19 +42,23 @@
                     <div class="row">
                         <div class="col-6">
                             <b for="message-text" class="col-form-label">Username:</b>
-                            <input type="text" required [(ngModel)]="user_name" class="form-control">
+                            <input type="text" [(ngModel)]="user_name" 
+                            (keypress)="keyPressUserName($event)" class="form-control">
                             <b for="message-text" class="col-form-label">Fullname:</b>
-                            <input type="text" required [(ngModel)]="full_name" class="form-control">
+                            <input type="text" [(ngModel)]="full_name" 
+                            (keypress)="keyPressName($event)" class="form-control">
                             <b for="message-text" class="col-form-label">Password:</b>
-                            <input type="text" required [(ngModel)]="password" class="form-control">
+                            <input type="text" [(ngModel)]="password" class="form-control">
                             <b for="message-text" class="col-form-label">Email:</b>
-                            <input type="email" required [(ngModel)]="email" class="form-control">
+                            <input type="text" [(ngModel)]="email" 
+                            (keypress)="keyPressEmail($event)" class="form-control">
                         </div>
                         <div class="col-6">
                             <b for="message-text" class="col-form-label">Phone:</b>
-                            <input type="text" required [(ngModel)]="phone" class="form-control">
+                            <input type="text" [(ngModel)]="phone" (keypress)="keyPressPhone($event)"
+                                minlength=10 maxlength=10 class="form-control">
                             <b for="message-text" class="col-form-label">Address:</b>
-                            <input type="text" required [(ngModel)]="address" class="form-control">
+                            <input type="text" [(ngModel)]="address" class="form-control">
                             <b for="message-text" class="col-form-label">Image:</b>
                             <input type="file" (change)="onChange($event)" class="form-control">
                             <br>
@@ -71,5 +74,4 @@
             <button type="button" class="btn btn-primary" (click)="addTeacher()">Add</button>
             <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
         </div>
-    </form>
 </ng-template>

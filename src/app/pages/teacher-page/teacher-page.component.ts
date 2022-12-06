@@ -124,9 +124,6 @@ export class TeacherPageComponent implements OnInit {
       this.teacher = new Teacher(this.user_id_param, this.user_name_param, this.full_name_param, this.myImage, this.email_param, this.phone_param, this.address_param);
     }
 
-    console.log("xxxxxxxxxxxx"+this.phone_param);
-
-
     this.http.put<any>('http://localhost:8070/api/teacher/edit_profile_teacher',this.teacher).subscribe(
       response => {
         if (response.state === true) {
@@ -139,6 +136,34 @@ export class TeacherPageComponent implements OnInit {
         }
       }
     )
+  }
+
+  keyPressUserName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressPhone(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   onChange($event: Event) {

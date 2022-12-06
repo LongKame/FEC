@@ -17,6 +17,7 @@ import { TeacheTeamComponent } from './teache-team/teache-team.component';
 import { StudentFeebackComponent } from './student-feeback/student-feeback.component';
 import { ClassScheduleComponent } from './class-schedule/class-schedule.component';
 import { StudentTimeTableComponent } from './student-time-table/student-time-table.component';
+import { ViewCurriculumComponent } from './view-curriculum/view-curriculum.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'teache-team', component: TeacheTeamComponent },
       { path: 'student-feedback', component: StudentFeebackComponent },
       { path: 'class-schedule', component: ClassScheduleComponent },
+      { path: 'view-curriculum', component: ViewCurriculumComponent },
       { path: 'student-time-table', component: StudentTimeTableComponent },
     ]
   }
@@ -59,7 +61,8 @@ const routes: Routes = [
     TeacheTeamComponent,
     StudentFeebackComponent,
     ClassScheduleComponent,
-    StudentTimeTableComponent
+    StudentTimeTableComponent,
+    ViewCurriculumComponent
   ],
 })
 export class AcademyModule {}
