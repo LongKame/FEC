@@ -41,20 +41,12 @@
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Course:</b>
-                        <!-- <select class="form-control" formControlName="course_name" required="" [(ngModel)]="params.data.course_name">
-                            <option *ngFor="let i of courseOptions" [value]="i.value"
-                                [attr.selected]="params.data.course_name==i.label ? i.label: null">
-                                {{i.label}}
-                            </option>
-                        </select> -->
-                        <br>
-                        <select [(ngModel)]="courseId">
+                        <select class="form-control" required="">
                             <option *ngFor="let i of courseOptions" [value]="i.value"
                                 [attr.selected]="params.data.course_name==i.label ? i.label: null">
                                 {{i.label}}
                             </option>
                         </select>
-                        <br>
                         <b for="message-text" class="col-form-label">Description:</b>
                         <input type="text" [(ngModel)]="params.data.description" class="form-control">
                     </div>

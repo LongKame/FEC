@@ -64,21 +64,4 @@ export class CellCustomPendingComponent implements ICellRendererAngularComp {
       }
     )
   }
-
-  // deletePending(){
-  //   this.http.delete<any>('http://localhost:8070/api/aca/delete_pending/' + this.params.data.id).subscribe(
-  //     response => {
-  //       if(response.state === true){
-  //         this.pending.onSearch(this.pending.indexPage);
-  //         this.toast.success("Successfully");
-  //         this.modalRef?.hide();
-  //       }
-  //       else{
-  //         this.toast.error("Fail");
-  //         this.modalRef?.hide();
-  //       }
-  //     }
-  //   )
-  // }
-
 }

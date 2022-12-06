@@ -4,7 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { CurriculumComponent } from '../curriculum/curriculum.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 export class Curriculum {
   private id: any;
@@ -36,7 +36,8 @@ export type Option = {
 export class CellCustomCurriculumComponent implements ICellRendererAngularComp {
 
   modalRef: BsModalRef | undefined;
-  form!: FormGroup;
+  courses = new FormControl(1);
+  
   constructor(
     private modalService: BsModalService,
     private http: HttpClient,

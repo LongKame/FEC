@@ -42,23 +42,12 @@
         <div class="dropdown-item">{{ userProfile.username }}</div>
         <div class="dropdown-divider"></div>
         <div class="dropdown-item" (click)="onLogout()">Sign out</div>
-        <!-- <div class="dropdown-divider"></div> -->
-        <!-- <a class="dropdown-item" href="#">
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#exampleModal"
-          >
-            Add
-          </button></a
-        > -->
-        <!-- <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a> -->
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" (click)="onUpdateProfile(update)">Update profile</div>
       </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -106,9 +95,47 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </nav>
+
+<ng-template #update>
+  <form ngNativeValidate #form>
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Edit profile</h4>
+          <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+              <span aria-hidden="true"></span>
+          </button>
+      </div>
+      <div class="modal-body" *ngIf="profile">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="row">
+                      <div class="col-6">
+                          <b for="message-text" class="col-form-label">Username:</b>
+                          <input type="text" [(ngModel)]="user_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                          <b for="message-text" class="col-form-label">Fullname:</b>
+                          <input type="text" [(ngModel)]="full_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                          <b for="message-text" class="col-form-label">Email:</b>
+                          <input type="text" [(ngModel)]="email_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                      </div>
+                      <div class="col-6">
+                          <b for="message-text" class="col-form-label">Address:</b>
+                          <input type="text" [(ngModel)]="address_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
+                          <b for="message-text" class="col-form-label">Phone:</b>
+                          <input type="email" [(ngModel)]="phone_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
+                      </div>
+                  </div>
+              <!-- <input type="text" [(ngModel)]="checkData" (keyup)="check($event)" [ngModelOptions]="{standalone: true}"> -->
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateProfile()">Save</button>
+          <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+      </div>
+  </form>
+</ng-template>
 
 <ng-template #regisForm>
   <form [formGroup]="formRegis" (ngSubmit)="onRegister()" ngNativeValidate>

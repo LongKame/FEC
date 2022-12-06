@@ -1,5 +1,4 @@
 import { Component, OnInit, TemplateRef, NgZone } from '@angular/core';
-// import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +6,32 @@ import { AuthService, UserRole } from '../../_services/auth.service';
 import { TokenService } from '../../_services/token.service';
 import { FormGroup, FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+
+export class User {
+  private user_name: any;
+
+  constructor(user_name: any) {
+    this.user_name = user_name;
+  }
+}
+
+export class Student {
+  private user_Id: any;
+  private user_name: any;
+  private full_name: any;
+  private email: any;
+  private phone: any;
+  private address: any;
+
+  constructor(user_Id: any, user_name: any, full_name: any, email: any, phone: any, address: any) {
+    this.user_Id = user_Id;
+    this.user_name = user_name;
+    this.full_name = full_name;
+    this.email = email;
+    this.phone = phone;
+    this.address = address;
+  }
+}
 
 @Component({
   selector: 'header',
@@ -18,7 +43,7 @@ export class HeaderComponent implements OnInit {
   formRegis!: FormGroup;
   userProfile?: any;
 
-  
+
 
   constructor(
     private http: HttpClient,
@@ -29,11 +54,12 @@ export class HeaderComponent implements OnInit {
     private toastService: ToastrService,
     private router: Router,
     private ngZone: NgZone,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private toast: ToastrService,
+  ) { }
 
 
-  
+
   ngOnInit(): void {
     this.formLogin = this.fb.group({
       username: [null, []],
@@ -48,6 +74,9 @@ export class HeaderComponent implements OnInit {
       address: [null, []],
     });
     this.userProfile = this.tokenService.getUserProfile();
+    setTimeout(() => {
+      this.onLoad();
+    }, 3000)
   }
 
   readonly phoneFormControl = new FormControl('', [
@@ -90,7 +119,6 @@ export class HeaderComponent implements OnInit {
 
   onRegister() {
     const values = this.formRegis.getRawValue();
-    console.log("aaaaaaaaaaaaaaaaa"+JSON.stringify(values));
     this.http.post<any>('http://localhost:8070/api/v1/registration', values).subscribe(
       (res) => {
         this.toastService.error('Send verification to your email');
@@ -101,7 +129,7 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  getRedirectURLbyRole(role: UserRole) {    
+  getRedirectURLbyRole(role: UserRole) {
     switch (role) {
       case UserRole.ROLE_ADMIN:
         return '/home/teacher';
@@ -122,4 +150,62 @@ export class HeaderComponent implements OnInit {
     this.toastService.success('Logout successfully');
     this.router.navigateByUrl('/');
   }
+
+  onUpdateProfile(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  student: any;
+  user: any;
+  user_Id: any;
+  user_name: any;
+  full_name: any;
+  email: any;
+  phone: any;
+  address: any;
+  profile: any;
+  user_id_param: any;
+  user_name_param: any;
+  full_name_param: any;
+  email_param: any;
+  phone_param: any;
+  address_param: any;
+
+  onLoad() {
+    if (this.tokenService.getUserProfile()?.username != null) {
+      this.user = new User(this.tokenService.getUserProfile()?.username);
+      this.http.post<any>('http://localhost:8070/api/common/get_profile_student', this.user).subscribe(
+        response => {
+          this.profile = response;
+          this.user_id_param = response.user_Id;
+          this.user_name_param = response.user_name;
+          this.full_name_param = response.full_name;
+          this.email_param = response.email;
+          this.phone_param = response.phone;
+          this.address_param = response.address;
+        }
+      )
+    }
+  }
+
+  updateProfile() {
+    this.student = new Student(this.user_id_param, this.user_name_param, this.full_name_param, this.email_param, this.phone_param, this.address_param);
+    this.http.put<any>('http://localhost:8070/api/common/edit_profile_student', this.student).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    )
+  }
+
+
 }

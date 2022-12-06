@@ -3,7 +3,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CellCustomAcaComponent } from '../cell-custom-aca/cell-custom-aca.component';
 import { CellCustomStudentComponent } from '../cell-custom-student/cell-custom-student.component';
 
 export class Class {
@@ -196,8 +195,8 @@ export class StudentComponent implements OnInit {
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'State', field: 'active',
-        cellRenderer: function (params: any) {
-          return params.data.active === true ? "active" : "deactive";
+        cellRenderer: (params: any) => {
+          return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
         cellStyle: this.STYLE_TABLE
       },

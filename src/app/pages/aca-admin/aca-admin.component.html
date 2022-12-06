@@ -44,9 +44,10 @@
             <span class="logo_name">English Center Management</span>
         </div>
         <div class="profile-details" *ngIf="userProfile">
-            <img src="https://phatamhay.com/wp-content/uploads/2019/10/portrait-square-05.jpg" alt="">
+            <img src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png" alt="">
             <span class="admin_name">{{ userProfile.username }}</span>
             <i class="bx bx-chevron-down"></i>
+            <button type="button" (click)="openModal(update)" class="btn btn-danger">Setting</button>
         </div>
     </nav>
     <router-outlet></router-outlet>
@@ -72,3 +73,48 @@
         </div>
     </div>
 </div>
+
+<ng-template #update>
+    <form ngNativeValidate #form>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Edit profile</h4>
+            <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="profile">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <b for="message-text" class="col-form-label">Username:</b>
+                            <input type="text" [(ngModel)]="user_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Fullname:</b>
+                            <input type="text" [(ngModel)]="full_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Email:</b>
+                            <input type="text" [(ngModel)]="email_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col-6">
+                            <b for="message-text" class="col-form-label">Address:</b>
+                            <input type="text" [(ngModel)]="address_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Phone:</b>
+                            <input type="email" [(ngModel)]="phone_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <!-- <b for="message-text" class="col-form-label">Image:</b>
+                            <br> -->
+                            <!-- <input type="file" (change)="onChange($event)" class="form-control">
+                            <br>
+                            <div *ngIf="imageUrl_param">
+                                <img [src]="imageUrl_param" width="50px" height="100px">
+                            </div> -->
+                        </div>
+                    </div>
+                <!-- <input type="text" [(ngModel)]="checkData" (keyup)="check($event)" [ngModelOptions]="{standalone: true}"> -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updateProfile()">Save</button>
+            <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        </div>
+    </form>
+</ng-template>

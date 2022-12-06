@@ -41,7 +41,7 @@ export class User {
 })
 export class TeacherPageComponent implements OnInit {
   userProfile?: any;
-
+  checkData: string = ''
   constructor(
     private tokenService: TokenService,
     private toast: ToastrService,
@@ -114,6 +114,9 @@ export class TeacherPageComponent implements OnInit {
 
   phone_param1: any;
 
+  check(value:any){
+    console.log(this.checkData);
+  }
   updateProfile() {
     if (this.myImage == null || this.myImage == undefined) {
       this.teacher = new Teacher(this.user_id_param, this.user_name_param, this.full_name_param, this.imageUrl_param, this.email_param, this.phone_param, this.address_param);
@@ -121,21 +124,21 @@ export class TeacherPageComponent implements OnInit {
       this.teacher = new Teacher(this.user_id_param, this.user_name_param, this.full_name_param, this.myImage, this.email_param, this.phone_param, this.address_param);
     }
 
-    console.log("xxxxxxxxxxxx"+this.phone_param1);
+    console.log("xxxxxxxxxxxx"+this.phone_param);
 
 
-    // this.http.put<any>('http://localhost:8070/api/teacher/edit_profile_teacher',this.teacher).subscribe(
-    //   response => {
-    //     if (response.state === true) {
-    //       this.toast.success("Successfully");
-    //       this.modalRef?.hide();
-    //     }
-    //     else {
-    //       this.toast.error(response.message);
-    //       this.modalRef?.hide();
-    //     }
-    //   }
-    // )
+    this.http.put<any>('http://localhost:8070/api/teacher/edit_profile_teacher',this.teacher).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    )
   }
 
   onChange($event: Event) {
