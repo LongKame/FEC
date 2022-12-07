@@ -5,6 +5,8 @@ import { TokenService } from '../../_services/token.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscriber } from 'rxjs';
+import * as fa from '@fortawesome/free-solid-svg-icons';
+import { Menu, MenuItem } from '../../sidebar/sidebar.component';
 
 export class Teacher {
   private user_Id: any;
@@ -40,6 +42,44 @@ export class User {
   styleUrls: ['./teacher-page.component.scss']
 })
 export class TeacherPageComponent implements OnInit {
+  menus: MenuItem[] = [
+    {
+      icon: fa.faGraduationCap,
+      menu: Menu.Student,
+      link: '/teacher-page/viewstudent'
+    },
+    {
+      icon: fa.faLandmark,
+      menu: Menu.Class,
+      link: '/teacher-page/viewclass'
+    },
+    {
+      icon: fa.faUserFriends,
+      menu: Menu.AcademicAdmin,
+      link: '/teacher-page/viewaca'
+    },
+    {
+      icon: fa.faChalkboardTeacher,
+      menu: Menu.Teacher,
+      link: '/teacher-page/viewteacher'
+    },
+    {
+      icon: fa.faTable,
+      menu: Menu.Time,
+      link: '/teacher-page/timetable'
+    },
+    {
+      icon: fa.faTable,
+      menu: Menu.TimeTable,
+      link: '/teacher-page/time_table'
+    },
+    {
+      icon: fa.faSignOutAlt,
+      menu: Menu.Logout,
+      onClick: () => this.onLogout(),
+    },
+  ];
+
   userProfile?: any;
   checkData: string = ''
   constructor(

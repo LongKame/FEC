@@ -1,48 +1,4 @@
-<div class="sidebar">
-    <div class="logo_details" style="text-align: center;">
-        <i style="color: aliceblue;font-size: 40px;" class="bx bxl-spring-boot"></i>
-        <i style="color: aliceblue;font-size: 40px;" class="bx bxl-angular"></i>
-        <i style="color: aliceblue;font-size: 40px;" class="bx bxl-postgresql"></i>
-    </div>
-    <ul class="nav-links">
-        <li>
-            <a routerLink="/home/student">
-                <i class="bx bx-user"></i>
-                <span class="link_name">Student</span>
-            </a>
-        </li>
-        <li>
-            <a routerLink="/home/teacher">
-                <i class="bx bx-list-ul"></i>
-                <span class="link_name">Teacher</span>
-            </a>
-        </li>
-        <li>
-            <a routerLink="/home/aca">
-                <i class="bx bx-pie-chart-alt-2"></i>
-                <span class="link_name">Academic</span>
-            </a>
-        </li>
-        <li>
-            <a routerLink="/home/class">
-                <i class="bx bx-table"></i>
-                <span class="link_name">Class</span>
-            </a>
-        </li>
-        <li>
-            <a routerLink="/home/pending">
-                <i class="bx bx-table"></i>
-                <span class="link_name">Pending</span>
-            </a>
-        </li>
-        <li (click)="onLogout()">
-            <div>
-                <i class="bx bx-log-out"></i>
-                <span class="link_name">Log out</span>
-            </div>
-        </li>
-    </ul>
-</div>
+<sidebar [menus]="menus"></sidebar>
 
 <section class="home-section">
     <nav>

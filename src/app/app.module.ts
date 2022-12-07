@@ -47,9 +47,14 @@ import { TimeTableComponent } from './time-table/time-table.component';
 import { MatSelectModule} from '@angular/material/select';
 import { DatePipe } from '@angular/common';
 import { CellCustomCurriculumComponent } from './cell-custom-curriculum/cell-custom-curriculum.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     AppComponent,
+    SidebarComponent,
     DashboardComponent,
     HomeComponent,
     TeacherComponent,
@@ -100,6 +105,8 @@ import { CellCustomCurriculumComponent } from './cell-custom-curriculum/cell-cus
       positionClass: 'toast-bottom-left',
       preventDuplicates: false,
     }),
+    FontAwesomeModule,
+    MatTooltipModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
