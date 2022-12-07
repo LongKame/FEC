@@ -4,7 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../../_services/token.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscriber } from 'rxjs';
+import * as fa from '@fortawesome/free-solid-svg-icons';
+import { Menu, MenuItem } from '../../sidebar/sidebar.component';
 
 export class User {
   private user_name: any;
@@ -38,6 +39,33 @@ export class Teacher {
   styleUrls: ['./aca-admin.component.scss']
 })
 export class AcaAdminComponent implements OnInit {
+  menus: MenuItem[] = [
+    {
+      icon: fa.faBook,
+      menu: Menu.Course,
+      link: '/aca-admin/course'
+    },
+    {
+      icon: fa.faFile,
+      menu: Menu.Curriculum,
+      link: '/aca-admin/curriculum'
+    },
+    {
+      icon: fa.faQuestion,
+      menu: Menu.Quiz,
+      link: '/aca-admin/quiz'
+    },
+    {
+      icon: fa.faHouseUser,
+      menu: Menu.Room,
+      link: '/aca-admin/room'
+    },
+    {
+      icon: fa.faSignOutAlt,
+      menu: Menu.Logout,
+      onClick: () => this.onLogout(),
+    },
+  ];
 
   userProfile?: any;
   modalRef: BsModalRef | undefined;

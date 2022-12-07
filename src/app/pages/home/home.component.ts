@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { CellCustomTeacherComponent } from 'src/app/cell-custom-teacher/cell-custom-teacher.component';
 import { AuthService } from '../../_services/auth.service';
 import { TokenService } from '../../_services/token.service';
+import * as fa from '@fortawesome/free-solid-svg-icons';
+import { Menu, MenuItem } from '../../sidebar/sidebar.component';
 
 
 export class Teacher {
@@ -45,6 +47,38 @@ export class View {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  menus: MenuItem[] = [
+    {
+      icon: fa.faGraduationCap,
+      menu: Menu.Student,
+      link: '/home/student'
+    },
+    {
+      icon: fa.faChalkboardTeacher,
+      menu: Menu.Teacher,
+      link: '/home/teacher'
+    },
+    {
+      icon: fa.faUserFriends,
+      menu: Menu.AcademicAdmin,
+      link: '/home/aca'
+    },
+    {
+      icon: fa.faLandmark,
+      menu: Menu.Class,
+      link: '/home/class'
+    },
+    {
+      icon: fa.faSitemap,
+      menu: Menu.Pending,
+      link: '/home/pending'
+    },
+    {
+      icon: fa.faSignOutAlt,
+      menu: Menu.Logout,
+      onClick: () => this.onLogout(),
+    },
+  ];
 
   title = 'AdminFE';
   userProfile?: any;
