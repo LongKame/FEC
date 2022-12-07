@@ -8,8 +8,8 @@ export enum Menu {
   Room = 'Room',
   Quiz = 'Quiz',
   Student = 'Student',
-  Time = 'Time',
   TimeTable = 'Time Table',
+  ChangeClass = 'Change Class',
   AcademicAdmin = 'Academic Admin',
   Class = 'Class',
   Course = 'Course',
@@ -41,7 +41,6 @@ export class SidebarComponent {
           this.showingTooltip = true
           return;
         }
-
         this.showingTooltip = false;
       });
   }

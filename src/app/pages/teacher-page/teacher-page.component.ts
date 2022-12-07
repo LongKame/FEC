@@ -65,11 +65,6 @@ export class TeacherPageComponent implements OnInit {
     },
     {
       icon: fa.faTable,
-      menu: Menu.Time,
-      link: '/teacher-page/timetable'
-    },
-    {
-      icon: fa.faTable,
       menu: Menu.TimeTable,
       link: '/teacher-page/time_table'
     },

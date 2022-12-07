@@ -50,6 +50,7 @@ import { CellCustomCurriculumComponent } from './cell-custom-curriculum/cell-cus
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ChangeClassComponent } from './change-class/change-class.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CellCustomClassComponent,
     TimeTableComponent,
     CellCustomCurriculumComponent,
+    ChangeClassComponent,
   ],
   imports: [
     FormsModule,

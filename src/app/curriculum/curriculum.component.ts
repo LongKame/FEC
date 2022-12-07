@@ -209,7 +209,11 @@ export class CurriculumComponent implements OnInit {
       description: +values.description,
     };
 
+    
+    // constructor(courseId: any, name: any, linkURL: any, description: any)
+
     this.curri = new Curriculum(payload.courseId, payload.name, payload.linkURL, payload.description);
+    console.log("99999999999999"+JSON.stringify(this.curri));
     this.http.post<any>('http://localhost:8070/api/aca/add_curriculum', this.curri).subscribe(
       response => {
         if (response.state === true) {

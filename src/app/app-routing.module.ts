@@ -22,6 +22,7 @@ import { RoleGuard } from './auth/role.guard';
 import { UserRole } from './_services/auth.service';
 import { TimeTableComponent } from './time-table/time-table.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
+import { ChangeClassComponent } from './change-class/change-class.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
       { path: 'room', component: RoomComponent },
       { path: 'quiz', component: QuizComponent },
       { path: 'curriculum', component: CurriculumComponent },
+      { path: 'changeclass', component: ChangeClassComponent },
     ]
   }, 
   {

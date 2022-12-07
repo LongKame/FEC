@@ -6,6 +6,8 @@ import { AppComponent } from '../app.component';
 import { ToastrService } from 'ngx-toastr';
 import { HomeComponent } from '../pages/home/home.component';
 import { StudentComponent } from '../student/student.component';
+import { Observable } from 'rxjs';
+import { Option } from '../_common/types/option';
 
 export class Student {
   private student_Id: any;
@@ -43,6 +45,7 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
   courses: any;
   classes: any;
   stu: any;
+  classOptions: Option[] = [];
 
   agInit(params: any): void {
     this.data = params;
@@ -53,7 +56,14 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
     return false;
   }
 
+  onSearchWarning(): Observable<any> {
+    return this.http.get<any>('http://localhost:8070/api/common/get_class');
+  }
+
   ngOnInit(): void {
+    this.onSearchWarning().subscribe(res => {
+      this.classOptions = res.map((item: any) => ({ value: item.id, label: item.name}));
+    });
   }
 
   openModal(template: TemplateRef<any>) {

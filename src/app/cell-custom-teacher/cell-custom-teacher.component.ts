@@ -135,7 +135,7 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
       , "", this.params.data.phone, this.params.data.address);
     this.http.put<any>('http://localhost:8070/api/admin/delete_teacher', this.user).subscribe(
       response => {
-        if(response.data.state === true){
+        if(response.state === true){
         this.teacher.onSearch(this.teacher.indexPage);
         this.toast.success("Successfully");
         this.modalRef?.hide();
@@ -175,10 +175,5 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
       event.preventDefault();
     }
   }
-
-  keyPressEmail(event: any) {
-   
-  }
-
 }
 

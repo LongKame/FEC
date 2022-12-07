@@ -60,6 +60,11 @@ export class AcaAdminComponent implements OnInit {
       menu: Menu.Room,
       link: '/aca-admin/room'
     },
+    // {
+    //   icon: fa.faExchangeAlt,
+    //   menu: Menu.ChangeClass,
+    //   link: '/aca-admin/changeclass'
+    // },
     {
       icon: fa.faSignOutAlt,
       menu: Menu.Logout,
