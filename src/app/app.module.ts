@@ -51,6 +51,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ChangeClassComponent } from './change-class/change-class.component';
+import { UpdateScheduleComponent } from './update-schedule/update-schedule.component';
+import { CellCustomUpdateScheduleComponent } from './cell-custom-update-schedule/cell-custom-update-schedule.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { ChangeClassComponent } from './change-class/change-class.component';
     TimeTableComponent,
     CellCustomCurriculumComponent,
     ChangeClassComponent,
+    UpdateScheduleComponent,
+    CellCustomUpdateScheduleComponent,
   ],
   imports: [
     FormsModule,

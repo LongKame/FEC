@@ -74,6 +74,11 @@ export class HomeComponent implements OnInit {
       link: '/home/pending'
     },
     {
+      icon: fa.faExchangeAlt,
+      menu: Menu.UpdateSchedule,
+      link: '/home/update-schedule'
+    },
+    {
       icon: fa.faSignOutAlt,
       menu: Menu.Logout,
       onClick: () => this.onLogout(),
@@ -140,7 +145,6 @@ export class HomeComponent implements OnInit {
 }
 
   onSearch() {
-    // console.log(this.searchInforForm.value);
     this.onSearchWarning("l").subscribe(
         response => {
             console.log(response);
@@ -150,7 +154,6 @@ export class HomeComponent implements OnInit {
             this.currentTotalDisplay =  Object.keys(this.rowData).length;
           
             this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
-            // this.rangeWithDots = this.commonService.pagination(this.currentPage, this.totalPage);
 
             if ( Object.keys(this.rowData).length === 0) {
                 this.first = 0;
@@ -161,10 +164,6 @@ export class HomeComponent implements OnInit {
         }
     );
 }
-
-
-
-
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(

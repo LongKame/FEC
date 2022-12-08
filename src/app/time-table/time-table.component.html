@@ -18,7 +18,7 @@
     <div class="floatLeft" style="width: 15%;">
         <table>
             <tr>
-                <th>WEEK
+                <th>WEEK<br>
                     <select (change)="selectedValue($any($event.target).value)">
                         <option *ngFor="let i of weekData" [value]="i.start_date"
                             [attr.selected]="firstDayOfWeek==i.start_date ? i.start_date : null">
@@ -44,7 +44,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>MON: {{mon}}</th>
+                <th>MON:<br> {{mon}}</th>
             </tr>
             <tr *ngFor="let i of mon2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>
@@ -56,7 +56,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>TUE: {{tue}}</th>
+                <th>TUE:<br> {{tue}}</th>
             </tr>
             <tr *ngFor="let i of tue2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>
@@ -67,7 +67,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>WED: {{wed}}</th>
+                <th>WED:<br> {{wed}}</th>
             </tr>
             <tr *ngFor="let i of wed2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>
@@ -78,7 +78,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>THU: {{thu}}</th>
+                <th>THU:<br> {{thu}}</th>
             </tr>
             <tr *ngFor="let i of thu2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>
@@ -89,7 +89,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>FRI: {{fri}}</th>
+                <th>FRI:<br> {{fri}}</th>
             </tr>
             <tr *ngFor="let i of fri2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>
@@ -100,7 +100,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>SAT: {{sat}}</th>
+                <th>SAT:<br> {{sat}}</th>
             </tr>
             <tr *ngFor="let i of sat2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>
@@ -111,7 +111,7 @@
     <div class="floatLeft">
         <table>
             <tr>
-                <th>SUN: {{sun}}</th>
+                <th>SUN:<br> {{sun}}</th>
             </tr>
             <tr *ngFor="let i of sun2">
                 <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}</td>

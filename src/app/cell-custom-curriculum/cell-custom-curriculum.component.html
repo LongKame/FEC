@@ -41,9 +41,8 @@
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Course:</b>
-                        <select class="form-control" required="">
-                            <option *ngFor="let i of courseOptions" [value]="i.value"
-                                [attr.selected]="params.data.course_name==i.label ? i.label: null">
+                        <select class="form-control" [(ngModel)]="courseId">
+                            <option *ngFor="let i of courseOptions" [ngValue]="i">
                                 {{i.label}}
                             </option>
                         </select>

@@ -23,6 +23,7 @@ import { UserRole } from './_services/auth.service';
 import { TimeTableComponent } from './time-table/time-table.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { ChangeClassComponent } from './change-class/change-class.component';
+import { UpdateScheduleComponent } from './update-schedule/update-schedule.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'aca', component: AcaComponent },
       { path: 'class', component: ClassComponent },
       { path: 'pending', component: PendingComponent },
+      { path: 'update-schedule', component: UpdateScheduleComponent },
     ]
   }, 
   {

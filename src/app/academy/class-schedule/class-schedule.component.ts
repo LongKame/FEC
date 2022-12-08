@@ -26,7 +26,6 @@ export class ClassScheduleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.createTable();
     setTimeout(() => {
       this.onSearch();
     }, 3000)
@@ -51,7 +50,6 @@ export class ClassScheduleComponent implements OnInit {
 
   selectClass(id: any){
     this.view = new View(id);
-    console.log("xxxxxxxx"+JSON.stringify(this.view));
     this.http.post<any>('http://localhost:8070/api/common/get_all_class_by_id',this.view).subscribe(
       response => {
         this.classData = response;

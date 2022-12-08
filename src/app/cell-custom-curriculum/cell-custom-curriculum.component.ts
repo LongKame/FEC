@@ -37,6 +37,7 @@ export class CellCustomCurriculumComponent implements ICellRendererAngularComp {
 
   modalRef: BsModalRef | undefined;
   courses = new FormControl(1);
+  courseId: any;
   
   constructor(
     private modalService: BsModalService,
@@ -67,18 +68,16 @@ export class CellCustomCurriculumComponent implements ICellRendererAngularComp {
   }
 
   openModal(template: TemplateRef<any>) {
+    this.courseId = this.courseOptions.find(i=>i.value===this.params.data.course_id);
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
   }
 
-
-  courseId: any;
-
   updateCurriculum() {
     
-    this.curriculum = new Curriculum(this.params.data.id, this.courseId, this.params.data.curriculum_name, this.params.data.link_url, this.params.data.description);
+    this.curriculum = new Curriculum(this.params.data.id, this.courseId.value, this.params.data.curriculum_name, this.params.data.link_url, this.params.data.description);
     this.http.put<any>('http://localhost:8070/api/aca/edit_curriculum', this.curriculum).subscribe(
       response => {
         if (response.state === true) {

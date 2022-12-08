@@ -5,7 +5,7 @@
     <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" (click)="openModal(delete)"><i class="fas fa-user-minus"></i></button>
     <div class="space">
     </div>
-    <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Change class" (click)="openModal(change)"><i class="fas fa-exchange-alt"></i></button>
+    <!-- <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Change class" (click)="openModal(change)"><i class="fas fa-exchange-alt"></i></button> -->
 </div>
 
 <ng-template #delete>
@@ -46,6 +46,12 @@
                         <b for="message-text" class="col-form-label">Class:</b>
                         <select class="form-control" formControlName="slot_id" required>
                             <option *ngFor="let item of classOptions" [value]="item.value">{{ item.label }}</option>
+                        </select>
+                        <select class="form-control" required="">
+                            <option *ngFor="let i of classOptions" [value]="i.value"
+                                [attr.selected]="params.data.course_name==i.label ? i.label: null">
+                                {{i.label}}
+                            </option>
                         </select>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ export enum Menu {
   Student = 'Student',
   TimeTable = 'Time Table',
   ChangeClass = 'Change Class',
+  UpdateSchedule = 'Update Schedule',
   AcademicAdmin = 'Academic Admin',
   Class = 'Class',
   Course = 'Course',
