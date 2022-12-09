@@ -26,16 +26,6 @@ export class ClassSchedule {
   }
 }
 
-// private Long class_schedule_id;
-//     private Integer slot_th;
-//     private String date_study;
-//     private Integer slot_of_date;
-//     private Long room_id;
-//     private String room_name;
-//     private Long teacher_id;
-//     private String teacher_name;
-
-
 export type Option = {
   value: number | string;
   label: string;
@@ -83,14 +73,13 @@ teacherId: any;
       this.roomOptions = res.map((item: any) => ({ value: item.id, label: item.roomname }));
     });
     this.http.get<any>('http://localhost:8070/api/admin/get_teachers').subscribe(res => {
-      this.teacherOptions = res.map((item: any) => ({ value: item.teacher_Id, label: item.full_name }));
+      this.teacherOptions = res.map((item: any) => ({value: item.teacher_Id, label: item.full_name}));
     });
   }
 
   openModal(template: TemplateRef<any>) {
     this.roomId = this.roomOptions.find((i: any)=>i.value===this.params.data.room_id);
     this.teacherId = this.teacherOptions.find((i: any)=>i.value===this.params.data.teacher_id);
-
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg' })
@@ -98,7 +87,7 @@ teacherId: any;
   }
 
   updateSchedule() {    
-    this.classSchedule = new ClassSchedule(this.params.data.class_schedule_id,this.teacherId.value,56,this.params.data.slot_th, this.params.data.date_study, this.roomId.value,this.params.data.slot_of_date);
+    this.classSchedule = new ClassSchedule(this.params.data.class_schedule_id,this.teacherId.value,64,this.params.data.slot_th, this.params.data.date_study, this.roomId.value,this.params.data.slot_of_date);
     console.log("uuuu"+JSON.stringify(this.classSchedule));
     this.http.put<any>('http://localhost:8070/api/common/update_slot', this.classSchedule).subscribe(
       response => {

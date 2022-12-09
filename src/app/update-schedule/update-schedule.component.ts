@@ -56,7 +56,6 @@ export class UpdateScheduleComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/admin/get_all_class_by_id',this.view).subscribe(
       response => {
         this.classData = response;
-        console.log("ooooo"+JSON.stringify(response));
       }
     );
   }

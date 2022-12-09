@@ -1,5 +1,6 @@
 <div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
-    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update"
+        (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
     <div class="space">
     </div>
 </div>
@@ -21,21 +22,13 @@
                         <b for="message-text" class="col-form-label">SlotTH:</b>
                         <input type="text" [readonly]="true" [(ngModel)]="params.data.slot_th" class="form-control">
                         <b for="message-text" class="col-form-label">Date:</b>
-                        <input type="" [(ngModel)]="params.data.date_study" class="form-control">
+                        <input type="date" class="form-control" name="currentDate" [ngModel]="params.data.date_study | date:'yyyy-dd-MM'">
                         <b for="message-text" class="col-form-label">Slot of date:</b>
-                        <input type="text" [readonly]="true"
-                        [(ngModel)]="params.data.slot_of_date" class="form-control">
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.slot_of_date"
+                            class="form-control">
                     </div>
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Room:</b>
-                        <!-- <input type="" [(ngModel)]="params.data.room_name" class="form-control"> -->
-                        <!-- <select class="form-control" required="">
-                            <option *ngFor="let i of roomOptions" [value]="i.value"
-                                [attr.selected]="params.data.room_name==i.label ? i.label: null">
-                                {{i.label}}
-                            </option>
-                        </select> -->
-
                         <select class="form-control" [(ngModel)]="roomId">
                             <option *ngFor="let i of roomOptions" [ngValue]="i">
                                 {{i.label}}

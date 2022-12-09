@@ -149,7 +149,6 @@ export class HomeComponent implements OnInit {
         response => {
             console.log(response);
             this.rowData = response.resultData;
-            console.log("yyyyyyyyyyyyyyyy"+this.rowData);
             this.totalResultSearch = response.totalRecordNoLimit;
             this.currentTotalDisplay =  Object.keys(this.rowData).length;
           
