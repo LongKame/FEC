@@ -86,20 +86,21 @@ export class HomeComponent implements OnInit {
   class_id: any;
   user_name: any;
   detail: any;
+  course_name: any = "Ok";
 
   onSearchWarning(course: any): Observable<any> {
     return this.http.post<any>('http://localhost:8070/api/common/get_course_by_id', course);
   }
 
   openViewDetail(template: TemplateRef<any>, id: any) {
-    this.id = id;
+    this.id = id; 
+    console.log("ooo"+this.id);
     this.course = new Course1(this.id);
     console.log(this.course);
     this.onSearchWarning(this.course).subscribe(
       response => {
-        console.log("xyxyxyxyx"+JSON.stringify(response));
         this.detail = response;
-        console.log(JSON.stringify(response));
+        console.log(this.course_name);
       }
     );
     this.modalRef = this.modalService.show(template);

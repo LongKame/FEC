@@ -111,6 +111,11 @@ tr td {
   float: left;
 }
 
+// table{
+//   width: 12%;
+//   float: left;
+// }
+
 .include {
   width: 95%;
   margin-top: 100px;
@@ -128,7 +133,8 @@ td {
 }
 
 table {
-  width: 250px;
+  width: 100%;
+  margin-left: 15%;
 }
 
 .class-name {

@@ -1,5 +1,6 @@
 <div class="banner">
-  <img src="https://image.shutterstock.com/image-vector/horizontal-internet-banner-about-learning-260nw-1603435279.jpg"/>
+  <img
+    src="https://image.shutterstock.com/image-vector/horizontal-internet-banner-about-learning-260nw-1603435279.jpg" />
 </div>
 
 <div class="container">
@@ -7,9 +8,8 @@
     <div class="contentGalery">
       <ul>
         <li class="span4" *ngFor="let i of course" style="box-sizing: content-box; margin-bottom: 30px;">
-          <a href="#"><img class="listImg"
-            [src]="i.image" style="height:70%;" /></a>
-          {{i.name}}
+          <a href="#"><img class="listImg" [src]="i.image" style="height:70%;" /></a>
+          <!-- {{i.name}} -->
           <div class="footer-btn">
             <button type="button" class="btn btn-success" (click)="openClassDetail(classes, i.id)">View Classes</button>
             <div class="space">
@@ -33,10 +33,12 @@
     <div class="modal-body">
       <div class="form-group">
         <label for="username">Course</label>
-        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
-        formControlName="username">
+        <!-- <input type="text" [(ngModel)]="course_name" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}"> -->
+        <h3>{{course_name}}</h3>
+        <!-- <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+        formControlName="username"> -->
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="username">Level</label>
         <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
           formControlName="username">
@@ -50,7 +52,7 @@
         <label for="password">Description</label>
         <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
           placeholder="Password" formControlName="password">
-      </div>
+      </div> -->
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-warning" (click)="modalRef?.hide()">Close</button>

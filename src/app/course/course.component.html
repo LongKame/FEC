@@ -23,8 +23,9 @@
 
 <div class="pagination">
     <button (click)="prev()" class="btn btn-warning">&laquo;</button>
-    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
-        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
+    <button id="btn{{index}}" class="btn btn-warning btn-pag"
+        *ngFor="let a of [].constructor(totalPage); let index = index" (click)="onSearch(index+1,$event)">{{ index+1
+        }}</button>
     <button (click)="next()" class="btn btn-warning">&raquo;</button>
 </div>
 
@@ -41,18 +42,20 @@
                 <div class="row">
                     <div class="col-6">
                         <b for="message-text" class="col-form-label">Course name:</b>
-                        <input type="text" [(ngModel)]="course_name"  class="form-control">
-                       <b  for="message-text" class="col-form-label">Level:</b>
-                       <select [(ngModel)]="levelId" class="browser-default custom-select">
-                        <option value="0" disabled>Open this select menu</option>
-                        <option value="1">Basic</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Advanced</option>
-                    </select>
+                        <input type="text" [(ngModel)]="course_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Level:</b>
+                        <select [(ngModel)]="levelId" class="browser-default custom-select">
+                            <option value="0" disabled>Open this select menu</option>
+                            <option value="1">Basic</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
                         <b for="message-text" class="col-form-label">Number slot:</b>
-                        <input type="text" [(ngModel)]="number_slot"  class="form-control">
+                        <input type="number" [(ngModel)]="number_slot" class="form-control">
                         <b for="message-text" class="col-form-label">Fee:</b>
-                        <input type="text" [(ngModel)]="fee"  class="form-control">
+                        <input type="text" (keypress)="keyPressFee($event)" [(ngModel)]="fee" class="form-control">
                     </div>
                 </div>
             </div>

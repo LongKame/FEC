@@ -236,9 +236,4 @@ export class AcaComponent implements OnInit {
       event.preventDefault();
     }
   }
-
-  keyPressEmail(event: any) {
-   
-  }
-
 }

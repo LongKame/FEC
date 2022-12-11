@@ -173,7 +173,7 @@ nav {
 
   .teacher {
     margin-top: 20px;
-    width: 80%;
+    width: 120%;
   }
 }
 
@@ -202,6 +202,10 @@ nav {
 
   #menuContainer .navbar-nav {
     margin-left: 10px;
+  }
+
+  .head th{
+    height: 89px;
   }
 
   .sub-title span {
@@ -236,6 +240,11 @@ nav {
 
   .col-8 {
     display: none;
+  }
+
+  .include {
+    width: 120%;
+    margin-top: 100px;
   }
 
   .teacher {
@@ -276,7 +285,6 @@ tr td {
 }
 
 .include {
-  width: 100%;
   margin-top: 100px;
 }
 

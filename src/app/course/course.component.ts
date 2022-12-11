@@ -183,6 +183,13 @@ export class CourseComponent implements OnInit {
     ];
   }
 
+  keyPressFee(event: any) {
+    const pattern = /[0-9\+\.\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   addCourse() {
     this.course = new Course(this.course_name, this.levelId, null, null, this.number_slot, this.fee);
