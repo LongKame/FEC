@@ -146,3 +146,13 @@ span {
   font-weight: 20;
   color: red;
 }
+
+@media only screen and (max-width: 700px) {
+  .include{
+    width: 150%;
+  }
+  
+  // .floatLefthead{
+  //   width: 20%;
+  // }
+}

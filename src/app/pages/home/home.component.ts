@@ -79,6 +79,11 @@ export class HomeComponent implements OnInit {
       link: '/home/update-schedule'
     },
     {
+      icon: fa.faSearchPlus,
+      menu: Menu.ViewStudentsInAllClasses,
+      link: '/home/view-students-in-classes'
+    },
+    {
       icon: fa.faSignOutAlt,
       menu: Menu.Logout,
       onClick: () => this.onLogout(),

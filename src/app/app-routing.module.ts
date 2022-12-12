@@ -24,6 +24,8 @@ import { TimeTableComponent } from './time-table/time-table.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { ChangeClassComponent } from './change-class/change-class.component';
 import { UpdateScheduleComponent } from './update-schedule/update-schedule.component';
+import { ViewStudentsInAllClassesComponent } from './view-students-in-all-classes/view-students-in-all-classes.component';
+import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view-student-in-own-class.component';
 
 
 const routes: Routes = [
@@ -44,6 +46,7 @@ const routes: Routes = [
       { path: 'class', component: ClassComponent },
       { path: 'pending', component: PendingComponent },
       { path: 'update-schedule', component: UpdateScheduleComponent },
+      { path: 'view-students-in-classes', component: ViewStudentsInAllClassesComponent},
     ]
   }, 
   {
@@ -73,6 +76,7 @@ const routes: Routes = [
       { path: 'viewclass', component: ViewClassComponent },
       { path: 'timetable', component: ViewTimetableComponent },
       { path: 'time_table', component: TimeTableComponent },
+      { path: 'view-students-in-classes', component: ViewStudentInOwnClassComponent },
     ]
   },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },

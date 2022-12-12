@@ -69,6 +69,11 @@ export class TeacherPageComponent implements OnInit {
       link: '/teacher-page/time_table'
     },
     {
+      icon: fa.faSearchPlus,
+      menu: Menu.ViewStudentsInOwnClasses,
+      link: '/teacher-page/view-students-in-classes'
+    },
+    {
       icon: fa.faSignOutAlt,
       menu: Menu.Logout,
       onClick: () => this.onLogout(),
