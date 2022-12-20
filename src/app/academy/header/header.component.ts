@@ -4,7 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, UserRole } from '../../_services/auth.service';
 import { TokenService } from '../../_services/token.service';
-import { FormGroup, FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 export class User {
@@ -71,8 +71,6 @@ export class HeaderComponent implements OnInit {
   re_new_password: any;
   change_password: any;
 
-
-
   constructor(
     private http: HttpClient,
     private modalService: BsModalService,
@@ -82,11 +80,8 @@ export class HeaderComponent implements OnInit {
     private toastService: ToastrService,
     private router: Router,
     private ngZone: NgZone,
-    private formBuilder: FormBuilder,
     private toast: ToastrService,
   ) { }
-
-
 
   ngOnInit(): void {
     this.formLogin = this.fb.group({
@@ -151,7 +146,15 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  onChange(){
+  keyPressPhone(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onChange() {
     this.change_password = new ChangePassword(this.tokenService.getUserProfile()?.username, this.old_password, this.new_password);
     this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
       response => {
@@ -168,7 +171,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onRegister() {
-    const values = this.formChangePassword.getRawValue();
+    const values = this.formRegis.getRawValue();
+    console.log(JSON.stringify(values));
     this.http.post<any>('http://localhost:8070/api/v1/registration', values).subscribe(
       (res) => {
         this.toastService.error('Send verification to your email');
@@ -178,7 +182,7 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
-  
+
   onForgot() {
     this.reset = new Reset(this.emailReset);
     this.http.post<any>('http://localhost:8070/api/common/reset_password', this.reset).subscribe(
@@ -227,11 +231,21 @@ export class HeaderComponent implements OnInit {
   //   );
   // }
 
+  keyPressUserName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   openChange(template: TemplateRef<any>) {
     this.modalRef?.hide();
     this.modalRef = this.modalService.show(template);
   }
-  
+
   student: any;
   user: any;
   user_Id: any;

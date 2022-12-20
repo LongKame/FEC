@@ -6,12 +6,12 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
   menus = [
-    { text: 'Home', link: '/'},
-    { text: 'Teacher Team', link: '/academy/teache-team'},
-    { text: 'Student', link: '/academy/student-feedback'},
-    { text: 'Class Schedule', link: '/academy/class-schedule'},
-    { text: 'Timetable', link: '/academy/student-time-table'},
-    { text: 'Curriculum', link: '/academy/view-curriculum'},
-    { text: 'Quiz', link: '/academy/quiz'},
+    { text: 'Trang chủ', link: '/'},
+    { text: 'Đội ngũ giảng viên', link: '/academy/teache-team'},
+    { text: 'Học viên', link: '/academy/student-feedback'},
+    { text: 'Thời khóa biểu một lớp', link: '/academy/class-schedule'},
+    { text: 'Thời khóa biểu', link: '/academy/student-time-table'},
+    { text: 'Học liệu', link: '/academy/view-curriculum'},
+    { text: 'Bài quiz', link: '/academy/quiz'},
   ];
 }

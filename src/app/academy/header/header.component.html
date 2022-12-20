@@ -39,11 +39,11 @@
       <div class="dropdown-menu">
         <div class="dropdown-item">{{ userProfile.username }}</div>
         <div class="dropdown-divider"></div>
-        <div class="dropdown-item" (click)="onLogout()">Sign out</div>
+        <div class="dropdown-item" (click)="onLogout()">Đăng xuất</div>
         <div class="dropdown-divider"></div>
-        <div class="dropdown-item" (click)="onUpdateProfile(update)">Update profile</div>
+        <div class="dropdown-item" (click)="onUpdateProfile(update)">Thông tin cá nhân</div>
         <div class="dropdown-divider"></div>
-        <div class="dropdown-item" (click)="openChange(changePassword)">Change password</div>
+        <div class="dropdown-item" (click)="openChange(changePassword)">Thay đổi mật khẩu</div>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
 
 <ng-template #changePassword>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Change password</h4>
+      <h4 class="modal-title pull-left">Thay đổi mật khẩu</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
@@ -67,14 +67,14 @@
         <label for="name">Re-New password</label>
         <input autocomplete="off" [(ngModel)]="re_new_password" required type="password" class="form-control mt-1" id="password" placeholder="Re-New password">
       </div>
-      <button *ngIf="new_password === re_new_password && new_password && re_new_password" type="submit" class="btn btn-primary mt-3"  (click)="onChange()">Change</button>
+      <button *ngIf="new_password === re_new_password && new_password && re_new_password" type="submit" class="btn btn-primary mt-3"  (click)="onChange()">Thay đổi</button>
     </div>
 </ng-template>
 
 <ng-template #update>
   <form ngNativeValidate #form>
       <div class="modal-header">
-          <h4 class="modal-title pull-left">Edit profile</h4>
+          <h4 class="modal-title pull-left">Thông tin cá nhân</h4>
           <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
               <span aria-hidden="true"></span>
           </button>
@@ -111,13 +111,13 @@
 <ng-template #regisForm>
   <form [formGroup]="formRegis" (ngSubmit)="onRegister()" ngNativeValidate>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Register</h4>
+      <h4 class="modal-title pull-left">Đăng kí</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
       <div class="form-group">
         <label for="username">Username</label>
-        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username" (keypress)="keyPressUserName($event)"
           formControlName="username">
       </div>
       <div class="form-group mt-3">
@@ -137,16 +137,15 @@
       </div>
       <div class="form-group mt-3">
         <label for="phone">Phone</label>
-        <input autocomplete="off" required type="phone" class="form-control mt-1" id="password" placeholder="Phone"
+        <input autocomplete="off" (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 required type="phone" class="form-control mt-1" id="password" placeholder="Phone"
           formControlName="phone">
-
       </div>
       <div class="form-group mt-3">
         <label for="address">Address</label>
         <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Address"
           formControlName="address">
       </div>
-      <button type="submit" class="btn btn-primary mt-3">Register</button>
+      <button type="submit" class="btn btn-primary mt-3">Đăng kí</button>
     </div>
   </form>
 </ng-template>
@@ -154,7 +153,7 @@
 <ng-template #loginForm>
   <form [formGroup]="formLogin" (ngSubmit)="onLogin()" ngNativeValidate>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Login</h4>
+      <h4 class="modal-title pull-left">Đăng nhập</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
@@ -168,15 +167,15 @@
         <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
           placeholder="Password" formControlName="password">
       </div>
-      <button type="submit" class="btn btn-primary mt-3">Login</button>
-      <button type="button" class="btn btn-light mt-3" (click)="openForgotForm(forgot)">Forgot password</button>
+      <button type="submit" class="btn btn-primary mt-3">Đăng nhập</button>
+      <button type="button" class="btn btn-light mt-3" (click)="openForgotForm(forgot)">Quên mật khẩu</button>
     </div>
   </form>
 </ng-template>
 
 <ng-template #forgot>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Forgot</h4>
+      <h4 class="modal-title pull-left">Lấy lại mật khẩu</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
@@ -185,6 +184,6 @@
           <input autocomplete="off" required class="form-control mt-1" id="email" placeholder="Email"
           [(ngModel)] = "emailReset">
       </div>
-      <button type="button" class="btn btn-primary mt-3" (click)="onForgot()">Login</button>
+      <button type="button" class="btn btn-primary mt-3" (click)="onForgot()">Gửi đến Email</button>
     </div>
 </ng-template>

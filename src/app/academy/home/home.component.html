@@ -11,7 +11,7 @@
           <a href="#"><img class="listImg" [src]="i.image" style="height:70%;" /></a>
           <!-- {{i.name}} -->
           <div class="footer-btn">
-            <button type="button" class="btn btn-success" (click)="openClassDetail(classes, i.id)">View Classes</button>
+            <button type="button" class="btn btn-success" (click)="openClassDetail(classes, i.id)">Xem lớp học</button>
             <div class="space">
             </div>
             <!-- <button type="button" class="btn btn-primary" (click)="openViewDetail(detail, i.id)">Chi tiết</button> -->
@@ -73,7 +73,7 @@
         <b for="message-text" class="col-form-label">Class: </b><label>{{i.class_name}}</label>
         <b for="message-text" class="col-form-label"> Teacher: </b><label> {{i.full_name}}</label>
         <br>
-        <button type="button" class="btn btn-danger" (click)="register(i.class_id)">Register</button>
+        <button type="button" class="btn btn-danger" (click)="register(i.class_id)">Đăng kí</button>
       </div>
     </div>
   </div>

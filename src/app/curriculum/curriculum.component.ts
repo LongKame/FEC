@@ -67,7 +67,7 @@ export class CurriculumComponent implements OnInit {
 
   public curriculum: any;
   public view: any;
-  PAGE_SIZE: any = 5;
+  PAGE_SIZE: any = 10;
   courseId: any;
   name: any;
   linkURL: any;
