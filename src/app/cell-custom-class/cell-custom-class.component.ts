@@ -54,10 +54,11 @@ export class CellCustomClassComponent implements ICellRendererAngularComp {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
+    // this.modalRef = this.modalService.show(
+    //   template,
+    //   Object.assign({}, { class: 'gray modal-lg' })
+    // );
+    this.modalRef = this.modalService.show(template);
   }
 
 

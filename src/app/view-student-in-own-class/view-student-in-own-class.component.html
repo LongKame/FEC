@@ -1,8 +1,8 @@
 <div class="body2">
-    <div class="teacher" style="margin-top: 20px;">
+    <div class="teacher">
         <div class="main">
             <div class="row">
-                <div class="col-2" *ngFor="let i of rowData;" style="margin-top: 20px;">
+                <div class="col-2" *ngFor="let i of rowData;">
                     <button type="button" class="btn btn-light"
                         (click)="selectClass(i.id)">{{i.name}}</button>
                 </div>

@@ -15,6 +15,26 @@ export class User {
   }
 }
 
+export class Reset {
+  private email: any;
+
+  constructor(email: any) {
+    this.email = email;
+  }
+}
+
+export class ChangePassword {
+  private user_name: any;
+  private old_password: any;
+  private new_password: any;
+
+  constructor(user_name: any, old_password: any, new_password: any) {
+    this.user_name = user_name;
+    this.old_password = old_password;
+    this.new_password = new_password;
+  }
+}
+
 export class Student {
   private user_Id: any;
   private user_name: any;
@@ -41,7 +61,15 @@ export class HeaderComponent implements OnInit {
   modalRef?: BsModalRef;
   formLogin!: FormGroup;
   formRegis!: FormGroup;
+  formForgot!: FormGroup;
+  formChangePassword!: FormGroup;
   userProfile?: any;
+  emailReset: any;
+  reset: any;
+  old_password: any;
+  new_password: any;
+  re_new_password: any;
+  change_password: any;
 
 
 
@@ -83,6 +111,8 @@ export class HeaderComponent implements OnInit {
     Validators.required, Validators.pattern(("[6-9]\\d{9}"))
   ]);
 
+  state: boolean = true;
+
   openLoginForm(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -91,6 +121,10 @@ export class HeaderComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  openForgotForm(template: TemplateRef<any>) {
+    this.modalRef?.hide();
+    this.modalRef = this.modalService.show(template);
+  }
 
   onLogin() {
     const values = this.formLogin.getRawValue();
@@ -117,14 +151,42 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  onChange(){
+    this.change_password = new ChangePassword(this.tokenService.getUserProfile()?.username, this.old_password, this.new_password);
+    this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    );
+  }
+
   onRegister() {
-    const values = this.formRegis.getRawValue();
+    const values = this.formChangePassword.getRawValue();
     this.http.post<any>('http://localhost:8070/api/v1/registration', values).subscribe(
       (res) => {
         this.toastService.error('Send verification to your email');
       },
       (err) => {
-        this.toastService.error('Register failed');
+        // this.toastService.error('Register failed');
+      }
+    );
+  }
+  
+  onForgot() {
+    this.reset = new Reset(this.emailReset);
+    this.http.post<any>('http://localhost:8070/api/common/reset_password', this.reset).subscribe(
+      (res) => {
+        this.toastService.error('Send verification to your email');
+      },
+      (err) => {
+        // this.toastService.error('Register failed');
       }
     );
   }
@@ -158,6 +220,18 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  // onChangePassword(template: TemplateRef<any>) {
+  //   this.modalRef = this.modalService.show(
+  //     template,
+  //     Object.assign({}, { class: 'gray modal-lg' })
+  //   );
+  // }
+
+  openChange(template: TemplateRef<any>) {
+    this.modalRef?.hide();
+    this.modalRef = this.modalService.show(template);
+  }
+  
   student: any;
   user: any;
   user_Id: any;
@@ -206,6 +280,4 @@ export class HeaderComponent implements OnInit {
       }
     )
   }
-
-
 }

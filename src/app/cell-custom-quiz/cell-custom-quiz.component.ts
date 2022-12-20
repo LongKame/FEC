@@ -67,6 +67,10 @@ export class CellCustomQuizComponent implements ICellRendererAngularComp {
     );
   }
 
+  openModalDelete(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
   updateQuiz() {
     this.quizz = new Quiz(this.params.data.id,this.params.data.question, this.params.data.answerA,this.params.data.answerB
       ,this.params.data.answerC, this.params.data.answerD, this.params.data.correct);

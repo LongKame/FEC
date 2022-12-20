@@ -73,6 +73,10 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
     );
   }
 
+  openModalDelete(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
   deleteStudent() {
     this.stu = new Student(null,this.params.data.user_Id,null);
     this.http.put<any>('http://localhost:8070/api/admin/delete_student', this.stu).subscribe(

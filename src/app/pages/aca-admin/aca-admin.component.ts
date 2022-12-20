@@ -15,6 +15,18 @@ export class User {
   }
 }
 
+export class ChangePassword {
+  private user_name: any;
+  private old_password: any;
+  private new_password: any;
+
+  constructor(user_name: any, old_password: any, new_password: any) {
+    this.user_name = user_name;
+    this.old_password = old_password;
+    this.new_password = new_password;
+  }
+}
+
 export class Teacher {
   private user_Id: any;
   private user_name: any;
@@ -60,11 +72,6 @@ export class AcaAdminComponent implements OnInit {
       menu: Menu.Room,
       link: '/aca-admin/room'
     },
-    // {
-    //   icon: fa.faExchangeAlt,
-    //   menu: Menu.ChangeClass,
-    //   link: '/aca-admin/changeclass'
-    // },
     {
       icon: fa.faSignOutAlt,
       menu: Menu.Logout,
@@ -123,7 +130,6 @@ export class AcaAdminComponent implements OnInit {
   onLoad() {
     if (this.tokenService.getUserProfile()?.username != null) {
       this.user = new User(this.tokenService.getUserProfile()?.username);
-      console.log("oooooooo"+this.user);
       this.http.post<any>('http://localhost:8070/api/aca/get_profile_aca', this.user).subscribe(
         response => {
           this.profile = response;
@@ -133,15 +139,40 @@ export class AcaAdminComponent implements OnInit {
           this.email_param = response.email;
           this.phone_param = response.phone;
           this.address_param = response.address;
-          console.log("oooooooo"+JSON.stringify(response));
         }
       )
     }
   }
 
+  openChange(template: TemplateRef<any>) {
+    this.modalRef?.hide();
+    this.modalRef = this.modalService.show(template);
+  }
+
+  change_password: any;
+  old_password: any;
+  new_password: any;
+  re_new_password: any;
+
+  onChangePassword() {
+    this.change_password = new ChangePassword(this.tokenService.getUserProfile()?.username, this.old_password, this.new_password);
+    this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    );
+  }
+
   updateProfile() {
     this.acad = new Teacher(this.user_id_param, this.user_name_param, this.full_name_param, this.email_param, this.phone_param, this.address_param);
-    this.http.put<any>('http://localhost:8070/api/aca/edit_profile_aca',this.acad).subscribe(
+    this.http.put<any>('http://localhost:8070/api/aca/edit_profile_aca', this.acad).subscribe(
       response => {
         if (response.state === true) {
           this.toast.success("Successfully");
@@ -182,9 +213,4 @@ export class AcaAdminComponent implements OnInit {
       event.preventDefault();
     }
   }
-
-  keyPressEmail(event: any) {
-   
-  }
-
 }

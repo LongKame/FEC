@@ -126,11 +126,15 @@ export class RoomComponent implements OnInit {
     this.onSearch(this.indexPage);
   }
 
+  // openModal(template: TemplateRef<any>) {
+  //   this.modalRef = this.modalService.show(
+  //     template,
+  //     Object.assign({}, { class: 'gray modal-lg' })
+  //   );
+  // }
+
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
+    this.modalRef = this.modalService.show(template);
   }
 
   STYLE_TABLE = {

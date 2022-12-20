@@ -72,6 +72,10 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
     );
   }
 
+  openModalDelete(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
 
   onChange($event: Event) {
     const target = $event.target as HTMLInputElement;

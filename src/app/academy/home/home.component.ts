@@ -94,7 +94,6 @@ export class HomeComponent implements OnInit {
 
   openViewDetail(template: TemplateRef<any>, id: any) {
     this.id = id; 
-    console.log("ooo"+this.id);
     this.course = new Course1(this.id);
     console.log(this.course);
     this.onSearchWarning(this.course).subscribe(

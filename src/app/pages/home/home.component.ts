@@ -18,14 +18,26 @@ export class Teacher {
   private email: any;
   private phone: any;
   private address: any;
-  
-  constructor(username: any, fullname: any, password: any, email: any, phone: any,address: any) {
+
+  constructor(username: any, fullname: any, password: any, email: any, phone: any, address: any) {
     this.username = username;
     this.fullname = fullname;
     this.password = password;
     this.email = email;
     this.phone = phone;
     this.address = address;
+  }
+}
+
+export class ChangePassword {
+  private user_name: any;
+  private old_password: any;
+  private new_password: any;
+
+  constructor(user_name: any, old_password: any, new_password: any) {
+    this.user_name = user_name;
+    this.old_password = old_password;
+    this.new_password = new_password;
   }
 }
 
@@ -121,7 +133,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
   ) {
     this.teacher = new Teacher(this.username, this.fullname, this.password, this.email, this.phone, this.address);
-    this.view = new View(1,10,"");
+    this.view = new View(1, 10, "");
   };
 
   columnDefs: any;
@@ -139,35 +151,40 @@ export class HomeComponent implements OnInit {
   currentPage = 1;
   rangeWithDots: any;
 
-  onSearchWarning(bodySearch: any): Observable<any>  {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher',this.view);
+  openChange(template: TemplateRef<any>) {
+    this.modalRef?.hide();
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onSearchWarning(bodySearch: any): Observable<any> {
+    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', this.view);
   }
 
   pageX(page: number): void {
     this.currentPage = page;
     this.searchInforForm.get('page').setValues(this.currentPage);
     this.onSearch();
-}
+  }
 
   onSearch() {
     this.onSearchWarning("l").subscribe(
-        response => {
-            console.log(response);
-            this.rowData = response.resultData;
-            this.totalResultSearch = response.totalRecordNoLimit;
-            this.currentTotalDisplay =  Object.keys(this.rowData).length;
-          
-            this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
+      response => {
+        console.log(response);
+        this.rowData = response.resultData;
+        this.totalResultSearch = response.totalRecordNoLimit;
+        this.currentTotalDisplay = Object.keys(this.rowData).length;
 
-            if ( Object.keys(this.rowData).length === 0) {
-                this.first = 0;
-            } else {
-                this.first = (this.PAGE_SIZE * (this.page - 1)) + 1
-            }
-            this.last =  Object.keys(this.rowData).length + (this.PAGE_SIZE * (this.page - 1))
+        this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
+
+        if (Object.keys(this.rowData).length === 0) {
+          this.first = 0;
+        } else {
+          this.first = (this.PAGE_SIZE * (this.page - 1)) + 1
         }
+        this.last = Object.keys(this.rowData).length + (this.PAGE_SIZE * (this.page - 1))
+      }
     );
-}
+  }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
@@ -176,6 +193,26 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  change_password: any;
+  old_password: any;
+  new_password: any;
+  re_new_password: any;
+
+  onChangePassword() {
+    this.change_password = new ChangePassword(this.tokenService.getUserProfile()?.username, this.old_password, this.new_password);
+    this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    );
+  }
 
   STYLE_TABLE = {
     'font-weight': '500',
@@ -202,16 +239,17 @@ export class HomeComponent implements OnInit {
         , cellStyle: this.STYLE_TABLE
       },
       { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      {headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE},
+      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
       { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
-      { headerName: 'State', field: 'active', 
-      valueGetter: (params: any) => {
+      {
+        headerName: 'State', field: 'active',
+        valueGetter: (params: any) => {
 
-      return params.node.rowIndex == true ? "Active" : "Deactive";
-      }
-      ,cellStyle: this.STYLE_TABLE 
+          return params.node.rowIndex == true ? "Active" : "Deactive";
+        }
+        , cellStyle: this.STYLE_TABLE
       },
       {
         // headerName: "Action",
@@ -225,12 +263,12 @@ export class HomeComponent implements OnInit {
     this.teacher = new Teacher(this.username, this.fullname, this.password, this.email, this.phone, this.address);
     this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
       response => {
-        if(response.state === true){
+        if (response.state === true) {
           this.onSearch();
           this.toast.success("Successfully");
           this.modalRef?.hide();
         }
-        else{
+        else {
           this.toast.error("Fail");
           this.modalRef?.hide();
         }

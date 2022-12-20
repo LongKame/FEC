@@ -9,12 +9,11 @@
             <img src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png">
             <span class="admin_name">{{ userProfile.username }}</span>
             <i class="bx bx-chevron-down"></i>
+            <button type="button" (click)="openChange(changePassword)" class="btn btn-danger">Setting</button>
         </div>
-        <!-- <i class="fa fa-cog" aria-hidden="true"></i> -->
     </nav>
     <router-outlet></router-outlet>
 </section>
-
 
 <div class="home-content">
     <div class="overview-boxes">
@@ -25,3 +24,25 @@
         </div>
     </div>
 </div>
+
+<ng-template #changePassword>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Change password</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Old password</label>
+        <input autocomplete="off" [(ngModel)]="old_password" required  type="password" class="form-control mt-1" id="username" placeholder="Old password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">New password</label>
+        <input autocomplete="off" [(ngModel)]="new_password" required type="password" class="form-control mt-1" id="password" placeholder="New password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="name">Re-New password</label>
+        <input autocomplete="off" [(ngModel)]="re_new_password" required type="password" class="form-control mt-1" id="password" placeholder="Re-New password">
+      </div>
+      <button *ngIf="new_password === re_new_password && new_password && re_new_password" type="submit" class="btn btn-primary mt-3"  (click)="onChangePassword()">Change</button>
+    </div>
+</ng-template>

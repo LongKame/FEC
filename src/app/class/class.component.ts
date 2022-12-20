@@ -12,7 +12,7 @@ import { TeacherService } from '../teacher/teacher.service';
 import { Option } from '../_common/types/option';
 import { ClassService } from './class.service';
 import { WeekSlot, WeekSlotType } from './class.type';
-
+import { BASE_URL } from '../_common/constants/api';
 
 export class Class {
   private class_id: any;
@@ -153,7 +153,7 @@ export class ClassComponent implements OnInit {
       this.slotOneOptions = this.weekSlotOptions.filter(item => item.value === slotOneFrom - 1);
       this.form.get('firstOnWeek')?.setValue(slotOneFrom - 1);
 
-      this.slotTwoOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom - 1);
+      this.slotTwoOptions = this.weekSlotOptions.filter(item => item.value >= slotOneFrom);
       this.form.get('secondOnWeek')?.setValue(null);
     }
 

@@ -63,6 +63,9 @@ export class CellCustomAcaComponent implements ICellRendererAngularComp {
     );
   }
 
+  openModalDelete(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 
   updateAca() {
     this.user = new AcademicAdmin(this.params.data.user_Id, "", this.params.data.full_name,"", this.params.data.phone, this.params.data.address);

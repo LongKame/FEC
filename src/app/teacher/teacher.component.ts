@@ -146,6 +146,8 @@ export class TeacherComponent implements OnInit {
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
+    // this.modalRef?.hide();
+    // this.modalRef = this.modalService.show(template);
   }
 
   STYLE_TABLE = {
@@ -254,10 +256,6 @@ export class TeacherComponent implements OnInit {
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
-  }
-
-  keyPressEmail(event: any) {
-   
   }
 
   onChange($event: Event) {

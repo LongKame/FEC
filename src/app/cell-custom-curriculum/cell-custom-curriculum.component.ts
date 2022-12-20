@@ -75,6 +75,10 @@ export class CellCustomCurriculumComponent implements ICellRendererAngularComp {
     );
   }
 
+  openModalDelete(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
   updateCurriculum() {
     
     this.curriculum = new Curriculum(this.params.data.id, this.courseId.value, this.params.data.curriculum_name, this.params.data.link_url, this.params.data.description);

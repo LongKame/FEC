@@ -85,6 +85,7 @@ export class CurriculumComponent implements OnInit {
   indexPage: any;
   index: any;
   form!: FormGroup;
+  curri: any;
 
 
   onSearchWarning(bodySearch: any): Observable<any> {
@@ -197,23 +198,14 @@ export class CurriculumComponent implements OnInit {
     ];
   }
 
-  curri: any;
-
   onAddClass() {
     const values = this.form.getRawValue();
     const payload = {
       ...values,
       courseId: +values.courseId,
-      name: +values.name,
-      linkURL: +values.linkURL,
-      description: +values.description,
     };
 
-    
-    // constructor(courseId: any, name: any, linkURL: any, description: any)
-
     this.curri = new Curriculum(payload.courseId, payload.name, payload.linkURL, payload.description);
-    console.log("99999999999999"+JSON.stringify(this.curri));
     this.http.post<any>('http://localhost:8070/api/aca/add_curriculum', this.curri).subscribe(
       response => {
         if (response.state === true) {

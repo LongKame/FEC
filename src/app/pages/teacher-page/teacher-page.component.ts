@@ -28,6 +28,20 @@ export class Teacher {
   }
 }
 
+
+export class ChangePassword {
+  private user_name: any;
+  private old_password: any;
+  private new_password: any;
+
+  constructor(user_name: any, old_password: any, new_password: any) {
+    this.user_name = user_name;
+    this.old_password = old_password;
+    this.new_password = new_password;
+  }
+}
+
+
 export class User {
   private user_name: any;
 
@@ -176,6 +190,32 @@ export class TeacherPageComponent implements OnInit {
         }
       }
     )
+  }
+
+  openChange(template: TemplateRef<any>) {
+    this.modalRef?.hide();
+    this.modalRef = this.modalService.show(template);
+  }
+
+  change_password: any;
+  old_password: any;
+  new_password: any;
+  re_new_password: any;
+
+  onChangePassword(){
+    this.change_password = new ChangePassword(this.tokenService.getUserProfile()?.username, this.old_password, this.new_password);
+    this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Successfully");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error(response.message);
+          this.modalRef?.hide();
+        }
+      }
+    );
   }
 
   keyPressUserName(event: any) {
