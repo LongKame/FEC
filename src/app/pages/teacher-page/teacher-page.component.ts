@@ -58,6 +58,11 @@ export class User {
 export class TeacherPageComponent implements OnInit {
   menus: MenuItem[] = [
     {
+      icon: fa.faChalkboardTeacher,
+      menu: Menu.Teacher,
+      link: '/teacher-page/viewteacher'
+    },
+    {
       icon: fa.faGraduationCap,
       menu: Menu.Student,
       link: '/teacher-page/viewstudent'
@@ -73,11 +78,6 @@ export class TeacherPageComponent implements OnInit {
       link: '/teacher-page/viewaca'
     },
     {
-      icon: fa.faChalkboardTeacher,
-      menu: Menu.Teacher,
-      link: '/teacher-page/viewteacher'
-    },
-    {
       icon: fa.faTable,
       menu: Menu.TimeTable,
       link: '/teacher-page/time_table'
@@ -86,6 +86,11 @@ export class TeacherPageComponent implements OnInit {
       icon: fa.faSearchPlus,
       menu: Menu.ViewStudentsInOwnClasses,
       link: '/teacher-page/view-students-in-classes'
+    },
+    {
+      icon: fa.faCalendarCheck,
+      menu: Menu.CheckAttendance,
+      link: '/teacher-page/check-attendance'
     },
     {
       icon: fa.faSignOutAlt,

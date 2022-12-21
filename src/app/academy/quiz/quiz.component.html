@@ -104,7 +104,7 @@
       <div class="mb-1">
         <b>Kết quả đúng</b>: {{ totalCorrect }}/{{ questions.length }}
       </div>
-      <div><b>Điểm</b>: {{ (totalCorrect / questions.length) * 10 }}</div>
+      <div><b>Điểm</b>: {{ (totalCorrect / questions.length) * 10 | number : '1.2-2'}}</div>
     </div>
   </div>
   <div class="modal-footer">

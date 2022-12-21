@@ -12,6 +12,7 @@ export enum Menu {
   ChangeClass = 'Change Class',
   ViewStudentsInAllClasses = 'View Student Class',
   ViewStudentsInOwnClasses = 'View Student Class',
+  CheckAttendance = 'Check Attendance',
   UpdateSchedule = 'Update Schedule',
   AcademicAdmin = 'Academic Admin',
   Class = 'Class',

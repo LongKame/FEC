@@ -55,6 +55,8 @@ import { UpdateScheduleComponent } from './update-schedule/update-schedule.compo
 import { CellCustomUpdateScheduleComponent } from './cell-custom-update-schedule/cell-custom-update-schedule.component';
 import { ViewStudentsInAllClassesComponent } from './view-students-in-all-classes/view-students-in-all-classes.component';
 import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view-student-in-own-class.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CheckAttendanceComponent } from './check-attendance/check-attendance.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +97,7 @@ import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view
     CellCustomUpdateScheduleComponent,
     ViewStudentsInAllClassesComponent,
     ViewStudentInOwnClassComponent,
+    CheckAttendanceComponent,
   ],
   imports: [
     FormsModule,
@@ -110,6 +113,7 @@ import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),
     CommonModule,
+    NgxSkeletonLoaderModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-left',

@@ -26,6 +26,7 @@ import { ChangeClassComponent } from './change-class/change-class.component';
 import { UpdateScheduleComponent } from './update-schedule/update-schedule.component';
 import { ViewStudentsInAllClassesComponent } from './view-students-in-all-classes/view-students-in-all-classes.component';
 import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view-student-in-own-class.component';
+import { CheckAttendanceComponent } from './check-attendance/check-attendance.component';
 
 
 const routes: Routes = [
@@ -77,6 +78,7 @@ const routes: Routes = [
       { path: 'timetable', component: ViewTimetableComponent },
       { path: 'time_table', component: TimeTableComponent },
       { path: 'view-students-in-classes', component: ViewStudentInOwnClassComponent },
+      { path: 'check-attendance', component: CheckAttendanceComponent},
     ]
   },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },
