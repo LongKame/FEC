@@ -35,7 +35,8 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((res) => {
         if (res.status === 403 && res.error.error === 'Forbidden') {
           // should redirect to /403 page
-          this.toastService.error('Forbidden');
+          // this.toastService.error('Forbidden');
+          this.toastService.error('Bạn cần đăng nhập');
         }
 
         return throwError(res);

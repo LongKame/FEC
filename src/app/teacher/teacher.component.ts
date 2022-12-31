@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscriber } from 'rxjs';
@@ -48,13 +49,19 @@ export class TeacherComponent implements OnInit {
   title = 'AdminFE';
   myImage!: Observable<any>;
   base64code!: any;
+  searchInforForm: any;
 
 
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
-      this.onSearch(this.indexPage);
-    }, 3000)
+      this.onSearch();
+    }, 3000),
+    this.searchInforForm = this.formBuilder.group({
+      key_search: '',
+      page: this.currentPage,
+      pageSize: this.PAGE_SIZE,
+  });
   }
 
   user_name: any;
@@ -69,8 +76,10 @@ export class TeacherComponent implements OnInit {
   public view: any;
 
   constructor(private http: HttpClient,
+    private formBuilder: FormBuilder,
     private modalService: BsModalService,
-    private toast: ToastrService) {
+    private toast: ToastrService,
+    private changeDetectorRef: ChangeDetectorRef) {
     this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
   };
 
@@ -80,7 +89,7 @@ export class TeacherComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 10;
+  PAGE_SIZE: any = 1;
   currentPage = 1;
   defaultColDef: any;
   key: any;
@@ -90,56 +99,89 @@ export class TeacherComponent implements OnInit {
     return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
   }
 
-  onSearch(index: number, btn?: any) {
-    let listBtn = document.getElementsByClassName('btn-pag')
-    for (let i = 0; i < listBtn.length; i++) {
-      const element = listBtn[i];
-      element.setAttribute('style', '{color:blue}')
-    }
-    if (index === null || index === undefined) {
-      index = 1;
-      const eleSelect = document.getElementById('btn' + (0).toString())
-      if (eleSelect) {
-        eleSelect!.style.color = "white"
+  rangeWithDots: any;
+  first: number = 1;
+  last: number = 10;
+
+  pagination(current: any, last: any) {
+    var delta = 2,
+      left = current - delta,
+      right = current + delta + 1,
+      range = [],
+      rangeWithDots = [],
+      l;
+
+    for (let i = 1; i <= last; i++) {
+      if (i == 1 || i == last || (i >= left && i < right)) {
+        range.push(i);
       }
     }
-    if (btn) {
-      btn.target.style.color = "white"
-    } else {
-      const eleSelect = document.getElementById('btn' + (index - 1).toString())
-      if (eleSelect) {
-        eleSelect!.style.color = "white"
+
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push('...');
+        }
       }
+      rangeWithDots.push(i);
+      l = i;
     }
-    this.indexPage = index;
-    this.view = new View(index, this.PAGE_SIZE, this.key);
-    this.onSearchWarning(this.view).subscribe(
-      response => {
-        this.rowData = response.resultData;
-        this.totalResultSearch = response.totalRecordNoLimit;
-        this.currentTotalDisplay = Object.keys(this.rowData).length;
-        this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
-      }
+
+    return rangeWithDots;
+  }
+
+  onSearch() {
+    console.log(this.searchInforForm.value);
+    this.onSearchWarning(this.searchInforForm.value).subscribe(
+        response => {
+            console.log(response);
+            this.rowData = response.resultData;
+            this.totalResultSearch = response.totalRecordNoLimit;
+            this.currentTotalDisplay =  Object.keys(this.rowData).length;
+            // if (this.currentTotalDisplay === 0) {
+            //     this.gridApi.showNoRowsOverlay();
+            // }
+
+            this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
+            this.rangeWithDots = this.pagination(this.currentPage, this.totalPage);
+
+            if ( Object.keys(this.rowData).length === 0) {
+                this.first = 0;
+            } else {
+                this.first = (this.PAGE_SIZE * (this.currentPage - 1)) + 1
+            }
+            this.last =  Object.keys(this.rowData).length + (this.PAGE_SIZE * (this.currentPage - 1))
+            this.changeDetectorRef.detectChanges()
+        }
     );
-  }
+}
 
-  prev(): void {
-    if (this.indexPage > 1) {
-      this.indexPage--;
-    }
-    if (this.indexPage < 1) {
-      this.indexPage = 1
-    }
-    this.onSearch(this.indexPage);
+prev(): void {
+  this.currentPage--;
+  if (this.currentPage < 1) {
+      this.currentPage = 1
   }
+  this.searchInforForm.controls.page.setValue(this.currentPage);
+  this.onSearch();
+}
 
-  next(): void {
-    this.indexPage++;
-    if (this.indexPage > this.totalPage) {
-      this.indexPage = this.totalPage
-    }
-    this.onSearch(this.indexPage);
+next(): void {
+  this.currentPage++;
+  if (this.currentPage > this.totalPage) {
+      this.currentPage = this.totalPage
   }
+  this.searchInforForm.controls.page.setValue(this.currentPage);
+  this.onSearch();
+}
+
+page(page: number): void {
+  this.currentPage = page;
+  console.log(page);
+  this.searchInforForm.controls.page.setValue(this.currentPage);
+  this.onSearch();
+}
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
@@ -179,7 +221,7 @@ export class TeacherComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -190,26 +232,26 @@ export class TeacherComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên tài khoản', field: 'user_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên người dùng', field: 'full_name', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'Image', field: 'imageUrl',
+        headerName: 'Ảnh', field: 'imageUrl',
         cellRenderer: (params: any) => {
           return `<img src="${params.value}" width="60px" height="80px">`;
         }
         , cellStyle: this.STYLE_IMAGE
       },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
+      {headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
+        headerName: 'Trạng thái', field: 'active',
         cellRenderer: (params: any) => {
           return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
         cellStyle: this.STYLE_TABLE
       },
-      { headerName: "Action", cellRendererFramework: CellCustomTeacherComponent, },
+      { headerName: 'Hành động', cellRendererFramework: CellCustomTeacherComponent, },
     ];
   }
 
@@ -218,12 +260,12 @@ export class TeacherComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
       response => {
         if (response.state === true) {
-          this.onSearch(this.indexPage);
-          this.toast.success("Successfully");
+          // this.onSearch(this.indexPage);
+          this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thêm thất bại");
           this.modalRef?.hide();
         }
       }

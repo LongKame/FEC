@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     const token = this.tokenService.getAccessToken();
 
     if (!token) {
-      this.toastService.error('You need login!');
+      this.toastService.error('Bạn cần đăng nhập');
       this.router.navigateByUrl('/');
       return false;
     }
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     const tokenPayload = this.tokenService.decodeToken(token);
 
     if (Date.now() >= tokenPayload.exp * 1000) {
-      this.toastService.error('You need login!');
+      this.toastService.error('Bạn cần đăng nhập');
       this.router.navigateByUrl('/');
       return false;
     }

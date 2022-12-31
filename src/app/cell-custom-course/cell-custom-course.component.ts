@@ -78,11 +78,11 @@ export class CellCustomCourseComponent implements ICellRendererAngularComp {
       response => {
         if(response.state === true){
           this.course.onSearch(this.course.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else{
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }
@@ -110,7 +110,7 @@ export class CellCustomCourseComponent implements ICellRendererAngularComp {
       response => {
         // if(response.state === true){
           this.course.onSearch(this.course.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Xóa thành công");
           this.modalRef?.hide();
         // }
         // else{

@@ -62,11 +62,11 @@ export class TeacherPageComponent implements OnInit {
       menu: Menu.Teacher,
       link: '/teacher-page/viewteacher'
     },
-    {
-      icon: fa.faGraduationCap,
-      menu: Menu.Student,
-      link: '/teacher-page/viewstudent'
-    },
+    // {
+    //   icon: fa.faGraduationCap,
+    //   menu: Menu.Student,
+    //   link: '/teacher-page/viewstudent'
+    // },
     {
       icon: fa.faLandmark,
       menu: Menu.Class,
@@ -87,11 +87,11 @@ export class TeacherPageComponent implements OnInit {
       menu: Menu.ViewStudentsInOwnClasses,
       link: '/teacher-page/view-students-in-classes'
     },
-    {
-      icon: fa.faCalendarCheck,
-      menu: Menu.CheckAttendance,
-      link: '/teacher-page/check-attendance'
-    },
+    // {
+    //   icon: fa.faCalendarCheck,
+    //   menu: Menu.CheckAttendance,
+    //   link: '/teacher-page/check-attendance'
+    // },
     {
       icon: fa.faSignOutAlt,
       menu: Menu.Logout,
@@ -121,7 +121,7 @@ export class TeacherPageComponent implements OnInit {
   onLogout() {
     this.tokenService.doLogout();
     this.userProfile = undefined;
-    this.toast.success('Logout successfully');
+    this.toast.success('Đăng xuất thành công');
     this.router.navigateByUrl('/');
   }
 
@@ -186,11 +186,11 @@ export class TeacherPageComponent implements OnInit {
     this.http.put<any>('http://localhost:8070/api/teacher/edit_profile_teacher',this.teacher).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }
@@ -212,11 +212,11 @@ export class TeacherPageComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Thay đổi mật khẩu thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thay đổi mật khẩu thất bại");
           this.modalRef?.hide();
         }
       }

@@ -1,8 +1,8 @@
-<p>Manage course</p>
+<p>Quản lý khóa học</p>
 
 <nav>
     <div class="search-box">
-        <input type="text" placeholder="Search..." [(ngModel)]="key">
+        <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="key">
         <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
     </div>
 </nav>
@@ -10,7 +10,7 @@
 <div class="but" style="width: fit-content; margin-left: 90%; margin-top: -5px;">
     <div class="space">
     </div>
-    <button type="button" disabled class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
+    <button type="button" disabled class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Thêm mới</button>
 </div>
 
 <br><br>
@@ -31,7 +31,7 @@
 
 <ng-template #add>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Add course</h4>
+        <h4 class="modal-title pull-left">Thêm khóa học</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
@@ -41,9 +41,9 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Course name:</b>
+                        <b for="message-text" class="col-form-label">Khóa học:</b>
                         <input type="text" [(ngModel)]="course_name" class="form-control">
-                        <b for="message-text" class="col-form-label">Level:</b>
+                        <b for="message-text" class="col-form-label">Mức độ:</b>
                         <select [(ngModel)]="levelId" class="browser-default custom-select">
                             <option value="0" disabled>Open this select menu</option>
                             <option value="1">Basic</option>
@@ -52,9 +52,9 @@
                         </select>
                     </div>
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Number slot:</b>
+                        <b for="message-text" class="col-form-label">Số buổi học:</b>
                         <input type="number" [(ngModel)]="number_slot" class="form-control">
-                        <b for="message-text" class="col-form-label">Fee:</b>
+                        <b for="message-text" class="col-form-label">Học phí:</b>
                         <input type="text" (keypress)="keyPressFee($event)" [(ngModel)]="fee" class="form-control">
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addCourse()">Add</button>
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addCourse()">Thêm</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
     </div>
 </ng-template>

@@ -111,11 +111,11 @@ export class CellCustomUpdateScheduleComponent implements ICellRendererAngularCo
       response => {
         if (response.state === true) {
           this.updateChedule.selectClass(this.updateChedule.id);
-          this.toast.success(response.message);
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }

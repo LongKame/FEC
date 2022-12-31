@@ -68,11 +68,11 @@ export class CellCustomClassComponent implements ICellRendererAngularComp {
       response => {
         if(response.state === true){
           this.classComponent.onSearch(this.classComponent.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else{
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }

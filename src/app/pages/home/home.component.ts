@@ -61,14 +61,14 @@ export class View {
 export class HomeComponent implements OnInit {
   menus: MenuItem[] = [
     {
-      icon: fa.faGraduationCap,
-      menu: Menu.Student,
-      link: '/home/student'
-    },
-    {
       icon: fa.faChalkboardTeacher,
       menu: Menu.Teacher,
       link: '/home/teacher'
+    },
+    {
+      icon: fa.faGraduationCap,
+      menu: Menu.Student,
+      link: '/home/student'
     },
     {
       icon: fa.faUserFriends,
@@ -203,11 +203,11 @@ export class HomeComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Thay đổi mật khẩu thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thay đổi thất bại");
           this.modalRef?.hide();
         }
       }
@@ -227,7 +227,7 @@ export class HomeComponent implements OnInit {
   createTable() {
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -238,13 +238,13 @@ export class HomeComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên tài khoản', field: 'user_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên người dùng', field: 'full_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
+      {headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
+        headerName: 'Trạng thái', field: 'active',
         valueGetter: (params: any) => {
 
           return params.node.rowIndex == true ? "Active" : "Deactive";
@@ -252,7 +252,7 @@ export class HomeComponent implements OnInit {
         , cellStyle: this.STYLE_TABLE
       },
       {
-        // headerName: "Action",
+        // headerName: 'Hành động',
         // cellRendererFramework: CellCustomTeacherComponent,
       },
     ];
@@ -265,11 +265,11 @@ export class HomeComponent implements OnInit {
       response => {
         if (response.state === true) {
           this.onSearch();
-          this.toast.success("Successfully");
+          this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error("Fail");
+          this.toast.error("Thêm thất bại");
           this.modalRef?.hide();
         }
       }

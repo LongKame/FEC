@@ -11,7 +11,7 @@
 
 <ng-template #delete>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Delete room</h4>
+        <h4 class="modal-title pull-left">Xóa phòng</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
@@ -19,14 +19,14 @@
 
     <div class="modal-footer">
         <!-- <button type="button" class="btn btn-danger" (click)="deleteCourse()">Delete</button> -->
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
     </div>
 </ng-template>
 
 
 <ng-template #update>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Update room</h4>
+        <h4 class="modal-title pull-left">Cập nhật phòng</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
@@ -37,19 +37,19 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Room name:</b>
+                        <b for="message-text" class="col-form-label">Phòng học:</b>
                         <input type="text" [(ngModel)]="params.data.roomname" class="form-control">
-                        <b for="message-text" class="col-form-label">Capacity:</b>
+                        <b for="message-text" class="col-form-label">Sức chứa:</b>
                         <input type="text" [(ngModel)]="params.data.capacity" class="form-control">
-                        <b for="message-text" class="col-form-label">State:</b>
+                        <b for="message-text" class="col-form-label">Trạng thái:</b>
                         <div class="space">
                         </div>
                         <input type='checkbox' [(ngModel)]="params.data.active">
                     </div>
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Created at:</b>
+                        <b for="message-text" class="col-form-label">Ngày tạo:</b>
                         <input type="email" [readonly]="true" [(ngModel)]="params.data.createdat" class="form-control">
-                        <b for="message-text" class="col-form-label">Updated at:</b>
+                        <b for="message-text" class="col-form-label">Ngày cập nhật:</b>
                         <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedat" class="form-control">
                     </div>
                 </div>
@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="updateRoom()">Update</button>
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="updateRoom()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
     </div>
 </ng-template>

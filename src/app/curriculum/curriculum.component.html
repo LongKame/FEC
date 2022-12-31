@@ -1,8 +1,8 @@
-<p>Manage curriculum</p>
+<p>Quản lý tài liệu</p>
 
 <nav>
     <div class="search-box">
-        <input type="text" placeholder="Search..." [(ngModel)]="key">
+        <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="key">
         <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
     </div>
 </nav>
@@ -10,7 +10,7 @@
 <div class="but" style="width: fit-content; margin-left: 90%; margin-top: -5px;">
     <div class="space">
     </div>
-    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Thêm mới</button>
 </div>
 
 <br><br>
@@ -31,7 +31,7 @@
 <ng-template #add>
     <form [formGroup]="form" (ngSubmit)="onAddClass()">
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Add Curriculum</h4>
+            <h4 class="modal-title pull-left">Thêm tài liệu</h4>
             <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
                 <span aria-hidden="true"></span>
             </button>
@@ -41,17 +41,17 @@
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-6">
-                            <b for="message-text" class="col-form-label">Curriculum name:</b>
+                            <b for="message-text" class="col-form-label">Tài liệu:</b>
                             <input type="text" class="form-control" formControlName="name" required="true">
-                            <b for="message-text" class="col-form-label">Link url:</b>
+                            <b for="message-text" class="col-form-label">Liên kết:</b>
                             <input type="text" class="form-control" formControlName="linkURL" required="true">
                         </div>
                         <div class="col-6">
-                            <b for="message-text" class="col-form-label">Course:</b>
+                            <b for="message-text" class="col-form-label">Khóa học:</b>
                                 <select class="form-control" formControlName="courseId" required>
                                     <option *ngFor="let i of courseOptions" [value]="i.value">{{ i.label }}</option>
                                 </select>
-                            <b for="message-text" class="col-form-label">Description:</b>
+                            <b for="message-text" class="col-form-label">Mô tả:</b>
                             <input type="text" class="form-control" formControlName="description" required="true">
                         </div>
                     </div>
@@ -59,8 +59,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" type="submit">Add</button>
-            <button type="button" class="btn btn-default" (click)="modalRef?.hide();">Close</button>
+            <button type="button" class="btn btn-primary" type="submit">Thêm</button>
+            <button type="button" class="btn btn-default" (click)="modalRef?.hide();">Đóng</button>
         </div>
     </form>
     </ng-template>

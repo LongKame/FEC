@@ -32,6 +32,8 @@ export class ClassScheduleComponent implements OnInit {
   }
 
   rowData: any;
+  view: any;
+  classData: any;
 
   onSearchWarning(): Observable<any> {
     return this.http.get<any>('http://localhost:8070/api/common/get_all_class');
@@ -44,9 +46,6 @@ export class ClassScheduleComponent implements OnInit {
       }
     );
   }
-
-  view: any;
-  classData: any
 
   selectClass(id: any){
     this.view = new View(id);

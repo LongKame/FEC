@@ -1,9 +1,9 @@
 
-<p>Manage student pending</p>
+<p>Quản lý danh sách hàng chờ</p>
 
 <nav>
     <div class="search-box">
-        <input type="text" placeholder="Search..." [(ngModel)]="key">
+        <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="key">
         <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
     </div>
 </nav>
@@ -43,25 +43,25 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Room name:</b>
+                        <b for="message-text" class="col-form-label">Phòng học:</b>
                         <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Class name:</b>
+                        <b for="message-text" class="col-form-label">Lớp học:</b>
                         <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Teacher:</b>
+                        <b for="message-text" class="col-form-label">Giảng viên:</b>
                         <input type="text"  class="form-control">
                         <b for="message-text" class="col-form-label">Slot:</b>
                         <input type="text"  class="form-control">
-                        <b for="message-text" class="col-form-label">Start date:</b>
+                        <b for="message-text" class="col-form-label">Ngày bắt đầu:</b>
                         <input type="date"  class="form-control">
                     </div>
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Course:</b>
+                        <b for="message-text" class="col-form-label">Khóa học:</b>
                         <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Number of slot:</b>
+                        <b for="message-text" class="col-form-label">Số buổi học:</b>
                         <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot 1 on week:</b>
+                        <b for="message-text" class="col-form-label">Slot 1 trong tuần:</b>
                         <input type="number"  class="form-control">
-                        <b for="message-text" class="col-form-label">Slot 2 on week:</b>
+                        <b for="message-text" class="col-form-label">Slot 2 trong tuần:</b>
                         <input type="number"  class="form-control">
 
                     </div>
@@ -71,6 +71,6 @@
     </div>
     <div class="modal-footer">
         <!-- <button type="button" class="btn btn-primary" (click)="addAca()">Add</button> -->
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
     </div>
 </ng-template>

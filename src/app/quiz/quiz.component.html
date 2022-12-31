@@ -1,14 +1,14 @@
-<p>Manage quiz</p>
+<p>Quản lý câu hỏi</p>
 
 <nav>
     <div class="search-box">
-        <input type="text" placeholder="Search..." [(ngModel)]="key">
+        <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="key">
         <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
     </div>
 </nav>
 
 <div class="but" style="width: fit-content; margin-left: 90%; margin-top: -5px;">
-    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Save</button>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Lưu</button>
 </div>
 
 <br><br>
@@ -29,7 +29,7 @@
 
 <ng-template #add>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Add quiz</h4>
+        <h4 class="modal-title pull-left">Thêm câu hỏi</h4>
         <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true"></span>
         </button>
@@ -39,12 +39,12 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Question:</b>
+                        <b for="message-text" class="col-form-label">Câu hỏi:</b>
                         <br>
                         <input type="file" (change)="readExcel($event)">
                     </div>
                     <div class="col-6">
-                        <b for="message-text" class="col-form-label">Level:</b>
+                        <b for="message-text" class="col-form-label">Mức độ:</b>
                         <br>
                         <select [(ngModel)]="levelId" class="browser-default custom-select">
                             <option value="0" disabled>Open this select menu</option>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveQuiz()">Save</button>
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveQuiz()">Lưu</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
     </div>
 </ng-template>

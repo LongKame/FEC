@@ -142,7 +142,7 @@ export class ViewTeacherComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -153,8 +153,8 @@ export class ViewTeacherComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên tài khoản', field: 'user_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên người dùng', field: 'full_name', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'Image', field: 'imageUrl',
         cellRenderer: (params: any) => {
@@ -163,10 +163,10 @@ export class ViewTeacherComponent implements OnInit {
         , cellStyle: this.STYLE_IMAGE
       },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
+      {headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
+        headerName: 'Trạng thái', field: 'active',
         cellRenderer: (params: any) => {
           return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },

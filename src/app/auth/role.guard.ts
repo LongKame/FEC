@@ -17,7 +17,7 @@ export class RoleGuard implements CanActivate {
     const hasAccess = userRole && userRole === role;
 
     if (!hasAccess) {
-      this.toastService.error('Permission Denied');
+      this.toastService.error('Không thể truy cập');
       this.router.navigateByUrl('/');
       return false;
     }

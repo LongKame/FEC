@@ -77,17 +77,27 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
     this.modalRef = this.modalService.show(template);
   }
 
+  keyPressName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   deleteStudent() {
     this.stu = new Student(null,this.params.data.user_Id,null);
     this.http.put<any>('http://localhost:8070/api/admin/delete_student', this.stu).subscribe(
       response => {
         if (response.state === true) {
           this.student.onSearch(this.stu.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Xóa thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Xóa thất bại");
           this.modalRef?.hide();
         }
       }

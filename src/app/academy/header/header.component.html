@@ -60,15 +60,15 @@
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label for="username">Old password</label>
+        <label for="username">Mật khẩu cũ</label>
         <input autocomplete="off" [(ngModel)]="old_password" required  type="password" class="form-control mt-1" id="username" placeholder="Old password">
       </div>
       <div class="form-group mt-3">
-        <label for="password">New password</label>
+        <label for="password">Mật khẩu mới</label>
         <input autocomplete="off" [(ngModel)]="new_password" required type="password" class="form-control mt-1" id="password" placeholder="New password">
       </div>
       <div class="form-group mt-3">
-        <label for="name">Re-New password</label>
+        <label for="name">Nhập lại mật khẩu mới</label>
         <input autocomplete="off" [(ngModel)]="re_new_password" required type="password" class="form-control mt-1" id="password" placeholder="Re-New password">
       </div>
       <button *ngIf="new_password === re_new_password && new_password && re_new_password" type="submit" class="btn btn-primary mt-3"  (click)="onChange()">Thay đổi</button>
@@ -88,10 +88,10 @@
               <div class="col-sm-12">
                   <div class="row">
                       <div class="col-6">
-                          <b for="message-text" class="col-form-label">Username:</b>
+                          <b for="message-text" class="col-form-label">username:</b>
                           <input type="text" [(ngModel)]="user_name_param" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}">
-                          <b for="message-text" class="col-form-label">Fullname:</b>
-                          <input type="text" [(ngModel)]="full_name_param" class="form-control" required [ngModelOptions]="{standalone: true}">
+                          <b for="message-text" class="col-form-label">Tên người dùng:</b>
+                          <input type="text" [(ngModel)]="full_name_param" (keypress)="keyPressName($event)" class="form-control" required [ngModelOptions]="{standalone: true}">
                           <b for="message-text" class="col-form-label">Email:</b>
                           <input type="text" [(ngModel)]="email_param" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}">
                       </div>
@@ -106,8 +106,8 @@
           </div>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="updateProfile()">Save</button>
-          <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateProfile()">Lưu</button>
+          <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
       </div>
   </form>
 </ng-template>
@@ -120,19 +120,19 @@
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label for="username">Username</label>
-        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username" (keypress)="keyPressUserName($event)"
+        <label for="username">Tên tài khoản</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Tên tài khoản" (keypress)="keyPressUserName($event)"
           formControlName="username">
       </div>
       <div class="form-group mt-3">
-        <label for="password">Password</label>
+        <label for="password">Mật khẩu</label>
         <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
-          placeholder="Password" formControlName="password">
+          placeholder="Mật khẩu" formControlName="password">
       </div>
       <div class="form-group mt-3">
-        <label for="name">Fullname</label>
-        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Fullname"
-          formControlName="fullname">
+        <label for="name">Tên đầy đủ</label>
+        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Tên đầy đủ"
+        (keypress)="keyPressName($event)" formControlName="fullname">
       </div>
       <div class="form-group mt-3">
         <label for="email">Email</label>
@@ -140,13 +140,13 @@
           formControlName="email">
       </div>
       <div class="form-group mt-3">
-        <label for="phone">Phone</label>
-        <input autocomplete="off" (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 required type="phone" class="form-control mt-1" id="password" placeholder="Phone"
+        <label for="phone">Số điện thoại</label>
+        <input autocomplete="off" (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 required type="phone" class="form-control mt-1" id="password" placeholder="Số điện thoại"
           formControlName="phone">
       </div>
       <div class="form-group mt-3">
-        <label for="address">Address</label>
-        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Address"
+        <label for="address">Địa chỉ</label>
+        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Địa chỉ"
           formControlName="address">
       </div>
       <button type="submit" class="btn btn-primary mt-3">Đăng kí</button>
@@ -162,14 +162,14 @@
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label for="username">Username</label>
-        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Username"
+        <label for="username">Tên tài khoản</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Tên tài khoản"
           formControlName="username">
       </div>
       <div class="form-group mt-3">
-        <label for="password">Password</label>
+        <label for="password">Mật khẩu</label>
         <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
-          placeholder="Password" formControlName="password">
+          placeholder="Mật khẩu" formControlName="password">
       </div>
       <button type="submit" class="btn btn-primary mt-3">Đăng nhập</button>
       <button type="button" class="btn btn-light mt-3" (click)="openForgotForm(forgot)">Quên mật khẩu</button>

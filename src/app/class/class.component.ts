@@ -141,14 +141,16 @@ export class ClassComponent implements OnInit {
     totalResultSearch: any;
     currentTotalDisplay: any;
     totalPage: any;
-    PAGE_SIZE: any = 5;
+    PAGE_SIZE: any = 10;
     defaultColDef: any;
     key: any;
     indexPage: any;
+    check: boolean = false;
 
     onStartDateChange(e: Event) {
       const values = this.form.getRawValue();
       const slotOneFrom = new Date(values['start_date']).getDay();
+      this.check = true;
 
       this.slotOneOptions = this.weekSlotOptions.filter(item => item.value === slotOneFrom - 1);
       this.form.get('firstOnWeek')?.setValue(slotOneFrom - 1);
@@ -183,6 +185,7 @@ export class ClassComponent implements OnInit {
 
         this.toastService.success("Success");
         this.onCloseForm();
+        this.onSearch(this.indexPage);
       }, (err) => {
         this.toastService.error('Something went wrong.');
       })
@@ -275,7 +278,7 @@ export class ClassComponent implements OnInit {
   
       this.columnDefs = [
         {
-          headerName: 'Order of list',
+          headerName: 'Số thứ tự',
           valueGetter: (params: any) => {
             if (params.node.rowIndex == 0) {
               return params.node.rowIndex = 1;
@@ -286,15 +289,15 @@ export class ClassComponent implements OnInit {
           }
           , cellStyle: this.STYLE_TABLE
         },
-        { headerName: 'Class', field: 'class_name', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Room', field: 'room_name', cellStyle: this.STYLE_TABLE},
-        { headerName: 'Teacher', field: 'full_name', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Level', field: 'level', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Capacity', field: 'capacity', cellStyle: this.STYLE_TABLE },
-        { headerName: 'Start date', field: 'start_date', cellStyle: this.STYLE_TABLE },
-        { headerName: 'End date', field: 'end_date', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Lớp học', field: 'class_name', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Phòng học', field: 'room_name', cellStyle: this.STYLE_TABLE},
+        { headerName: 'Giảng viên', field: 'full_name', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Mức độ', field: 'level', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Sức chứa', field: 'capacity', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Ngày bắt đầu', field: 'start_date', cellStyle: this.STYLE_TABLE },
+        { headerName: 'Ngày kết thúc', field: 'end_date', cellStyle: this.STYLE_TABLE },
         {
-          headerName: "Action",
+          headerName: "Hành động",
           cellRendererFramework: CellCustomClassComponent,
         },
       ];

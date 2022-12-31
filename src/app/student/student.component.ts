@@ -91,7 +91,7 @@ export class StudentComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 5;
+  PAGE_SIZE: any = 10;
   defaultColDef: any;
   key: any;
   indexPage: any;
@@ -177,7 +177,7 @@ export class StudentComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -188,20 +188,20 @@ export class StudentComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'User name', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên tài khoản', field: 'user_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên người dùng', field: 'full_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Address', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
+      {headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
+        headerName: 'Trạng thái', field: 'active',
         cellRenderer: (params: any) => {
           return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
         },
         cellStyle: this.STYLE_TABLE
       },
       {
-        headerName: "Action",
+        headerName: 'Hành động',
         cellRendererFramework: CellCustomStudentComponent,
       },
     ];

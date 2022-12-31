@@ -86,11 +86,11 @@ export class CellCustomCurriculumComponent implements ICellRendererAngularComp {
       response => {
         if (response.state === true) {
           this.curri.onSearch(this.curri.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }
@@ -102,11 +102,11 @@ export class CellCustomCurriculumComponent implements ICellRendererAngularComp {
       response => {
         if (response.state === true) {
           this.curri.onSearch(this.curri.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Xóa thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error("Fail");
+          this.toast.error("Xóa thất bại");
           this.modalRef?.hide();
         }
       }

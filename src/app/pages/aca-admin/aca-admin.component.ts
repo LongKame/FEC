@@ -100,7 +100,7 @@ export class AcaAdminComponent implements OnInit {
   onLogout() {
     this.tokenService.doLogout();
     this.userProfile = undefined;
-    this.toast.success('Logout successfully');
+    this.toast.success('Đăng xuất thành công');
     this.router.navigateByUrl('/');
   }
 
@@ -159,11 +159,11 @@ export class AcaAdminComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Thay đổi mật khẩu thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thay đổi thất bại");
           this.modalRef?.hide();
         }
       }
@@ -175,11 +175,11 @@ export class AcaAdminComponent implements OnInit {
     this.http.put<any>('http://localhost:8070/api/aca/edit_profile_aca', this.acad).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }

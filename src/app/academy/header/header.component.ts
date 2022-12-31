@@ -135,13 +135,13 @@ export class HeaderComponent implements OnInit {
 
         this.formLogin.reset();
         this.modalRef?.hide();
-        this.toastService.success('Login successfully');
+        this.toastService.success('Đăng nhập thành công');
         this.ngZone.run(() => {
           this.router.navigateByUrl(this.getRedirectURLbyRole(res.role as UserRole));
         });
       },
       (err) => {
-        this.toastService.error('Login failed');
+        this.toastService.error('Đăng nhập thất bại');
       }
     );
   }
@@ -159,11 +159,11 @@ export class HeaderComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/common/change_password', this.change_password).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Thay đổi mật khẩu thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thay đổi thất bại");
           this.modalRef?.hide();
         }
       }
@@ -175,10 +175,11 @@ export class HeaderComponent implements OnInit {
     console.log(JSON.stringify(values));
     this.http.post<any>('http://localhost:8070/api/v1/registration', values).subscribe(
       (res) => {
-        this.toastService.error('Send verification to your email');
+        this.toastService.success('Đã gửi xác nhận đến email của bạn');
       },
       (err) => {
         // this.toastService.error('Register failed');
+        this.toastService.success('Đã gửi xác nhận đến email của bạn');
       }
     );
   }
@@ -187,10 +188,11 @@ export class HeaderComponent implements OnInit {
     this.reset = new Reset(this.emailReset);
     this.http.post<any>('http://localhost:8070/api/common/reset_password', this.reset).subscribe(
       (res) => {
-        this.toastService.error('Send verification to your email');
+        this.toastService.success('Đã gửi xác nhận đến email của bạn');
       },
       (err) => {
         // this.toastService.error('Register failed');
+        this.toastService.success('Đã gửi xác nhận đến email của bạn');
       }
     );
   }
@@ -223,14 +225,7 @@ export class HeaderComponent implements OnInit {
       Object.assign({}, { class: 'gray modal-lg' })
     );
   }
-
-  // onChangePassword(template: TemplateRef<any>) {
-  //   this.modalRef = this.modalService.show(
-  //     template,
-  //     Object.assign({}, { class: 'gray modal-lg' })
-  //   );
-  // }
-
+  
   keyPressUserName(event: any) {
     var inp = String.fromCharCode(event.keyCode);
     if (/[a-zA-Z0-9]/.test(inp)) {
@@ -279,16 +274,26 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  keyPressName(event: any) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   updateProfile() {
     this.student = new Student(this.user_id_param, this.user_name_param, this.full_name_param, this.email_param, this.phone_param, this.address_param);
     this.http.put<any>('http://localhost:8070/api/common/edit_profile_student', this.student).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Thay đổi thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thay đổi thất bại");
           this.modalRef?.hide();
         }
       }

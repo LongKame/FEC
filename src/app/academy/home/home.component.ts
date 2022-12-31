@@ -124,11 +124,11 @@ export class HomeComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/common/register_course',this.classes1).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Successfully");
+          this.toast.success("Đăng ký khóa học thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Đăng ký thất bại");
           this.modalRef?.hide();
         }
       }

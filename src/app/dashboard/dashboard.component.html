@@ -20,15 +20,15 @@
     </div>
     <div class="modal-body" style="width: 500px;">
         <div class="form-group">
-            <label for="id">Username</label>
+            <label for="id">Tên tài khoản</label>
             <input type="text" [(ngModel)] = "username" class="form-control">
         </div>
         <div class="form-group">
-            <label for="image">Fullname</label>
+            <label for="image">Tên đầy đủ</label>
             <input type="text" [(ngModel)] = "fullname" class="form-control">
         </div>
         <div class="form-group">
-            <label for="name">Password</label>
+            <label for="name">Mật khẩu</label>
             <input type="text" [(ngModel)] = "password" class="form-control">
         </div>
         <div class="form-group">
@@ -36,17 +36,17 @@
             <input type="email" [(ngModel)] = "email"  class="form-control">
         </div>
         <div class="form-group">
-            <label for="name">Phone</label>
+            <label for="name">Số điện thoại</label>
             <input type="text" [(ngModel)] = "phone" class="form-control">
         </div>
         <div class="form-group">
-            <label for="name">Address</label>
+            <label for="name">Địa chỉ</label>
             <input type="text" [(ngModel)] = "address"  class="form-control">
         </div>
         <br>
         <button type="button" class="btn btn-primary" (click)="addTeacher()">Add</button>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
     </div>
 </ng-template>

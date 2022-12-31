@@ -1,16 +1,18 @@
-<p>Manage teacher</p>
+<p>Quản lý giảng viên</p>
 
 <nav>
     <div class="search-box">
-        <input type="text" placeholder="Search..." [(ngModel)]="key">
-        <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
+        <form [formGroup]="searchInforForm">
+            <input type="text" placeholder="Tìm kiếm..." formControlName="key_search">
+            <button (click)="onSearch()" type="submit"><i class="bx bx-search"></i></button>
+        </form>
     </div>
 </nav>
 
 <div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
     <div class="space">
     </div>
-    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Thêm mới</button>
 </div>
 
 <br><br>
@@ -21,17 +23,32 @@
     </ag-grid-angular>
 </div>
 
-<div class="pagination">
+<!-- <div class="pagination">
     <button (click)="prev()" class="btn btn-warning">&laquo;</button>
-    <button id="btn{{index}}" class="btn btn-warning btn-pag"
-        *ngFor="let a of [].constructor(totalPage); let index = index" (click)="onSearch(index+1,$event)">{{ index+1
-        }}</button>
+    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
+        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
     <button (click)="next()" class="btn btn-warning">&raquo;</button>
+</div> -->
+
+<div class="sy-paging w-100" style="margin: 0; padding: 20px 0 30px;">
+    <span class="sy-paging-result">Hiển thị kết quả
+        {{ currentTotalDisplay }}/{{ totalResultSearch }} kết quả</span>
+<ul>
+    <button class="btn btn-warning" style="margin: 0" (click)="page(1)">&laquo;</button>
+    <button class="btn btn-warning" (click)="prev()">&laquo;</button>
+    <button class="btn btn-warning" [class.sy-highlight]="i === currentPage "  [class.sy-dots]="i === '...'"
+        *ngFor="let i of rangeWithDots" (click)="i !== '...' && page(i)">
+        {{ i }}
+    </button>
+    <button class="btn btn-warning" (click)="next()">&raquo;</button>
+    <button class="btn btn-warning" style="margin: 0" (click)="page(totalPage)">&raquo;</button>
+</ul>
 </div>
+
 
 <ng-template #add>
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Add teacher</h4>
+            <h4 class="modal-title pull-left">Thêm tài khoản</h4>
             <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
                 <span aria-hidden="true"></span>
             </button>
@@ -41,24 +58,24 @@
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-6">
-                            <b for="message-text" class="col-form-label">Username:</b>
+                            <b for="message-text" class="col-form-label">Tên tài khoản:</b>
                             <input type="text" [(ngModel)]="user_name" 
                             (keypress)="keyPressUserName($event)" class="form-control">
-                            <b for="message-text" class="col-form-label">Fullname:</b>
+                            <b for="message-text" class="col-form-label">Họ tên:</b>
                             <input type="text" [(ngModel)]="full_name" 
                             (keypress)="keyPressName($event)" class="form-control">
-                            <b for="message-text" class="col-form-label">Password:</b>
-                            <input type="text" [(ngModel)]="password" class="form-control">
+                            <b for="message-text" class="col-form-label">Mật khẩu:</b>
+                            <input type="password" [(ngModel)]="password" class="form-control">
                             <b for="message-text" class="col-form-label">Email:</b>
                             <input type="text" [(ngModel)]="email" class="form-control">
                         </div>
                         <div class="col-6">
-                            <b for="message-text" class="col-form-label">Phone:</b>
+                            <b for="message-text" class="col-form-label">Số điện thoại:</b>
                             <input type="text" [(ngModel)]="phone" (keypress)="keyPressPhone($event)"
                                 minlength=10 maxlength=10 class="form-control">
-                            <b for="message-text" class="col-form-label">Address:</b>
+                            <b for="message-text" class="col-form-label">Địa chỉ:</b>
                             <input type="text" [(ngModel)]="address" class="form-control">
-                            <b for="message-text" class="col-form-label">Image:</b>
+                            <b for="message-text" class="col-form-label">Ảnh:</b>
                             <input type="file" (change)="onChange($event)" class="form-control">
                             <br>
                             <div *ngIf="myImage">
@@ -70,7 +87,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="addTeacher()">Add</button>
-            <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Close</button>
+            <button type="button" class="btn btn-primary" (click)="addTeacher()">Thêm</button>
+            <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
         </div>
 </ng-template>

@@ -159,7 +159,7 @@ export class CourseComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -170,14 +170,14 @@ export class CourseComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Course name', field: 'course_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Fee', field: 'fee', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Level', field: 'level', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Created At', field: 'createdAt', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Updated At', field: 'updatedAt', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Number Slot', field: 'numberSlot', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Khóa học', field: 'course_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Học phí', field: 'fee', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Mức độ', field: 'level', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày tạo', field: 'createdAt', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày cập nhật', field: 'updatedAt', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Số buổi học', field: 'numberSlot', cellStyle: this.STYLE_TABLE },
       {
-          headerName: "Action",
+          headerName: "Hành động",
           cellRendererFramework: CellCustomCourseComponent,
         },
     ];
@@ -197,11 +197,11 @@ export class CourseComponent implements OnInit {
       response => {
         if (response.state === true) {
           this.onSearch(this.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thêm thất bại");
           this.modalRef?.hide();
         }
       }

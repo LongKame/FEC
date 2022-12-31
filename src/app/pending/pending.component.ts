@@ -91,7 +91,7 @@ export class PendingComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 5;
+  PAGE_SIZE: any = 10;
   defaultColDef: any;
   key: any;
   indexPage: any;
@@ -130,6 +130,7 @@ export class PendingComponent implements OnInit {
         this.totalResultSearch = response.totalRecordNoLimit;
         this.currentTotalDisplay = Object.keys(this.rowData).length;
         this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
+        console.log("????????"+JSON.stringify(response));
       }
     );
   }
@@ -177,7 +178,7 @@ export class PendingComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -188,20 +189,20 @@ export class PendingComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Full name', field: 'full_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Class name', field: 'class_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tên người dùng', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Lớp học', field: 'class_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Phone', field: 'phone', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Start date', field: 'start_date', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày bắt đầu', field: 'start_date', cellStyle: this.STYLE_TABLE },
+      // {
+      //   headerName: 'Thanh toán', field: 'isPaid',
+      //   cellRenderer: (params: any) => {
+      //     return `<input type='checkbox' ${params.value ? 'checked' : ''} />`;
+      //   },
+      //   cellStyle: this.STYLE_TABLE
+      // },
       {
-        headerName: 'Paid', field: 'isPaid',
-        cellRenderer: (params: any) => {
-          return `<input type='checkbox' ${params.value ? 'checked' : ''} />`;
-        },
-        cellStyle: this.STYLE_TABLE
-      },
-      {
-        headerName: "Action",
+        headerName: 'Hành động',
         cellRendererFramework: CellCustomPendingComponent,
       },
     ];

@@ -64,7 +64,7 @@ export class RoomComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 5;
+  PAGE_SIZE: any = 10;
   defaultColDef: any;
   key: any;
   indexPage: any;
@@ -156,7 +156,7 @@ export class RoomComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -167,12 +167,12 @@ export class RoomComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Room name', field: 'roomname', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Capacity', field: 'capacity', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Created At', field: 'createdat', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Updated At', field: 'updatedat', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Phòng học', field: 'roomname', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Sức chứa', field: 'capacity', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày tạo', field: 'createdat', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày cập nhật', field: 'updatedat', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'State', field: 'active',
+        headerName: 'Trạng thái', field: 'active',
         // cellRenderer: function (params: any) {
         //   return params.data.active === true ? "active" : "deactive";
         // },
@@ -182,7 +182,7 @@ export class RoomComponent implements OnInit {
         cellStyle: this.STYLE_TABLE
       },
       {
-        headerName: "Action",
+        headerName: 'Hành động',
         cellRendererFramework: CellCustomRoomComponent,
       },
     ];
@@ -194,11 +194,11 @@ export class RoomComponent implements OnInit {
       response => {
         if (response.state === true) {
           this.onSearch(this.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thêm thất bại");
           this.modalRef?.hide();
         }
       }

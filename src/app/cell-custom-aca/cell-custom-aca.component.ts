@@ -12,14 +12,16 @@ export class AcademicAdmin {
   private email: any;
   private phone: any;
   private address: any;
+  private active: any;
   
-  constructor(id: any, user_name: any, full_name: any,email: any, phone: any,address: any) {
+  constructor(id: any, user_name: any, full_name: any,email: any, phone: any,address: any, active: any) {
     this.id = id;
     this.user_name = user_name;
     this.full_name = full_name;
     this.email = email;
     this.phone = phone;
     this.address = address;
+    this.active = active;
   }
 }
 
@@ -68,16 +70,16 @@ export class CellCustomAcaComponent implements ICellRendererAngularComp {
   }
 
   updateAca() {
-    this.user = new AcademicAdmin(this.params.data.user_Id, "", this.params.data.full_name,"", this.params.data.phone, this.params.data.address);
+    this.user = new AcademicAdmin(this.params.data.user_Id, "", this.params.data.full_name,"", this.params.data.phone, this.params.data.address, this.params.data.active);
     this.http.put<any>('http://localhost:8070/api/admin/edit_acad', this.user).subscribe(
       response => {
         if(response.state === true){
           this.aca.onSearch(this.aca.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else{
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }
@@ -85,16 +87,16 @@ export class CellCustomAcaComponent implements ICellRendererAngularComp {
   }
 
   deleteAca(){
-    this.user = new AcademicAdmin(this.params.data.user_Id, null, null, null, null, null);
+    this.user = new AcademicAdmin(this.params.data.user_Id, null, null, null, null, null, null);
     this.http.put<any>('http://localhost:8070/api/admin/delete_acad', this.user).subscribe(
       response => {
         if(response.state === true){
           this.aca.onSearch(this.aca.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Xóa thành công");
           this.modalRef?.hide();
         }
         else{
-          this.toast.error("Fail");
+          this.toast.error("Xóa thất bại");
           this.modalRef?.hide();
         }
       }
@@ -127,10 +129,6 @@ export class CellCustomAcaComponent implements ICellRendererAngularComp {
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
-  }
-
-  keyPressEmail(event: any) {
-   
   }
 
 }

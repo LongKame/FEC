@@ -61,7 +61,7 @@ export class QuizComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 10;
+  PAGE_SIZE: any = 50;
   defaultColDef: any;
   key: any;
   indexPage: any;
@@ -175,7 +175,7 @@ export class QuizComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -186,14 +186,14 @@ export class QuizComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Question', field: 'question', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Answer A', field: 'answerA', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Answer B', field: 'answerB', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Answer C', field: 'answerC', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Answer D', field: 'answerD', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Correct answer', field: 'correct', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Câu hỏi', field: 'question', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Đáp án A', field: 'answerA', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Đáp án B', field: 'answerB', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Đáp án C', field: 'answerC', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Đáp án D', field: 'answerD', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Đáp án', field: 'correct', cellStyle: this.STYLE_TABLE },
       {
-        headerName: "Action",
+        headerName: 'Hành động',
         cellRendererFramework: CellCustomQuizComponent,
       },
     ];
@@ -203,26 +203,27 @@ export class QuizComponent implements OnInit {
     if (this.excelData !== null) {
       for (let i of this.excelData) {
         this.acaId = 2;
-        // this.levelId = 1;
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxx"+this.levelId);
         this.quiz = new Quiz(this.acaId, this.levelId, i.Question, i.AnswerA, i.AnswerB, i.AnswerC, i.AnswerD, i.Correct);
-        if(this.quiz!==null){
+        if (this.quiz !== null) {
           this.http.post<any>('http://localhost:8070/api/aca/add_quiz', this.quiz).subscribe(
             response => {
-              if (response.state === true) {
-                this.check = true;
-                this.onSearch(this.indexPage);
-                this.toast.success("Successfully");
-                this.modalRef?.hide();
-              }
-              else {
-                this.toast.error(response.message+" in "+i.RollNo);
-                this.modalRef?.hide();
-              }
+              // if (response.state === true) {
+              //   this.check = true;
+              //   this.onSearch(this.indexPage);
+              //   this.toast.success("Successfully");
+              //   this.modalRef?.hide();
+              // }
+              // else {
+              //   this.toast.error(response.message+" in "+i.RollNo);
+              //   this.modalRef?.hide();
+              // }
             }
           )
         }
       }
+      this.onSearch(this.indexPage);
+      this.toast.success("Thêm thành công");
+      this.modalRef?.hide();
     }
   }
 }

@@ -81,7 +81,7 @@ export class UpdateScheduleComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -92,13 +92,13 @@ export class UpdateScheduleComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'SlotTH', field: 'slot_th', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Date', field: 'date_study', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Slot', field: 'slot_of_date', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Room', field: 'room_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Teacher', field: 'teacher_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Slot', field: 'slot_th', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày học', field: 'date_study', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Slot trong ngày', field: 'slot_of_date', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Phòng học', field: 'room_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Giảng viên', field: 'teacher_name', cellStyle: this.STYLE_TABLE },
       {
-        headerName: "Action",
+        headerName: 'Hành động',
         cellRendererFramework: CellCustomUpdateScheduleComponent,
       },
     ];

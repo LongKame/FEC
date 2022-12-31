@@ -16,8 +16,9 @@ export class Teacher {
   private email: any;
   private phone: any;
   private address: any;
+  private active: any;
 
-  constructor(id: any, user_name: any, full_name: any, imageUrl: any, email: any, phone: any, address: any) {
+  constructor(id: any, user_name: any, full_name: any, imageUrl: any, email: any, phone: any, address: any, active: any) {
     this.id = id;
     this.user_name = user_name;
     this.full_name = full_name;
@@ -25,6 +26,7 @@ export class Teacher {
     this.email = email;
     this.phone = phone;
     this.address = address;
+    this.active = active;
   }
 }
 
@@ -113,21 +115,21 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
 
     if(this.imageUrl==null || this.imageUrl==undefined){
       this.user = new Teacher(this.params.data.user_Id, this.params.data.user_name, this.params.data.full_name,this.params.data.imageUrl
-      , "", this.params.data.phone, this.params.data.address);
+      , "", this.params.data.phone, this.params.data.address, this.params.data.active);
     }else{
       this.user = new Teacher(this.params.data.user_Id, "", this.params.data.full_name,this.imageUrl
-      , "", this.params.data.phone, this.params.data.address);
+      , "", this.params.data.phone, this.params.data.address, this.params.data.active);
     }
     
     this.http.put<any>('http://localhost:8070/api/admin/edit_teacher', this.user).subscribe(
       response => {
         if (response.state === true) {
-          this.teacher.onSearch(this.teacher.indexPage);
-          this.toast.success("Successfully");
+          // this.teacher.onSearch(this.teacher.indexPage);
+          this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Cập nhật thất bại");
           this.modalRef?.hide();
         }
       }
@@ -136,16 +138,16 @@ export class CellCustomTeacherComponent implements ICellRendererAngularComp {
 
   deleteTeacher() {
     this.user = new Teacher(this.params.data.user_Id, "", this.params.data.full_name,this.params.data.imageUrl
-      , "", this.params.data.phone, this.params.data.address);
+      , "", this.params.data.phone, this.params.data.address, this.params.data.active);
     this.http.put<any>('http://localhost:8070/api/admin/delete_teacher', this.user).subscribe(
       response => {
         if(response.state === true){
-        this.teacher.onSearch(this.teacher.indexPage);
-        this.toast.success("Successfully");
+        // this.teacher.onSearch(this.teacher.indexPage);
+        this.toast.success("Xóa thành công");
         this.modalRef?.hide();
         }
         else{
-          this.toast.error("Failure");
+          this.toast.error("Xóa thất bại");
           this.modalRef?.hide();
         }
       }

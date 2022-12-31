@@ -62,7 +62,6 @@ export class CurriculumComponent implements OnInit {
       linkURL: [null, []],
       description: [null, []],
     });
-
   }
 
   public curriculum: any;
@@ -86,7 +85,6 @@ export class CurriculumComponent implements OnInit {
   index: any;
   form!: FormGroup;
   curri: any;
-
 
   onSearchWarning(bodySearch: any): Observable<any> {
     return this.http.post<any>('http://localhost:8070/api/aca/get_curriculum_paging', bodySearch);
@@ -168,7 +166,7 @@ export class CurriculumComponent implements OnInit {
 
     this.columnDefs = [
       {
-        headerName: 'Order of list',
+        headerName: 'Số thứ tự',
         valueGetter: (params: any) => {
           if (params.node.rowIndex == 0) {
             return params.node.rowIndex = 1;
@@ -179,20 +177,20 @@ export class CurriculumComponent implements OnInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Curriculum name', field: 'curriculum_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Tài liệu', field: 'curriculum_name', cellStyle: this.STYLE_TABLE },
       {
-        headerName: 'Link document', field: 'link_url',
+        headerName: 'Liên kết', field: 'link_url',
         cellRenderer: (params: any) => {
           return `<a href="${params.value}">${params.value}</a>`;
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Description', field: 'description', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Created at', field: 'created_at', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Updated at', field: 'updated_at', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Course name', field: 'course_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Mô tả', field: 'description', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày tạo', field: 'created_at', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Ngày cập nhật', field: 'updated_at', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Khóa học', field: 'course_name', cellStyle: this.STYLE_TABLE },
       {
-        headerName: "Action",
+        headerName: "Hành động",
         cellRendererFramework: CellCustomCurriculumComponent,
       },
     ];
@@ -210,11 +208,11 @@ export class CurriculumComponent implements OnInit {
       response => {
         if (response.state === true) {
           this.onSearch(this.indexPage);
-          this.toast.success("Successfully");
+          this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
         else {
-          this.toast.error(response.message);
+          this.toast.error("Thêm thất bại");
           this.modalRef?.hide();
         }
       }
