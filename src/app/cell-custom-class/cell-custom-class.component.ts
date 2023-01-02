@@ -67,7 +67,7 @@ export class CellCustomClassComponent implements ICellRendererAngularComp {
     this.http.put<any>('http://localhost:8070/api/admin/disable_class', this.classes).subscribe(
       response => {
         if(response.state === true){
-          this.classComponent.onSearch(this.classComponent.indexPage);
+          // this.classComponent.onSearch(this.classComponent.indexPage);
           this.toast.success("Cập nhật thành công");
           this.modalRef?.hide();
         }

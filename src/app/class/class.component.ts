@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -67,8 +67,14 @@ export class ClassComponent implements OnInit {
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
-      this.onSearch(this.index);
+      this.page(this.indexPage);
     }, 3000)
+
+    this.searchInforForm = this.formBuilder.group({
+      key_search: '',
+      page: this.indexPage,
+      pageSize: this.PAGE_SIZE,
+    });
 
     this.roomService.getRooms().subscribe(res => {
       this.roomOptions = res.map(item => ({ value: item.id, label: item.roomname }));
@@ -122,6 +128,7 @@ export class ClassComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
+    private formBuilder: FormBuilder,
     private modalService: BsModalService,
     private toastService: ToastrService,
     private roomService: RoomService,
@@ -129,6 +136,7 @@ export class ClassComponent implements OnInit {
     private teacherService: TeacherService,
     private slotService: SlotService,
     private classService: ClassService,
+    private changeDetectorRef: ChangeDetectorRef,
     private fb: FormBuilder,
   ) { 
       this.view = new View(1,this.PAGE_SIZE,"");
@@ -141,7 +149,7 @@ export class ClassComponent implements OnInit {
     totalResultSearch: any;
     currentTotalDisplay: any;
     totalPage: any;
-    PAGE_SIZE: any = 10;
+    PAGE_SIZE: any = 1;
     defaultColDef: any;
     key: any;
     indexPage: any;
@@ -165,6 +173,65 @@ export class ClassComponent implements OnInit {
       this.form.get('secondOnWeek')?.setValue(null);
     }
 
+
+    rangeWithDots: any;
+  first: number = 1;
+  last: number = 10;
+
+  pagination(current: any, last: any) {
+    var delta = 2,
+      left = current - delta,
+      right = current + delta + 1,
+      range = [],
+      rangeWithDots = [],
+      l;
+
+    for (let i = 1; i <= last; i++) {
+      if (i == 1 || i == last || (i >= left && i < right)) {
+        range.push(i);
+      }
+    }
+
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push('...');
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  }
+
+    page(page: number, btn?: any): void {
+      this.indexPage = page;
+  
+      let listBtn = document.getElementsByClassName('btn-pag')
+      for (let i = 0; i < listBtn.length; i++) {
+        const element = listBtn[i];
+        element.setAttribute('style', 'color:black');
+      }
+  
+      if (!btn) {
+        console.log("KM")
+        const eleSelect = document.getElementById('btn' + (this.indexPage - 1).toString())
+          if (eleSelect) {
+            eleSelect!.style.color = "white"
+          }
+      } 
+  
+      if (btn) {
+        btn.target.style.color = "white"
+      } 
+  
+      this.searchInforForm.controls.page.setValue(this.indexPage);
+      this.onSearch();
+    }
+
     onAddClass() {
       const values = this.form.getRawValue();
       const payload = {
@@ -185,7 +252,7 @@ export class ClassComponent implements OnInit {
 
         this.toastService.success("Success");
         this.onCloseForm();
-        this.onSearch(this.indexPage);
+        // this.onSearch(this.indexPage);
       }, (err) => {
         this.toastService.error('Something went wrong.');
       })
@@ -202,37 +269,26 @@ export class ClassComponent implements OnInit {
       return this.http.post<any>('http://localhost:8070/api/admin/get_all_class',bodySearch);
     }
 
-    onSearch(index: number, btn?: any) {
-      let listBtn = document.getElementsByClassName('btn-pag')
-      for (let i = 0; i < listBtn.length; i++) {
-        const element = listBtn[i];
-        element.setAttribute('style', '{color:blue}')
-      }
-      if (index === null || index === undefined) {
-        index = 1;
-        const eleSelect = document.getElementById('btn' + (0).toString())
-        if (eleSelect) {
-          eleSelect!.style.color = "white"
+    onSearch() {
+      console.log(this.searchInforForm.value);
+    this.onSearchWarning(this.searchInforForm.value).subscribe(
+      response => {
+        console.log(response);
+        this.rowData = response.resultData;
+        this.totalResultSearch = response.totalRecordNoLimit;
+        this.currentTotalDisplay = Object.keys(this.rowData).length;
+        this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
+        this.rangeWithDots = this.pagination(this.indexPage, this.totalPage);
+
+        if (Object.keys(this.rowData).length === 0) {
+          this.first = 0;
+        } else {
+          this.first = (this.PAGE_SIZE * (this.indexPage - 1)) + 1
         }
+        this.last = Object.keys(this.rowData).length + (this.PAGE_SIZE * (this.indexPage - 1))
+        this.changeDetectorRef.detectChanges()
       }
-      if (btn) {
-        btn.target.style.color = "white"
-      } else {
-        const eleSelect = document.getElementById('btn' + (index - 1).toString())
-        if (eleSelect) {
-          eleSelect!.style.color = "white"
-        }
-      }
-      this.indexPage = index;
-      this.view = new View(index, this.PAGE_SIZE, this.key);
-      this.onSearchWarning(this.view).subscribe(
-        response => {
-          this.rowData = response.resultData;
-          this.totalResultSearch = response.totalRecordNoLimit;
-          this.currentTotalDisplay = Object.keys(this.rowData).length;
-          this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
-        }
-      );
+    );
     }
   
     prev(): void {
@@ -242,7 +298,7 @@ export class ClassComponent implements OnInit {
       if (this.indexPage < 1) {
         this.indexPage = 1
       }
-      this.onSearch(this.indexPage);
+      // this.onSearch(this.indexPage);
     }
     
     next(): void {
@@ -250,7 +306,7 @@ export class ClassComponent implements OnInit {
       if (this.indexPage > this.totalPage) {
         this.indexPage = this.totalPage
       }
-      this.onSearch(this.indexPage);
+      // this.onSearch(this.indexPage);
     }
   
     openModal(template: TemplateRef<any>) {

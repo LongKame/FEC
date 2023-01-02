@@ -91,7 +91,7 @@ export class StudentComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 10;
+  PAGE_SIZE: any = 1;
   defaultColDef: any;
   key: any;
   indexPage: any;

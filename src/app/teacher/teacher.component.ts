@@ -55,13 +55,13 @@ export class TeacherComponent implements OnInit {
   ngOnInit(): void {
     this.createTable();
     setTimeout(() => {
-      this.onSearch();
+      this.page(this.currentPage);
     }, 3000),
-    this.searchInforForm = this.formBuilder.group({
-      key_search: '',
-      page: this.currentPage,
-      pageSize: this.PAGE_SIZE,
-  });
+      this.searchInforForm = this.formBuilder.group({
+        key_search: '',
+        page: this.currentPage,
+        pageSize: this.PAGE_SIZE,
+      });
   }
 
   user_name: any;
@@ -96,6 +96,7 @@ export class TeacherComponent implements OnInit {
   indexPage: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
+    // return this.http.post<any>('http://localhost:8070/api/admin/get_all_class',bodySearch);
     return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
   }
 
@@ -135,61 +136,73 @@ export class TeacherComponent implements OnInit {
   onSearch() {
     console.log(this.searchInforForm.value);
     this.onSearchWarning(this.searchInforForm.value).subscribe(
-        response => {
-            console.log(response);
-            this.rowData = response.resultData;
-            this.totalResultSearch = response.totalRecordNoLimit;
-            this.currentTotalDisplay =  Object.keys(this.rowData).length;
-            // if (this.currentTotalDisplay === 0) {
-            //     this.gridApi.showNoRowsOverlay();
-            // }
+      response => {
+        console.log(response);
+        this.rowData = response.resultData;
+        this.totalResultSearch = response.totalRecordNoLimit;
+        this.currentTotalDisplay = Object.keys(this.rowData).length;
+        this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
+        this.rangeWithDots = this.pagination(this.currentPage, this.totalPage);
 
-            this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
-            this.rangeWithDots = this.pagination(this.currentPage, this.totalPage);
-
-            if ( Object.keys(this.rowData).length === 0) {
-                this.first = 0;
-            } else {
-                this.first = (this.PAGE_SIZE * (this.currentPage - 1)) + 1
-            }
-            this.last =  Object.keys(this.rowData).length + (this.PAGE_SIZE * (this.currentPage - 1))
-            this.changeDetectorRef.detectChanges()
+        if (Object.keys(this.rowData).length === 0) {
+          this.first = 0;
+        } else {
+          this.first = (this.PAGE_SIZE * (this.currentPage - 1)) + 1
         }
+        this.last = Object.keys(this.rowData).length + (this.PAGE_SIZE * (this.currentPage - 1))
+        this.changeDetectorRef.detectChanges()
+      }
     );
-}
+  }
 
-prev(): void {
-  this.currentPage--;
-  if (this.currentPage < 1) {
+  prev(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+    if (this.currentPage < 1) {
       this.currentPage = 1
+    }
+    this.page(this.currentPage);
   }
-  this.searchInforForm.controls.page.setValue(this.currentPage);
-  this.onSearch();
-}
+  
 
-next(): void {
-  this.currentPage++;
-  if (this.currentPage > this.totalPage) {
+  next(): void {
+    this.currentPage++;
+    if (this.currentPage > this.totalPage) {
       this.currentPage = this.totalPage
+    }
+    this.page(this.currentPage);
   }
-  this.searchInforForm.controls.page.setValue(this.currentPage);
-  this.onSearch();
-}
+  
+  page(page: number, btn?: any): void {
+    this.currentPage = page;
 
-page(page: number): void {
-  this.currentPage = page;
-  console.log(page);
-  this.searchInforForm.controls.page.setValue(this.currentPage);
-  this.onSearch();
-}
+    let listBtn = document.getElementsByClassName('btn-pag')
+    for (let i = 0; i < listBtn.length; i++) {
+      const element = listBtn[i];
+      element.setAttribute('style', 'color:black');
+    }
 
+    if (!btn) {
+      console.log("KM")
+      const eleSelect = document.getElementById('btn' + (this.currentPage - 1).toString())
+        if (eleSelect) {
+          eleSelect!.style.color = "white"
+        }
+    } 
+
+    if (btn) {
+      btn.target.style.color = "white"
+    } 
+
+    this.searchInforForm.controls.page.setValue(this.currentPage);
+    this.onSearch();
+  }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
-    // this.modalRef?.hide();
-    // this.modalRef = this.modalService.show(template);
   }
 
   STYLE_TABLE = {
@@ -243,7 +256,7 @@ page(page: number): void {
       },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
-      {headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
       {
         headerName: 'Trạng thái', field: 'active',
         cellRenderer: (params: any) => {

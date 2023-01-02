@@ -75,7 +75,7 @@ export class AcaComponent implements OnInit {
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 10;
+  PAGE_SIZE: any = 1;
   defaultColDef: any;
   key: any;
   indexPage: any;
@@ -88,7 +88,7 @@ export class AcaComponent implements OnInit {
     let listBtn = document.getElementsByClassName('btn-pag')
     for (let i = 0; i < listBtn.length; i++) {
       const element = listBtn[i];
-      element.setAttribute('style', '{color:blue}')
+      element.setAttribute('style', 'color:black');
     }
     if (index === null || index === undefined) {
       index = 1;

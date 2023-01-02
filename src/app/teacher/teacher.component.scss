@@ -86,3 +86,16 @@ nav .search-box .bx-search{
 .btncss{
     color: red !important;
 }
+
+ul button{
+    padding-left: 10px;
+}
+
+.pagination1{
+    display: flex;
+    gap: 20px;
+    margin-left: 20%;
+    margin-top: 10px;
+}
+
+.active { background-color: Tomato; }

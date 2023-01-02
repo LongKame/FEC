@@ -2,8 +2,10 @@
 
 <nav>
     <div class="search-box">
-        <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="key">
-        <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
+        <form [formGroup]="searchInforForm">
+            <input type="text" placeholder="Tìm kiếm..." formControlName="key_search">
+            <button (click)="onSearch()" type="submit"><i class="bx bx-search"></i></button>
+        </form>
     </div>
 </nav>
 
@@ -23,8 +25,10 @@
 
 <div class="pagination">
     <button (click)="prev()" class="btn btn-warning">&laquo;</button>
-    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
-        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
+    <button id="btn{{i}}" class="btn btn-warning btn-pag"
+             *ngFor="let i of rangeWithDots;" (click)="i !== '...' && page(i,$event)">
+                {{ i }}
+            </button>
     <button (click)="next()" class="btn btn-warning">&raquo;</button>
 </div>
 
