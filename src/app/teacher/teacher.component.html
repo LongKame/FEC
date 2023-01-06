@@ -36,15 +36,12 @@
         <!-- <span class="sy-paging-result">Hiển thị kết quả
             {{ currentTotalDisplay }}/{{ totalResultSearch }} kết quả</span> -->
         <ul>
-            <!-- <button style="margin-left: 5px;" class="btn btn-warning" style="margin: 0"
-                (click)="page(1)">|<</button> -->
-            <!-- <button class="btn btn-warning" (click)="prev()">&laquo;</button> -->
+            <button class="btn btn-warning" (click)="prev()">&laquo;</button>
             <button id="btn{{i}}" class="btn btn-warning btn-pag"
              *ngFor="let i of rangeWithDots;" (click)="i !== '...' && page(i,$event)">
-                {{ i }}
+                {{ i }} 
             </button>
-            <!-- <button class="btn btn-warning" (click)="next()">&raquo;</button> -->
-            <!-- <button class="btn btn-warning" style="margin: 0" (click)="page(totalPage)">>|</button> -->
+            <button class="btn btn-warning" (click)="next()">&raquo;</button>
         </ul>
     <!-- </div> -->
     <div class="pagination">

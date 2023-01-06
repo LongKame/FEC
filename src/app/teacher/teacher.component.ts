@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -44,7 +44,7 @@ export class View {
   templateUrl: './teacher.component.html',
   styleUrls: ['./teacher.component.scss']
 })
-export class TeacherComponent implements OnInit {
+export class TeacherComponent implements OnInit, AfterViewInit {
 
   title = 'AdminFE';
   myImage!: Observable<any>;
@@ -56,7 +56,7 @@ export class TeacherComponent implements OnInit {
     this.createTable();
     setTimeout(() => {
       this.page(this.currentPage);
-    }, 3000),
+    }, 2000),
       this.searchInforForm = this.formBuilder.group({
         key_search: '',
         page: this.currentPage,
@@ -81,6 +81,8 @@ export class TeacherComponent implements OnInit {
     private toast: ToastrService,
     private changeDetectorRef: ChangeDetectorRef) {
     this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
+  } ngAfterViewInit(): void {
+    this.page(1)
   };
 
   columnDefs: any;
@@ -96,7 +98,6 @@ export class TeacherComponent implements OnInit {
   indexPage: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    // return this.http.post<any>('http://localhost:8070/api/admin/get_all_class',bodySearch);
     return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
   }
 
@@ -129,21 +130,17 @@ export class TeacherComponent implements OnInit {
       rangeWithDots.push(i);
       l = i;
     }
-
     return rangeWithDots;
   }
 
   onSearch() {
-    console.log(this.searchInforForm.value);
     this.onSearchWarning(this.searchInforForm.value).subscribe(
       response => {
-        console.log(response);
         this.rowData = response.resultData;
         this.totalResultSearch = response.totalRecordNoLimit;
         this.currentTotalDisplay = Object.keys(this.rowData).length;
         this.totalPage = Math.ceil(this.totalResultSearch / this.PAGE_SIZE);
         this.rangeWithDots = this.pagination(this.currentPage, this.totalPage);
-
         if (Object.keys(this.rowData).length === 0) {
           this.first = 0;
         } else {
@@ -164,40 +161,62 @@ export class TeacherComponent implements OnInit {
     }
     this.page(this.currentPage);
   }
-  
+
+  state: boolean = true;
 
   next(): void {
     this.currentPage++;
     if (this.currentPage > this.totalPage) {
       this.currentPage = this.totalPage
     }
+    this.state = true;
     this.page(this.currentPage);
   }
-  
+
   page(page: number, btn?: any): void {
-    this.currentPage = page;
 
     let listBtn = document.getElementsByClassName('btn-pag')
     for (let i = 0; i < listBtn.length; i++) {
       const element = listBtn[i];
-      element.setAttribute('style', 'color:black');
+      element.setAttribute('style', 'color:black')
     }
-
-    if (!btn) {
-      console.log("KM")
-      const eleSelect = document.getElementById('btn' + (this.currentPage - 1).toString())
-        if (eleSelect) {
-          eleSelect!.style.color = "white"
-        }
-    } 
+    if (page === 1) {
+      const ele = document.getElementById('btn1')
+      try {
+        ele!.style.color = 'white'
+      } catch (error) {
+      }
+    }
+    if (page === null || page === undefined) {
+      page = 1;
+      const eleSelect = document.getElementById('btn' + (0).toString())
+      if (eleSelect) {
+        eleSelect!.style.color = "white"
+      }
+    }
 
     if (btn) {
       btn.target.style.color = "white"
-    } 
+    }
 
+    if (this.state) {
+      const eleSelect = document.getElementById('btn' + (page).toString())
+      if (eleSelect) {
+        eleSelect!.style.color = "white"
+      }
+    }
+
+    if ((btn === null || btn === undefined) && !this.state) {
+      const eleSelect = document.getElementById('btn' + (page - 1).toString())
+      if (eleSelect) {
+        eleSelect!.style.color = "white"
+      }
+    }
+    this.currentPage = page;
     this.searchInforForm.controls.page.setValue(this.currentPage);
     this.onSearch();
   }
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
@@ -273,7 +292,6 @@ export class TeacherComponent implements OnInit {
     this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
       response => {
         if (response.state === true) {
-          // this.onSearch(this.indexPage);
           this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
