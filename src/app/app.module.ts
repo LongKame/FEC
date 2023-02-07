@@ -58,6 +58,10 @@ import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CheckAttendanceComponent } from './check-attendance/check-attendance.component';
 import { CellCustomCheckAttendanceComponent } from './cell-custom-check-attendance/cell-custom-check-attendance.component';
+import { EventComponent } from './event/event.component';
+import { CellCustomEventComponentComponent } from './cell-custom-event-component/cell-custom-event-component.component';
+import { ViolateComponent } from './violate/violate.component';
+import { AccComponent } from './acc/acc.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +104,10 @@ import { CellCustomCheckAttendanceComponent } from './cell-custom-check-attendan
     ViewStudentInOwnClassComponent,
     CheckAttendanceComponent,
     CellCustomCheckAttendanceComponent,
+    EventComponent,
+    CellCustomEventComponentComponent,
+    ViolateComponent,
+    AccComponent,
   ],
   imports: [
     FormsModule,

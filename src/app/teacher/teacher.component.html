@@ -1,4 +1,4 @@
-<p>Quản lý giảng viên</p>
+<p>Quản lý sinh viên</p>
 
 <nav>
     <div class="search-box">
@@ -24,26 +24,19 @@
     </ag-grid-angular>
 </div>
 
-<!-- <div class="pagination">
-    <button (click)="prev()" class="btn btn-warning">&laquo;</button>
-    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
-        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
-    <button (click)="next()" class="btn btn-warning">&raquo;</button>
-</div> -->
 <div class="pagination1">
 
-    <!-- <div class="sy-paging w-100" style="margin: 0;width: 100%;"> -->
-        <!-- <span class="sy-paging-result">Hiển thị kết quả
-            {{ currentTotalDisplay }}/{{ totalResultSearch }} kết quả</span> -->
-        <ul>
-            <button class="btn btn-warning" (click)="prev()">&laquo;</button>
-            <button id="btn{{i}}" class="btn btn-warning btn-pag"
-             *ngFor="let i of rangeWithDots;" (click)="i !== '...' && page(i,$event)">
-                {{ i }} 
-            </button>
-            <button class="btn btn-warning" (click)="next()">&raquo;</button>
-        </ul>
-    <!-- </div> -->
+
+    <ul>
+        <button class="btn btn-warning" (click)="prev()">&laquo;</button>
+        <button id="btn{{i}}" class="btn btn-warning btn-pag" *ngFor="let i of rangeWithDots;"
+            (click)="i !== '...' && page(i,$event)">
+            {{ i }}
+        </button>
+        <button class="btn btn-warning" (click)="next()">&raquo;</button>
+    </ul>
+
+    
     <div class="pagination">
         <ng-template #add>
             <div class="modal-header">
@@ -69,6 +62,9 @@
                                 <input type="text" [(ngModel)]="email" class="form-control">
                             </div>
                             <div class="col-6">
+                                <b for="message-text" class="col-form-label">Mã số:</b>
+                                <input type="text" [(ngModel)]="code" minlength=6
+                                    maxlength=6 class="form-control">
                                 <b for="message-text" class="col-form-label">Số điện thoại:</b>
                                 <input type="text" [(ngModel)]="phone" (keypress)="keyPressPhone($event)" minlength=10
                                     maxlength=10 class="form-control">
@@ -90,3 +86,4 @@
                 <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
             </div>
         </ng-template>
+</div>

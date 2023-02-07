@@ -1,59 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, AfterViewInit,OnInit, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
-import { FormBuilder } from '@angular/forms';
-import { CellCustomStudentComponent } from '../cell-custom-student/cell-custom-student.component';
-
-export class Class {
-  private class_id: any;
-  private class_name: any;
-  private room_id: any;
-  private room_name: any;
-  private user_id: any;
-  private teacher_id: any;
-  private full_name: any;
-  private email: any;
-  private number_of_student: any;
-  private capacity: any;
-  private start_date: any;
-  private active_room: any;
-
-  constructor(class_id: any, class_name: any, room_id: any, room_name: any, user_id: any, teacher_id: any, full_name: any, email: any, number_of_student: any, capacity: any, start_date: any, active_room: any) {
-    this.class_id = class_id;
-    this.class_name = class_name;
-    this.room_id = room_id;
-    this.room_name = room_name;
-    this.user_id = user_id;
-    this.teacher_id = teacher_id;
-    this.full_name = full_name;
-    this.email = email;
-    this.number_of_student = number_of_student;
-    this.capacity = capacity;
-    this.start_date = start_date;
-    this.active_room = active_room;
-  }
-}
-
-export class View {
-  private page: any;
-  private pageSize: any;
-  private key_search: any;
-
-  constructor(page: any, pageSize: any, key_search: any) {
-    this.page = page;
-    this.pageSize = pageSize;
-    this.key_search = key_search;
-  }
-}
+import { Observable, Subscriber } from 'rxjs';
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  selector: 'app-violate',
+  templateUrl: './violate.component.html',
+  styleUrls: ['./violate.component.scss']
 })
-export class StudentComponent implements OnInit, AfterViewInit {
+export class ViolateComponent implements OnInit, AfterViewInit {
+
+  searchInforForm: any;
 
   ngOnInit(): void {
     this.createTable();
@@ -67,52 +26,36 @@ export class StudentComponent implements OnInit, AfterViewInit {
       });
   }
 
-  public academicadmin: any;
-  public view: any;
+  name: any;
+  imageUrl: any;
+  event: any;
 
-  class_id: any;
-  class_name: any;
-  room_id: any;
-  room_name: any;
-  user_id: any;
-  teacher_id: any;
-  full_name: any;
-  email: any;
-  number_of_student: any;
-  capacity: any;
-  start_date: any;
-  active_room: any;
+  public teacher: any;
+  public view: any;
 
   constructor(private http: HttpClient,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
     private toast: ToastrService,
     private changeDetectorRef: ChangeDetectorRef) {
-    this.academicadmin = new Class(this.class_id, this.class_name, this.room_id, this.room_name, this.user_id, this.teacher_id, this.full_name, this.email, this.number_of_student, this.capacity, this.start_date, this.active_room);
-    this.view = new View(1, this.PAGE_SIZE, "");
-  }ngAfterViewInit(): void {
+  } ngAfterViewInit(): void {
     this.page(1)
   };
-
-
-
 
   columnDefs: any;
   rowData: any
   modalRef: BsModalRef | undefined;
-  searchInforForm: any;
   totalResultSearch: any;
   currentTotalDisplay: any;
   totalPage: any;
-  PAGE_SIZE: any = 10;
+  PAGE_SIZE: any = 1;
   currentPage = 1;
   defaultColDef: any;
   key: any;
   indexPage: any;
-  index: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/search_student', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/admin/get_violate', bodySearch);
   }
 
   rangeWithDots: any;
@@ -227,11 +170,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.onSearch();
   }
 
+
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
+    this.modalRef = this.modalService.show(template);
   }
 
   STYLE_TABLE = {
@@ -240,14 +181,25 @@ export class StudentComponent implements OnInit, AfterViewInit {
     'top': '30px',
     'overflow': 'hidden',
     'text-align': 'center',
-    'font-weight': 'bold'
+    'font-weight': 'bold',
+  }
+
+  STYLE_IMAGE = {
+    'font-size': '15px',
+    'align-items': 'center',
+    'top': '30px',
+    'overflow': 'hidden',
+    'text-align': 'center',
+    'font-weight': 'bold',
+    'margin-top': '-30px'
   }
 
   createTable() {
 
     this.defaultColDef = {
       sortable: true,
-      filter: true
+      filter: true,
+      editable: true,
     };
 
     this.columnDefs = [
@@ -263,24 +215,19 @@ export class StudentComponent implements OnInit, AfterViewInit {
         }
         , cellStyle: this.STYLE_TABLE
       },
-      { headerName: 'Tên tài khoản', field: 'user_name', cellStyle: this.STYLE_TABLE },
-      { headerName: 'Tên người dùng', field: 'full_name', cellStyle: this.STYLE_TABLE },
+      { headerName: 'Lỗi vi phạm', field: 'name', cellStyle: this.STYLE_TABLE },
+      {
+        headerName: 'Ảnh vi phạm', field: 'image',
+        cellRenderer: (params: any) => {
+          return `<img src="${params.value}" width="60px" height="80px">`;
+        }
+        , cellStyle: this.STYLE_IMAGE
+      },
+      { headerName: 'Người vi phạm', field: 'violated_name', cellStyle: this.STYLE_TABLE },
       { headerName: 'Email', field: 'email', cellStyle: this.STYLE_TABLE },
       { headerName: 'Số điện thoại', field: 'phone', cellStyle: this.STYLE_TABLE },
-      {headerName: 'Địa chỉ', field: 'address', cellStyle: this.STYLE_TABLE },
-      {
-        headerName: 'Trạng thái', field: 'active',
-        cellRenderer: (params: any) => {
-          return `<input disabled='true' type='checkbox' ${params.value ? 'checked' : ''} />`;
-        },
-        cellStyle: this.STYLE_TABLE
-      },
-      {
-        headerName: 'Hành động',
-        cellRendererFramework: CellCustomStudentComponent,
-      },
+      // { headerName: 'Hành động', cellRendererFramework: CellCustomEventComponentComponent, },
     ];
   }
-
 
 }

@@ -92,7 +92,7 @@ export class CellCustomStudentComponent implements ICellRendererAngularComp {
     this.http.put<any>('http://localhost:8070/api/admin/delete_student', this.stu).subscribe(
       response => {
         if (response.state === true) {
-          this.student.onSearch(this.stu.indexPage);
+          // this.student.onSearch(this.stu.indexPage);
           this.toast.success("Xóa thành công");
           this.modalRef?.hide();
         }

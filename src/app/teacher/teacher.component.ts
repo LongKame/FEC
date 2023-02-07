@@ -8,19 +8,21 @@ import { CellCustomTeacherComponent } from '../cell-custom-teacher/cell-custom-t
 
 
 export class Teacher {
-  private user_name: any;
-  private full_name: any;
-  private imageUrl: any;
+  private username: any;
+  private fullname: any;
+  private image: any;
   private password: any;
+  private code: any;
   private email: any;
   private phone: any;
   private address: any;
 
-  constructor(user_name: any, full_name: any, imageUrl: any, password: any, email: any, phone: any, address: any) {
-    this.user_name = user_name;
-    this.full_name = full_name;
-    this.imageUrl = imageUrl;
+  constructor(username: any, fullname: any, image: any, password: any, code: any,email: any, phone: any, address: any) {
+    this.username = username;
+    this.fullname = fullname;
+    this.image = image;
     this.password = password;
+    this.code = code;
     this.email = email;
     this.phone = phone;
     this.address = address;
@@ -68,6 +70,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   full_name: any;
   imageUrl: any;
   password: any;
+  code: any;
   email: any;
   phone: any;
   address: any;
@@ -80,7 +83,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private toast: ToastrService,
     private changeDetectorRef: ChangeDetectorRef) {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.email, this.phone, this.address);
+    this.teacher = new Teacher(this.user_name, this.full_name, this.imageUrl, this.password, this.code,this.email, this.phone, this.address);
   } ngAfterViewInit(): void {
     this.page(1)
   };
@@ -98,7 +101,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   indexPage: any;
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', bodySearch);
+    return this.http.post<any>('http://localhost:8070/api/admin/get_student', bodySearch);
   }
 
   rangeWithDots: any;
@@ -174,7 +177,6 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   }
 
   page(page: number, btn?: any): void {
-
     let listBtn = document.getElementsByClassName('btn-pag')
     for (let i = 0; i < listBtn.length; i++) {
       const element = listBtn[i];
@@ -194,18 +196,15 @@ export class TeacherComponent implements OnInit, AfterViewInit {
         eleSelect!.style.color = "white"
       }
     }
-
     if (btn) {
       btn.target.style.color = "white"
     }
-
     if (this.state) {
       const eleSelect = document.getElementById('btn' + (page).toString())
       if (eleSelect) {
         eleSelect!.style.color = "white"
       }
     }
-
     if ((btn === null || btn === undefined) && !this.state) {
       const eleSelect = document.getElementById('btn' + (page - 1).toString())
       if (eleSelect) {
@@ -288,8 +287,8 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   }
 
   addTeacher() {
-    this.teacher = new Teacher(this.user_name, this.full_name, this.myImage, this.password, this.email, this.phone, this.address);
-    this.http.post<any>('http://localhost:8070/api/admin/add_teacher', this.teacher).subscribe(
+    this.teacher = new Teacher(this.user_name, this.full_name, this.myImage, this.password, this.code, this.email, this.phone, this.address);
+    this.http.post<any>('http://localhost:8070/api/admin/add_student', this.teacher).subscribe(
       response => {
         if (response.state === true) {
           this.toast.success("Thêm thành công");

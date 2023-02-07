@@ -27,6 +27,9 @@ import { UpdateScheduleComponent } from './update-schedule/update-schedule.compo
 import { ViewStudentsInAllClassesComponent } from './view-students-in-all-classes/view-students-in-all-classes.component';
 import { ViewStudentInOwnClassComponent } from './view-student-in-own-class/view-student-in-own-class.component';
 import { CheckAttendanceComponent } from './check-attendance/check-attendance.component';
+import { EventComponent } from './event/event.component';
+import { ViolateComponent } from './violate/violate.component';
+import { AccComponent } from './acc/acc.component';
 
 
 const routes: Routes = [
@@ -43,11 +46,14 @@ const routes: Routes = [
     children: [
       { path: 'teacher', component: TeacherComponent },
       { path: 'student', component: StudentComponent },
+      { path: 'event', component: EventComponent },
       { path: 'aca', component: AcaComponent },
       { path: 'class', component: ClassComponent },
       { path: 'pending', component: PendingComponent },
       { path: 'update-schedule', component: UpdateScheduleComponent },
       { path: 'view-students-in-classes', component: ViewStudentsInAllClassesComponent},
+      { path: 'violate', component: ViolateComponent },
+      { path: 'account', component: AccComponent },
     ]
   }, 
   {

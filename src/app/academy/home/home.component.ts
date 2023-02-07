@@ -6,6 +6,20 @@ import { Observable, Subscriber } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from 'src/app/_services/token.service';
 
+export class StudentInEvent {
+  private eventId: any;
+  private username: any;
+  private caption: any;
+  private image: any;
+
+  constructor(eventId: any, username: any, caption: any, image: any) {
+    this.eventId = eventId;
+    this.username = username;
+    this.caption = caption;
+    this.image = image;
+  }
+}
+
 export class Course {
   private id: any;
   private levelId: any;
@@ -30,7 +44,7 @@ export class Course {
   }
 }
 
-export class Course1{
+export class Course1 {
   private id: any;
 
   constructor(id: any) {
@@ -38,7 +52,7 @@ export class Course1{
   }
 }
 
-export class Classes{
+export class Classes {
   private courseId: any;
 
   constructor(courseId: any) {
@@ -46,7 +60,7 @@ export class Classes{
   }
 }
 
-export class Classes1{
+export class Classes1 {
   private classId: any;
   private username: any;
 
@@ -70,7 +84,7 @@ export class HomeComponent implements OnInit {
     private http: HttpClient,
     private tokenService: TokenService,
     private toast: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.onLoad();
@@ -93,7 +107,7 @@ export class HomeComponent implements OnInit {
   }
 
   openViewDetail(template: TemplateRef<any>, id: any) {
-    this.id = id; 
+    this.id = id;
     this.course = new Course1(this.id);
     console.log(this.course);
     this.onSearchWarning(this.course).subscribe(
@@ -105,26 +119,53 @@ export class HomeComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  openClassDetail(template: TemplateRef<any>, id: any) {
-    this.courseId = id;
-    this.classes = new Classes(this.courseId);
-    console.log(this.classes);
-    this.http.post<any>('http://localhost:8070/api/common/get_class_by_course_id',this.classes).subscribe(
-      response => {
-        this.rowClass = response;
-        console.log("xxxxxxxxxxxxxx"+JSON.stringify(this.rowClass));
-      }
-    );
+  eventId: any;
+  caption: any;
+  imageUrl: any;
+  base64code!: any;
+
+  openFormRegis(template: TemplateRef<any>, id: any) {
+    this.eventId = id;
     this.modalRef = this.modalService.show(template);
   }
 
-  register(id: any) {
-    this.class_id = id;
-    this.classes1 = new Classes1(this.class_id, this.tokenService.getUserProfile()?.username);
-    this.http.post<any>('http://localhost:8070/api/common/register_course',this.classes1).subscribe(
+  convertToBase64(file: File) {
+    const observable = new Observable((subsciber: Subscriber<any>) => {
+      this.readFile(file, subsciber)
+    })
+    observable.subscribe((d) => {
+      console.log(d);
+      this.imageUrl = d;
+      this.base64code = d;
+    })
+  }
+
+  readFile(file: File, subsciber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subsciber.next(filereader.result);
+      subsciber.complete();
+    }
+    filereader.onerror = () => {
+      subsciber.error();
+      subsciber.complete();
+    }
+  }
+
+  onChange($event: Event) {
+    const target = $event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    console.log(file);
+    this.convertToBase64(file);
+  }
+
+  register() {
+    this.classes1 = new StudentInEvent(this.eventId, this.tokenService.getUserProfile()?.username, this.caption, this.imageUrl);
+    this.http.post<any>('http://localhost:8070/api/common/register_event', this.classes1).subscribe(
       response => {
         if (response.state === true) {
-          this.toast.success("Đăng ký khóa học thành công");
+          this.toast.success("Đăng ký thành công");
           this.modalRef?.hide();
         }
         else {
@@ -136,7 +177,7 @@ export class HomeComponent implements OnInit {
   }
 
   onLoad() {
-    this.http.get<any>('http://localhost:8070/api/common/get_course').subscribe(
+    this.http.get<any>('http://localhost:8070/api/common/get_event').subscribe(
       response => {
         this.course = response;
       }

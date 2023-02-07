@@ -1,7 +1,7 @@
-<div class="banner">
+<!-- <div class="banner">
   <img
     src="https://image.shutterstock.com/image-vector/horizontal-internet-banner-about-learning-260nw-1603435279.jpg" />
-</div>
+</div> -->
 
 <div class="container">
   <div class="main">
@@ -9,12 +9,11 @@
       <ul>
         <li class="span4" *ngFor="let i of course" style="box-sizing: content-box; margin-bottom: 30px;">
           <a href="#"><img class="listImg" [src]="i.image" style="height:70%;" /></a>
-          <!-- {{i.name}} -->
+          <h4>{{i.name}}</h4>
           <div class="footer-btn">
-            <button type="button" class="btn btn-success" (click)="openClassDetail(classes, i.id)">Xem lớp học</button>
+            <button type="button" class="btn btn-success" (click)="openFormRegis(classes, i.id)">Xem sự kiện</button>
             <div class="space">
             </div>
-            <!-- <button type="button" class="btn btn-primary" (click)="openViewDetail(detail, i.id)">Chi tiết</button> -->
           </div>
         </li>
         <div class="space">
@@ -24,15 +23,10 @@
   </div>
 </div>
 
-<!-- <ngx-skeleton-loader>
-</ngx-skeleton-loader> -->
-
-<!-- <ion-content></ion-content> -->
-
 <ng-template #detail>
   <form ngNativeValidate>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">View course</h4>
+      <h4 class="modal-title pull-left">Chi tiết sự kiện</h4>
       <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
     </div>
     <div class="modal-body">
@@ -49,22 +43,26 @@
 
 <ng-template #classes>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Xem lớp học</h4>
+    <h4 class="modal-title pull-left">Đăng ký sự kiện</h4>
     <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true"></span>
     </button>
   </div>
   <div class="modal-body">
     <div class="row">
-      <div class="col-sm-12" *ngFor="let i of rowClass">
-        <b for="message-text" class="col-form-label">Lớp: </b><label>{{i.class_name}}</label>
-        <b for="message-text" class="col-form-label"> Giảng viên: </b><label> {{i.full_name}}</label>
-        <br>
-        <button type="button" class="btn btn-danger" (click)="register(i.class_id)">Đăng kí</button>
+      <b for="message-text" class="col-form-label">Dòng trạng thái: </b><label></label>
+      <input type="text" class="form-control" [(ngModel)]="caption">
+
+      <b for="message-text" class="col-form-label">Ảnh:</b>
+      <input type="file" (change)="onChange($event)" class="form-control">
+      <br>
+      <div *ngIf="imageUrl">
+          <img [src]="imageUrl" width="50px" height="100px">
       </div>
     </div>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="register()">Đăng kí</button>
     <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
   </div>
 </ng-template>

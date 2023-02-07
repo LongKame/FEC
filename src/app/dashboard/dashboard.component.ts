@@ -75,12 +75,12 @@ export class DashboardComponent implements OnInit {
   
 
   onLoad() {
-    this.http.post<any>('http://localhost:8070/api/admin/view_teacher',this.view).subscribe(
-      response => {
-        // this.rowData = response.dataResult;
-        // console.log("Xxxxxxxxxxxxxxxx"+JSON.stringify(response.dataResult));
-      }
-    );
+    // this.http.post<any>('http://localhost:8070/api/admin/view_teacher',this.view).subscribe(
+    //   response => {
+    //     // this.rowData = response.dataResult;
+    //     // console.log("Xxxxxxxxxxxxxxxx"+JSON.stringify(response.dataResult));
+    //   }
+    // );
   }
 
   searchInforForm: any;
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
   rangeWithDots: any;
 
   onSearchWarning(bodySearch: any): Observable<any>  {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher',this.view);
+    return this.http.post<any>('',this.view);
   }
 
   pageX(page: number): void {

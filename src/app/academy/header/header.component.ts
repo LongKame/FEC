@@ -6,12 +6,22 @@ import { AuthService, UserRole } from '../../_services/auth.service';
 import { TokenService } from '../../_services/token.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Observable, Subscriber } from 'rxjs';
+
 
 export class User {
   private user_name: any;
 
   constructor(user_name: any) {
     this.user_name = user_name;
+  }
+}
+
+export class UserX {
+  private username: any;
+
+  constructor(username: any) {
+    this.username = username;
   }
 }
 
@@ -52,6 +62,21 @@ export class Student {
     this.address = address;
   }
 }
+
+export class Violate {
+  private post_user_name: any;
+  private violated_code: any;
+  private name: any;
+  private image: any;
+
+  constructor(post_user_name: any, violated_code: any, name: any, image: any) {
+    this.post_user_name = post_user_name;
+    this.violated_code = violated_code;
+    this.name = name;
+    this.image = image;
+  }
+}
+
 
 @Component({
   selector: 'header',
@@ -99,6 +124,7 @@ export class HeaderComponent implements OnInit {
     this.userProfile = this.tokenService.getUserProfile();
     setTimeout(() => {
       this.onLoad();
+      this.onLoadViolate();
     }, 3000)
   }
 
@@ -225,6 +251,13 @@ export class HeaderComponent implements OnInit {
       Object.assign({}, { class: 'gray modal-lg' })
     );
   }
+
+  openFoul(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
   
   keyPressUserName(event: any) {
     var inp = String.fromCharCode(event.keyCode);
@@ -242,6 +275,7 @@ export class HeaderComponent implements OnInit {
   }
 
   student: any;
+  violate: any;
   user: any;
   user_Id: any;
   user_name: any;
@@ -256,6 +290,11 @@ export class HeaderComponent implements OnInit {
   email_param: any;
   phone_param: any;
   address_param: any;
+  violated_code: any;
+  name: any;
+  image: any;
+  violateX: any;
+  
 
   onLoad() {
     if (this.tokenService.getUserProfile()?.username != null) {
@@ -274,6 +313,17 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  onLoadViolate() {
+    if (this.tokenService.getUserProfile()?.username != null) {
+      this.user = new UserX(this.tokenService.getUserProfile()?.username);
+      this.http.post<any>('http://localhost:8070/api/common/get_self_violate', this.user).subscribe(
+        response => {
+          this.violateX = response;
+        }
+      )
+    }
+  }
+
   keyPressName(event: any) {
     var inp = String.fromCharCode(event.keyCode);
     if (/[a-zA-Z ]/.test(inp)) {
@@ -283,6 +333,39 @@ export class HeaderComponent implements OnInit {
       return false;
     }
   }
+  imageUrl: any;
+  base64code!: any;
+
+  convertToBase64(file: File) {
+    const observable = new Observable((subsciber: Subscriber<any>) => {
+      this.readFile(file, subsciber)
+    })
+    observable.subscribe((d) => {
+      console.log(d);
+      this.imageUrl = d;
+      this.base64code = d;
+    })
+  }
+
+  readFile(file: File, subsciber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subsciber.next(filereader.result);
+      subsciber.complete();
+    }
+    filereader.onerror = () => {
+      subsciber.error();
+      subsciber.complete();
+    }
+  }
+
+  onChange1($event: Event) {
+    const target = $event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    console.log(file);
+    this.convertToBase64(file);
+  }
 
   updateProfile() {
     this.student = new Student(this.user_id_param, this.user_name_param, this.full_name_param, this.email_param, this.phone_param, this.address_param);
@@ -290,6 +373,22 @@ export class HeaderComponent implements OnInit {
       response => {
         if (response.state === true) {
           this.toast.success("Thay đổi thành công");
+          this.modalRef?.hide();
+        }
+        else {
+          this.toast.error("Thay đổi thất bại");
+          this.modalRef?.hide();
+        }
+      }
+    )
+  }
+
+  addViolate() {
+    this.violate = new Violate(this.tokenService.getUserProfile()?.username, this.violated_code, this.name, this.imageUrl);
+    this.http.post<any>('http://localhost:8070/api/common/add_violate', this.violate).subscribe(
+      response => {
+        if (response.state === true) {
+          this.toast.success("Thêm thành công");
           this.modalRef?.hide();
         }
         else {

@@ -61,39 +61,24 @@ export class View {
 export class HomeComponent implements OnInit {
   menus: MenuItem[] = [
     {
-      icon: fa.faChalkboardTeacher,
-      menu: Menu.Teacher,
-      link: '/home/teacher'
+      icon: fa.faWindowClose,
+      menu: Menu.Violate,
+      link: '/home/violate'
+    },
+    {
+      icon: fa.faCampground,
+      menu: Menu.Event,
+      link: '/home/event'
     },
     {
       icon: fa.faGraduationCap,
       menu: Menu.Student,
-      link: '/home/student'
-    },
-    {
-      icon: fa.faUserFriends,
-      menu: Menu.AcademicAdmin,
-      link: '/home/aca'
-    },
-    {
-      icon: fa.faLandmark,
-      menu: Menu.Class,
-      link: '/home/class'
-    },
-    {
-      icon: fa.faSitemap,
-      menu: Menu.Pending,
-      link: '/home/pending'
-    },
-    {
-      icon: fa.faExchangeAlt,
-      menu: Menu.UpdateSchedule,
-      link: '/home/update-schedule'
+      link: '/home/teacher'
     },
     {
       icon: fa.faSearchPlus,
-      menu: Menu.ViewStudentsInAllClasses,
-      link: '/home/view-students-in-classes'
+      menu: Menu.EventDetail,
+      link: '/home/account'
     },
     {
       icon: fa.faSignOutAlt,
@@ -157,7 +142,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSearchWarning(bodySearch: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8070/api/admin/view_teacher', this.view);
+    return this.http.post<any>('', this.view);
   }
 
   pageX(page: number): void {
